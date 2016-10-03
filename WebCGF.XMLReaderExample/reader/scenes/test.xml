@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+
+<dsx>
+    <globals background="0 1 1 1" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
+
+    <transformations>
+        <transformation id="trans_uni">
+           <translate x="1" y="0" z="0" />
+        </transformation>
+    </transformations>
+
+	<primitives>
+        <primitive id="rectangle">
+            <rectangle x1="0" y1="0" x2="2" y2="2" />
+        </primitive>
+    </primitives>
+    
+    <list>
+		<elem id="p1" coords="0 0 1" />
+	</list>
+</dsx>

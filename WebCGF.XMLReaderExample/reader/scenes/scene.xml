@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+
+<dsx>
+    <scene root="cube" axis_length="10" />
+    
+    <views default="view" >
+
+        <perspective id="p1" near="20" far="50" angle="45">
+            <from x="0" y="0" z="0" />
+            <to x="10" y="10" z="10" />
+        </perspective>
+      
+    </views>
+    
+
+    <illumination doublesided="false" local="true" >
+    
+        <ambient r="0.5" g="0.5" b="0.5" a="0.5" />
+        <background r="0.5" g="0.5" b="0.5" a="0.5" />
+        
+    </illumination>
+    
+    
+    <lights>
+    
+        <omni id="omni1" enabled="true" >
+            <location x="5" y="5" z="5" w="2" />
+            <ambient r="0.5" g="0.5" b="0.5" a="0.5" />
+            <diffuse r="0.5" g="0.5" b="0.5" a="0.5" />
+            <specular r="0.5" g="0.5" b="0.5" a="0.5" />
+        </omni>
+        
+        <spot id="spot1" enabled="false" angle="45" exponent="2">
+            <target x="5" y="5" z="5" />
+            <location x="5" y="5" z="5" w="2" />
+            <ambient r="0.5" g="0.5" b="0.5" a="0.5" />
+            <diffuse r="0.5" g="0.5" b="0.5" a="0.5" />
+            <specular r="0.5" g="0.5" b="0.5" a="0.5" />
+        </spot>
+    </lights>
+    
+    
+    <textures>
+    
+        <texture id="text1" file="./res/blue.jpg" length_s="3" length_t="3" />  
+        
+    </textures>
+
+    
+    <materials>
+    
+        <material id="cubeAppearance" >
+            <emission r="0" g="0" b="0" a="0" />
+            <ambient r="76" g="76" b="76" a="1" />
+            <diffuse r="204" g="204" b="204" a="1" />
+            <specular r="25" g="25" b="25" a="1" />
+            <shininess value="3" />
+        </material>
+        
+    </materials>
+    
+    
+    <!-- <transformations>
+
+        <transformation id="">
+           <translate x="ff" y="ff" z="ff" />
+           <rotate axis="cc" angle="ff" />
+           <scale x="ff" y="ff" z="ff" />
+        </transformation>
+        
+    </transformations> -->
+    
+    
+    <primitives>
+    
+        <primitive id="square1">
+            <material id="cubeAppearance"/>
+            <texture id="text1" />
+            <rectangle x1="1" y1="0" x2="4" y2="3" />
+        </primitive>
+        
+    </primitives>
+    
+    
+    <components>
+        
+        <component id="comp1">
+        
+            <transformation>
+            
+                <!-- <transformationref id="ss" /> -->
+
+                <!-- <translate x="ff" y="ff" z="ff" />
+                <rotate axis="cc" angle="ff" />
+                <scale x="ff" y="ff" z="ff" /> -->
+            </transformation>
+
+            <materials>
+                <material id="cubeAppearance" />
+            </materials>
+
+            <texture id="text1" />
+            
+            <children>
+
+                <componentref id="comp1" />
+                <primitiveref id="square1" />
+                
+            </children>
+            
+        </component>
+        
+    </components>
+
+    <list>
+		<elem id="square1" coords="0 0 1" />
+	</list>
+</dsx>
