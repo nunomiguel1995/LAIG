@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-16" standalone="yes"?>
 
 <dsx>
-    <globals background="0 1 1 1" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
+    <globals background="0 0 0 1" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
 
     <transformations>
         <transformation id="trans_uni">
            <translate x="1" y="0" z="0" />
+           <rotation axis="x" angle="45" />
         </transformation>
         <transformation id="rot_uni">
            <rotation axis="x" angle="45" />
@@ -30,7 +31,4 @@
         </primitive>
     </primitives>
     
-    <list>
-		<elem id="p1" coords="0 0 1" />
-	</list>
 </dsx>

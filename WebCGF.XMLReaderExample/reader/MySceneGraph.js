@@ -103,18 +103,23 @@ MySceneGraph.prototype.parseTransformations = function(rootElement) {
 
 	var i =0;
 	for(i; i< listTransformations.length; i++){
-		var transformation = listTransformations[i].children[0];
-		switch(transformation.tagName){
-			case "rotation":
-				console.log("Rotation angle= " + transformation.attributes.getNamedItem("angle").value);
-				break;
-			case "translate":
-				console.log("Translate x=" + transformation.attributes.getNamedItem("x").value);
-				break;
-			case "scale":
-				console.log("Scale x= " + transformation.attributes.getNamedItem("x").value);
-				break;
-			default: break;
+		var j=0;
+		var t = listTransformations[i].children.length;
+		
+		for(j;j<t;j++){
+			var transformation = listTransformations[i].children[j];
+			switch(transformation.tagName){
+				case "rotation":
+					console.log("Rotation angle= " + transformation.attributes.getNamedItem("angle").value);
+					break;
+				case "translate":
+					console.log("Translate x=" + transformation.attributes.getNamedItem("x").value);
+					break;
+				case "scale":
+					console.log("Scale x= " + transformation.attributes.getNamedItem("x").value);
+					break;
+				default: break;
+			}
 		}
 	}
 
@@ -147,6 +152,12 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement) {
 		var primitive = listPrimitives[i].children[0];
 		switch(primitive.tagName){
 			case "rectangle":
+				var x1 =primitive.attributes.getNamedItem("x1").value;
+				var x2 =primitive.attributes.getNamedItem("x2").value;
+				var y1 =primitive.attributes.getNamedItem("y1").value;
+				var y2 =primitive.attributes.getNamedItem("y2").value;
+
+				var rectangle = new MySquare(this.scene, x1,y1,x2,y2);
 				console.log("Rectangle x1= " + primitive.attributes.getNamedItem("x1").value);
 				break;
 			case "sphere":
