@@ -7,11 +7,26 @@
         <transformation id="trans_uni">
            <translate x="1" y="0" z="0" />
         </transformation>
+        <transformation id="rot_uni">
+           <rotation axis="x" angle="45" />
+        </transformation>
     </transformations>
 
 	<primitives>
         <primitive id="rectangle">
             <rectangle x1="0" y1="0" x2="2" y2="2" />
+        </primitive>
+        <primitive id="sphere">
+            <sphere radius="2" slices="10" stacks="10" />
+        </primitive>
+         <primitive id="triangle">
+            <triangle x1="0" y1="0" z1="0" x2="2" y2="2" z2="2" x3="1" y3="5" z3="2" />
+        </primitive>
+        <primitive id="cylinder">
+            <cylinder base="0" top="10" height="10" slices="10" stacks="10"/>
+        </primitive>
+        <primitive id="torus">
+            <torus inner="10" outer="25" slices="10" loops="2"/>
         </primitive>
     </primitives>
     
