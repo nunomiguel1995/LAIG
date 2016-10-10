@@ -3,6 +3,50 @@
 <dsx>
     <globals background="0 0 0 1" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
 
+    <views default = "default">
+        <perspective id="default" near="10" far="20" angle="45">
+            <from x="0" y="0" z="0" />
+            <to x="20" y="20" z="20" />
+        </perspective>
+    </views>
+
+    <ilumination doubleside="false" local="true"> 
+        <ambient r="1" g="1" b="0" a="0" />
+        <background r="0" g="1" b="1" a="0" />
+    </ilumination>
+
+    <lights>
+        <omni id="omni1" enabled="false" >
+            <location x="1" y="1" z="1" w="0" />
+            <ambient r="1" g="1" b="1" a="0" />
+            <diffuse r="1" g="1" b="1" a="0" />
+            <specular r="0" g="0" b="1" a="1" />
+        </omni>
+        <spot id="spot1" enabled="false" angle="45" exponent="2">
+            <target x="5" y="5" z="5" />
+            <location x="1" y="2" z="1" />
+            <ambient r="0" g="1" b="0" a="0" />
+            <diffuse r="1" g="1" b="1" a="1" />
+            <specular r="1" g="1" b="1" a="0" />
+        </spot>
+    </lights>
+
+    <textures>
+        <texture id="blue" file="./res/blue.jpg" length_s="3" length_t="0.4" /> 
+        <texture id="wood" file="./res/wood.jpeg" length_s="3" length_t="0.4" />       
+    </textures>
+
+        
+    <materials>
+        <material id="metalApperance" >
+            <emission r="0" g="0" b="0" a="0" />
+            <ambient r="76" g="76" b="76" a="1" />
+            <diffuse r="204" g="204" b="204" a="1" />
+            <specular r="25" g="25" b="25" a="1" />
+            <shininess value="3" />
+        </material>      
+    </materials>
+
     <transformations>
         <transformation id="trans_uni">
            <translate x="1" y="0" z="0" />
@@ -20,7 +64,7 @@
         <primitive id="sphere">
             <sphere radius="2" slices="10" stacks="10" />
         </primitive>
-         <primitive id="triangle">
+        <primitive id="triangle">
             <triangle x1="0" y1="0" z1="0" x2="2" y2="2" z2="2" x3="1" y3="5" z3="2" />
         </primitive>
         <primitive id="cylinder">
