@@ -55,6 +55,9 @@
         <transformation id="rot_uni">
            <rotation axis="x" angle="45" />
         </transformation>
+        <transformation id="trans_center">
+            <translate x="-1" y="-1" z="0" />
+        </transformation>
     </transformations>
 
 	<primitives>
@@ -74,5 +77,134 @@
             <torus inner="10" outer="25" slices="10" loops="2"/>
         </primitive>
     </primitives>
+
+        <components>
+        
+        <component id="square">
+            <transformation>
+                <transformationref id="trans_uni" />
+            </transformation>
+
+            <materials>
+                <material id="metalApperance" />
+            </materials>
+
+            <texture id="blue" />
+            <texture id="wood" />
+
+            <children>
+                <componentref id="top_square" />
+                <componentref id="bottom_square"/>
+                <componentref id="left_square" />
+                <componentref id="right_square" />
+                <componentref id="front_square" />
+                <componentref id="back_square" />   
+            </children>           
+        </component> 
+
+        <component id="top_square">
+            <transformation>
+                <transformationref id= "trans_center" />
+                <rotation axis="x" angle="90" />
+                <translate x="1" y="2" z="1" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+                <primitiveref id="rectangle"/>
+            </children>           
+        </component>
+        
+        <component id="bottom_square">
+            <transformation>
+                <transformationref id= "trans_center" />
+                <rotation axis="x" angle="-90" />
+                <translate x="1" y="0" z="1" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+                <primitiveref id="rectangle"/>
+            </children>           
+        </component>
+
+        <component id="left_square">
+            <transformation>
+                <transformationref id= "trans_center" />
+                <rotation axis="y" angle="90" />
+                <translate x="0" y="1" z="1" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+                <primitiveref id="rectangle"/>
+            </children>           
+        </component>
+
+        <component id="right_square">
+            <transformation>
+                <transformationref id= "trans_center" />
+                <rotation axis="y" angle="-90" />
+                <translate x="2" y="1" z="1" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+                <primitiveref id="rectangle"/>
+            </children>           
+        </component> 
+
+        <component id="front_square">
+            <transformation>
+                <translate x="0" y="0" z="2"/>
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+                <primitiveref id="rectangle"/>
+            </children>           
+        </component> 
+
+        <component id="back_square">
+            <transformation>
+                <translate x="0" y="0" z="0"/>
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+                <primitiveref id="rectangle"/>
+            </children>           
+        </component>        
+    </components>
     
 </dsx>
