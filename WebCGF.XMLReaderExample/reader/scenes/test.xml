@@ -78,7 +78,7 @@
         </primitive>
     </primitives>
 
-        <components>
+    <components>
         
         <component id="square">
             <transformation>
