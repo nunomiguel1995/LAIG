@@ -75,6 +75,12 @@ MySceneGraph.prototype.onXMLReady=function()
 		return;
 	}
 
+	error = this.parseComponents(rootElement);
+	if (error != null) {
+		this.onXMLError(error);
+		return;
+	}
+
 	this.loadedOk=true;
 	
 	// As the graph loaded ok, signal the scene so that any additional initialization depending on the graph can take place
@@ -308,10 +314,94 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement) {
 	}
 };
 	
+MySceneGraph.prototype.parseComponents = function(rootElement){
+	var components = rootElement.getElementsByTagName('components');
+	if(components == null || components.length < 1){
+		return "components element is missing.";
+	}
+
+	var listComponents = components[0].getElementsByTagName('component');
+	if(listComponents == null || listComponents.length < 1){
+		return "component element is missing.";
+	}
+
+	var i = 0;
+	for(i; i < listComponents.length; i++){
+		var component = listComponents[i];
+		var componentId = this.reader.getString(component, "id", true);
+
+		var j = 0;
+		for(j; j < listComponents[i].children.length; j++){
+			var componentTag = listComponents[i].children[j];
+
+			switch(componentTag.tagName){
+				case "transformation":
+					var t = 0;
+					for(t; t < componentTag.children.length; t++){
+
+						switch(componentTag.children[t].tagName){
+						case "transformationref":
+							var transformationrefId = this.reader.getString(componentTag.children[t], "id", true);
+
+							break;
+						case "translate":
+							var x = this.reader.getInteger(componentTag.children[t], "x", true);
+							var y = this.reader.getInteger(componentTag.children[t], "y", true);
+							var z = this.reader.getInteger(componentTag.children[t], "z", true);
+
+							break;
+						case "rotation":
+							var axis = this.reader.getString(componentTag.children[t], "axis", true);
+							var angle = (this.reader.getFloat(componentTag.children[t], "angle", true) * Math.PI) / 180;
+
+							break;
+						case "scale":
+							var x = this.reader.getInteger(componentTag.children[t], "x", true);
+							var y = this.reader.getInteger(componentTag.children[t], "y", true);
+							var z = this.reader.getInteger(componentTag.children[t], "z", true);
+
+							break;
+						default:
+							break;
+						}
+					}
+
+					break;
+				case "materials":
+					var materialRefId = this.reader.getString(componentTag.children[0], "id", true);
+
+					break;
+				case "texture":
+					var textureRefId = this.reader.getString(componentTag, "id", true);
+
+					break;
+				case "children":
+					var t = 0;
+					for(t; t < componentTag.children.length; t++){
+						switch(componentTag.children[t].tagName){
+							case "primitiveref":
+								var primitiveRefId = this.reader.getString(componentTag.children[t], "id", true);
+
+								break;
+							case "componentref":
+								var componentRefId = this.reader.getString(componentTag.children[t], "id", true);
+								
+								break;
+							default:
+								break;
+						}
+					}
+					break;
+				default:
+					break;
+			}
+		}
+	}
+}
+
 /*
  * Callback to be executed on any read error
  */
- 
 MySceneGraph.prototype.onXMLError=function (message) {
 	console.error("XML Loading Error: "+message);	
 	this.loadedOk=false;

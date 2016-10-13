@@ -205,6 +205,7 @@
                 <primitiveref id="rectangle"/>
             </children>           
         </component>
+        
         <component id="chair">
             <transformation>
                 <transformationref id="trans_uni" />
