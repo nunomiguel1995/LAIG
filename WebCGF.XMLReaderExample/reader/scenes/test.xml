@@ -81,7 +81,24 @@
     </primitives>
 
     <components>
-        
+        <component id="chair_cylinder">
+            <transformation>
+                <translate x="2.5" y="1.7" z="2" />
+                <rotation axis="x" angle="-90" />
+                <scale x="0.4" y="0.4" z="0.4" />
+            </transformation>
+
+            <materials> 
+                <material id="metalApperance" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
         <component id="square">
             <transformation>
                 <translate x="0" y="0" z="0" />
