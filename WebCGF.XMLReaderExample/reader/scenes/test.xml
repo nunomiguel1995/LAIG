@@ -71,7 +71,7 @@
             <triangle x1="0" y1="0" z1="0" x2="2" y2="2" z2="2" x3="1" y3="5" z3="2" />
         </primitive>
         <primitive id="cylinder">
-            <cylinder base="0" top="10" height="10" slices="10" stacks="10"/>
+            <cylinder base="1" top="1" height="10" slices="10" stacks="10"/>
         </primitive>
         <primitive id="torus">
             <torus inner="10" outer="25" slices="10" loops="2"/>
@@ -204,6 +204,133 @@
             <children>
                 <primitiveref id="rectangle"/>
             </children>           
+        </component>
+        
+        <component id="chair">
+            <transformation>
+                <transformationref id="trans_uni" />
+            </transformation>
+
+            <materials>
+                <material id="metalApperance" />
+            </materials>
+
+            <texture id="blue" />
+            <texture id="wood" />
+
+            <children>
+                <componentref id="front_right_leg" />
+                <componentref id="front_left_leg" />
+                <componentref id="back_right_leg" />
+                <componentref id="back_left_leg" />
+                <componentref id="seat" />
+                <componentref id="backrest" />
+            </children>
+        </component>
+
+        <component id="front_right_leg">
+            <transformation>
+                <transformationref id= "trans_center" />
+                <translate x="2" y="2.5" z="2"/>
+            </transformation>
+            
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+        <component id="front_left_leg">
+            <transformation>
+                <transformationref id= "trans_center" />
+                <translate x="0" y="2.5" z="2"/>
+            </transformation>
+            
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+        <component id="back_right_leg">
+            <transformation>
+                <transformationref id= "trans_center" />
+                <translate x="2" y="2.5" z="0"/>
+            </transformation>
+            
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+        <component id="back_left_leg">
+            <transformation>
+                <transformationref id= "trans_center" />
+                <translate x="0" y="2.5" z="0"/>
+            </transformation>
+            
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+        <component id="seat">
+            <transformation>
+                <transformationref id= "trans_center" />
+                <translate x="0" y="5" z="0" />
+                <scale x="1" y="0.5" z="1" />
+            </transformation>
+            
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+                <componentref id="square" />
+            </children>
+        </component>
+
+        <component id="backrest">
+            <transformation>
+                <transformationref id= "trans_center" />
+                <rotation axis="x" angle="90" />
+                <translate x="0" y="5" z="0" />
+                <scale x="1" y="4" z="1" />
+            </transformation>
+            
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+                <componentref id="square" />
+            </children>
         </component>        
     </components>
     
