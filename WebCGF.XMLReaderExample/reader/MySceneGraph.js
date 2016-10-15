@@ -5,6 +5,11 @@ function MySceneGraph(filename, scene) {
 	// Establish bidirectional references between scene and graph
 	this.scene = scene;
 	scene.graph=this;
+	this.primitives = [];
+	this.transformations=[];
+	this.materials=[];
+	this.textures=[];
+	this.views=[];
 		
 	// File reading 
 	this.reader = new CGFXMLreader();
@@ -216,7 +221,9 @@ MySceneGraph.prototype.parseTextures = function(rootElement) {
 		file = texture.attributes.getNamedItem('file').value;
 		length_s = texture.attributes.getNamedItem('length_s').value;
 		length_t = texture.attributes.getNamedItem('length_t').value;
-		//console.log(id +" "+file+" "+" "+length_s+" "+length_t);
+
+		var t= new Texture(id, file, length_s, length_t);
+		this.textures[i]=t;
 	}
 };
 
@@ -249,7 +256,7 @@ MySceneGraph.prototype.parseTransformations = function(rootElement) {
 
 	var listTransformations = transformations[0].getElementsByTagName('transformation');
 	if(listTransformations == null || listTransformations.length <1){
-		return "transformations element is missing.";
+		return "transformation element is missing.";
 	}
 
 	//console.log("transformations size: " + listTransformations.length);

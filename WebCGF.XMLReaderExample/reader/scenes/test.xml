@@ -32,37 +32,39 @@
     </lights>
 
     <textures>
-        <texture id="blue" file="./res/blue.jpg" length_s="3" length_t="0.4" /> 
-        <texture id="wood" file="./res/wood.jpeg" length_s="3" length_t="0.4" />       
+        <texture id="blue" file="./res/blue.jpg" length_s="1" length_t="1" /> 
+        <texture id="wood" file="./res/wood.jpeg" length_s="1" length_t="1" />
+        <texture id="wall" file="./res/rugoso.jpeg" length_s="" length_t="0.4" />       
     </textures>
 
         
     <materials>
         <material id="metalApperance" >
             <emission r="0" g="0" b="0" a="0" />
+            <ambient r="204" g="204" b="204" a="1" />
+            <diffuse r="180" g="180" b="180" a="1" />
+            <specular r="25" g="25" b="25" a="1" />
+            <shininess value="100" />
+        </material> 
+        <material id="woodApperance">
+            <emission r="0" g="0" b="0" a="0" />
             <ambient r="76" g="76" b="76" a="1" />
             <diffuse r="204" g="204" b="204" a="1" />
-            <specular r="25" g="25" b="25" a="1" />
-            <shininess value="3" />
-        </material>      
+            <specular r="25" g="25" b="25" a="1" /> 
+            <shininess value= "2" /> 
+        </material>
     </materials>
 
     <transformations>
-        <transformation id="trans_uni">
-           <translate x="1" y="0" z="0" />
-           <rotation axis="x" angle="45" />
-        </transformation>
-        <transformation id="rot_uni">
-           <rotation axis="x" angle="45" />
-        </transformation>
-        <transformation id="trans_center">
-            <translate x="-1" y="-1" z="0" />
+        <transformation id="trans_chair">
+           <translate x="3" y="0" z="1" />
+           <rotation axis="y" angle="-90" />
         </transformation>
     </transformations>
 
 	<primitives>
         <primitive id="rectangle">
-            <rectangle x1="0" y1="0" x2="2" y2="2" />
+            <rectangle x1="0" y1="0" x2="1" y2="1" />
         </primitive>
         <primitive id="sphere">
             <sphere radius="2" slices="10" stacks="10" />
@@ -71,7 +73,7 @@
             <triangle x1="0" y1="0" z1="0" x2="2" y2="2" z2="2" x3="1" y3="5" z3="2" />
         </primitive>
         <primitive id="cylinder">
-            <cylinder base="1" top="1" height="10" slices="10" stacks="10"/>
+            <cylinder base="1" top="1" height="2" slices="50" stacks="2"/>
         </primitive>
         <primitive id="torus">
             <torus inner="10" outer="25" slices="10" loops="2"/>
@@ -82,15 +84,14 @@
         
         <component id="square">
             <transformation>
-                <transformationref id="trans_uni" />
+                <translate x="0" y="0" z="0" />
             </transformation>
 
             <materials>
-                <material id="metalApperance" />
+                <material id="inherit" />
             </materials>
 
-            <texture id="blue" />
-            <texture id="wood" />
+            <texture id="none" />
 
             <children>
                 <componentref id="top_square" />
@@ -104,9 +105,8 @@
 
         <component id="top_square">
             <transformation>
-                <transformationref id= "trans_center" />
-                <rotation axis="x" angle="90" />
-                <translate x="1" y="2" z="1" />
+                <rotation axis="x" angle="-90" />
+                <translate x="0" y="0" z="0.5" />
             </transformation>
 
             <materials>
@@ -122,9 +122,8 @@
         
         <component id="bottom_square">
             <transformation>
-                <transformationref id= "trans_center" />
-                <rotation axis="x" angle="-90" />
-                <translate x="1" y="0" z="1" />
+                <rotation axis="x" angle="90" />
+                <translate x="0" y="0" z="0.5" />
             </transformation>
 
             <materials>
@@ -140,9 +139,8 @@
 
         <component id="left_square">
             <transformation>
-                <transformationref id= "trans_center" />
-                <rotation axis="y" angle="90" />
-                <translate x="0" y="1" z="1" />
+               <rotation axis="y" angle="90" />
+                <translate x="0" y="0" z="0.5" />
             </transformation>
 
             <materials>
@@ -158,9 +156,8 @@
 
         <component id="right_square">
             <transformation>
-                <transformationref id= "trans_center" />
                 <rotation axis="y" angle="-90" />
-                <translate x="2" y="1" z="1" />
+                <translate x="0" y="0" z="0.5" />
             </transformation>
 
             <materials>
@@ -176,7 +173,7 @@
 
         <component id="front_square">
             <transformation>
-                <translate x="0" y="0" z="2"/>
+                <translate x="0" y="0" z="0.5"/>
             </transformation>
 
             <materials>
@@ -192,7 +189,8 @@
 
         <component id="back_square">
             <transformation>
-                <translate x="0" y="0" z="0"/>
+                <rotation axis="x" angle="180" />
+                <translate x="0" y="0" z="0.5"/>
             </transformation>
 
             <materials>
@@ -208,15 +206,15 @@
         
         <component id="chair">
             <transformation>
-                <transformationref id="trans_uni" />
+                <transformationref id="trans_chair" />
             </transformation>
 
             <materials>
                 <material id="metalApperance" />
+                <material id="woodApperance" />
             </materials>
 
-            <texture id="blue" />
-            <texture id="wood" />
+            <texture id="none" />
 
             <children>
                 <componentref id="front_right_leg" />
@@ -230,15 +228,16 @@
 
         <component id="front_right_leg">
             <transformation>
-                <transformationref id= "trans_center" />
-                <translate x="2" y="2.5" z="2"/>
+                <translate x="1.5" y="0" z="1.5" />
+                <scale x="0.1" y="0.8" z="0.1" />
+                <rotation axis="x" angle="-90" />
             </transformation>
             
             <materials>
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" />
+            <texture id="blue" />
 
             <children>
                 <primitiveref id="cylinder" />
@@ -247,15 +246,16 @@
 
         <component id="front_left_leg">
             <transformation>
-                <transformationref id= "trans_center" />
-                <translate x="0" y="2.5" z="2"/>
+                <translate x="0" y="0" z="1.5" />
+                <scale x="0.1" y="0.8" z="0.1" />
+                <rotation axis="x" angle="-90" />
             </transformation>
             
             <materials>
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" />
+            <texture id="blue" />
 
             <children>
                 <primitiveref id="cylinder" />
@@ -264,15 +264,16 @@
 
         <component id="back_right_leg">
             <transformation>
-                <transformationref id= "trans_center" />
-                <translate x="2" y="2.5" z="0"/>
+                <translate x="1.5" y="0" z="0" />
+                <scale x="0.1" y="0.8" z="0.1" />
+                <rotation axis="x" angle="-90" />
             </transformation>
             
             <materials>
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" />
+            <texture id="blue" />
 
             <children>
                 <primitiveref id="cylinder" />
@@ -281,15 +282,16 @@
 
         <component id="back_left_leg">
             <transformation>
-                <transformationref id= "trans_center" />
-                <translate x="0" y="2.5" z="0"/>
+                <translate x="0" y="0" z="0" />
+                <scale x="0.1" y="0.8" z="0.1" />
+                <rotation axis="x" angle="-90" />
             </transformation>
             
             <materials>
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" />
+            <texture id="blue" />
 
             <children>
                 <primitiveref id="cylinder" />
@@ -298,16 +300,15 @@
 
         <component id="seat">
             <transformation>
-                <transformationref id= "trans_center" />
-                <translate x="0" y="5" z="0" />
-                <scale x="1" y="0.5" z="1" />
+                <translate x="0.85" y="1.5" z="0.75" />
+                <scale x="2" y="0.2" z="2" />
             </transformation>
             
             <materials>
-                <material id="inherit" />
+                <material id="woodApperance" />
             </materials>
 
-            <texture id="inherit" />
+            <texture id="wood" />
 
             <children>
                 <componentref id="square" />
@@ -316,17 +317,15 @@
 
         <component id="backrest">
             <transformation>
-                <transformationref id= "trans_center" />
-                <rotation axis="x" angle="90" />
-                <translate x="0" y="5" z="0" />
-                <scale x="1" y="4" z="1" />
+                <translate x="-0.1" y="2.4" z="0.75" />
+                <scale x="0.2" y="2" z="2" />
             </transformation>
             
             <materials>
-                <material id="inherit" />
+                <material id="woodApperance" />
             </materials>
 
-            <texture id="inherit" />
+            <texture id="wood" />
 
             <children>
                 <componentref id="square" />
