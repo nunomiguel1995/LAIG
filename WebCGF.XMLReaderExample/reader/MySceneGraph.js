@@ -10,6 +10,7 @@ function MySceneGraph(filename, scene) {
 	this.materials=[];
 	this.textures=[];
 	this.views=[];
+	this.root = null;
 		
 	// File reading 
 	this.reader = new CGFXMLreader();
@@ -96,7 +97,7 @@ MySceneGraph.prototype.onXMLReady=function()
  * Example of method that parses elements of one block and stores information in a specific data structure
  */
 MySceneGraph.prototype.parseGlobals= function(rootElement) {
-	var elems =  rootElement.getElementsByTagName('globals');
+	var elems =  rootElement.getElementsByTagName('scene');
 	if (elems == null) {
 		return "globals element is missing.";
 	}
@@ -107,6 +108,7 @@ MySceneGraph.prototype.parseGlobals= function(rootElement) {
 
 	// various examples of different types of access
 	var globals = elems[0];
+	this.root = this.reader.getString(globals,'root',true);
 	this.background = this.reader.getRGBA(globals, 'background');
 	this.drawmode = this.reader.getItem(globals, 'drawmode', ["fill","line","point"]);
 	this.cullface = this.reader.getItem(globals, 'cullface', ["back","front","none", "frontandback"]);
