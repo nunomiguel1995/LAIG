@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-16" standalone="yes"?>
 
 <dsx>
-    <scene root="chair" axis_length="15" background="0 0 0 1" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
+    <scene root="chair_scene" axis_length="15" background="0 0 0 1" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
 
     <views default = "default">
         <perspective id="default" near="10" far="20" angle="45">
@@ -81,6 +81,23 @@
     </primitives>
 
     <components>
+        <component id="chair_scene">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+            </transformation>
+
+            <materials> 
+                <material id="metalApperance" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+               <componentref id="chair" />
+                <componentref id="chair_cylinder"/>
+            </children>
+        </component>
+        
         <component id="chair_cylinder">
             <transformation>
                 <translate x="2.5" y="1.7" z="2" />
