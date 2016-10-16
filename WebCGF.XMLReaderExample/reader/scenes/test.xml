@@ -2,6 +2,7 @@
 
 <dsx>
     <globals background="0 0 0 1" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
+    <scene root="chair" axis_length="15" />
 
     <views default = "default">
         <perspective id="default" near="10" far="20" angle="45">
