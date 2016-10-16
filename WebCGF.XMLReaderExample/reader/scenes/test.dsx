@@ -94,7 +94,7 @@
 
             <children>
                <componentref id="chair" />
-                <componentref id="chair_cylinder"/>
+               <componentref id="chair_cylinder"/>
             </children>
         </component>
         
@@ -109,7 +109,7 @@
                 <material id="metalApperance" />
             </materials>
 
-            <texture id="none" />
+            <texture id="blue" />
 
             <children>
                 <primitiveref id="cylinder" />
