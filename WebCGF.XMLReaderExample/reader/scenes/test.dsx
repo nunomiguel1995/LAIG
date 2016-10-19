@@ -10,10 +10,10 @@
         </perspective>
     </views>
 
-    <ilumination doubleside="false" local="true"> 
+    <illumination doubleside="false" local="true"> 
         <ambient r="1" g="1" b="0" a="0" />
         <background r="0" g="1" b="1" a="0" />
-    </ilumination>
+    </illumination>
 
     <lights>
         <omni id="omni1" enabled="false" >
@@ -34,19 +34,19 @@
     <textures>
         <texture id="blue" file="./res/blue.jpg" length_s="1" length_t="1" /> 
         <texture id="wood" file="./res/wood.jpeg" length_s="1" length_t="1" />
-        <texture id="wall" file="./res/rugoso.jpeg" length_s="" length_t="0.4" />       
+        <texture id="wall" file="./res/rugoso.jpeg" length_s="1" length_t="0.4" />       
     </textures>
 
         
     <materials>
-        <material id="metalApperance" >
+        <material id="metalAppearance" >
             <emission r="0" g="0" b="0" a="0" />
             <ambient r="204" g="204" b="204" a="1" />
             <diffuse r="180" g="180" b="180" a="1" />
             <specular r="25" g="25" b="25" a="1" />
             <shininess value="100" />
         </material> 
-        <material id="woodApperance">
+        <material id="woodAppearance">
             <emission r="0" g="0" b="0" a="0" />
             <ambient r="76" g="76" b="76" a="1" />
             <diffuse r="204" g="204" b="204" a="1" />
@@ -58,7 +58,7 @@
     <transformations>
         <transformation id="trans_chair">
            <translate x="3" y="0" z="1" />
-           <rotation axis="y" angle="-90" />
+           <rotate axis="y" angle="-90" />
         </transformation>
     </transformations>
 
@@ -101,7 +101,7 @@
         <component id="chair_cylinder">
             <transformation>
                 <translate x="2.5" y="1.7" z="2" />
-                <rotation axis="x" angle="-90" />
+                <rotate axis="x" angle="-90" />
                 <scale x="0.4" y="0.4" z="0.4" />
             </transformation>
 
@@ -156,7 +156,7 @@
         
         <component id="bottom_square">
             <transformation>
-                <rotation axis="x" angle="90" />
+                <rotate axis="x" angle="90" />
                 <translate x="0" y="0" z="0.5" />
             </transformation>
 
@@ -173,7 +173,7 @@
 
         <component id="left_square">
             <transformation>
-               <rotation axis="y" angle="90" />
+                <rotate axis="y" angle="90" />
                 <translate x="0" y="0" z="0.5" />
             </transformation>
 
@@ -190,7 +190,7 @@
 
         <component id="right_square">
             <transformation>
-                <rotation axis="y" angle="-90" />
+                <rotate axis="y" angle="-90" />
                 <translate x="0" y="0" z="0.5" />
             </transformation>
 
@@ -223,7 +223,7 @@
 
         <component id="back_square">
             <transformation>
-                <rotation axis="x" angle="180" />
+                <rotate axis="x" angle="180" />
                 <translate x="0" y="0" z="0.5"/>
             </transformation>
 
@@ -264,7 +264,7 @@
             <transformation>
                 <translate x="1.5" y="0" z="1.5" />
                 <scale x="0.1" y="0.8" z="0.1" />
-                <rotation axis="x" angle="-90" />
+                <rotate axis="x" angle="-90" />
             </transformation>
             
             <materials>
@@ -282,7 +282,7 @@
             <transformation>
                 <translate x="0" y="0" z="1.5" />
                 <scale x="0.1" y="0.8" z="0.1" />
-                <rotation axis="x" angle="-90" />
+                <rotate axis="x" angle="-90" />
             </transformation>
             
             <materials>
@@ -300,7 +300,7 @@
             <transformation>
                 <translate x="1.5" y="0" z="0" />
                 <scale x="0.1" y="0.8" z="0.1" />
-                <rotation axis="x" angle="-90" />
+                <rotate axis="x" angle="-90" />
             </transformation>
             
             <materials>
@@ -318,7 +318,7 @@
             <transformation>
                 <translate x="0" y="0" z="0" />
                 <scale x="0.1" y="0.8" z="0.1" />
-                <rotation axis="x" angle="-90" />
+                <rotate axis="x" angle="-90" />
             </transformation>
             
             <materials>
