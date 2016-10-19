@@ -48,7 +48,7 @@ function Color(r,g,b,a){
     this.a = a;
 }
 
-function Ilumination(doubleside, local, ambient, background){
+function Illumination(doubleside, local, ambient, background){
     this.doubleside = doubleside;
     this.local = local;
     this.ambient = ambient;

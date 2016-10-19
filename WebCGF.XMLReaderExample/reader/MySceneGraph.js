@@ -13,7 +13,7 @@ function MySceneGraph(filename, scene) {
 	this.primitives= {};
 	this.nodes= {};
 	this.views=[];
-	this.ilumination;
+	this.illumination;
 	this.root;
 	this.axisLength;
 
@@ -51,7 +51,7 @@ MySceneGraph.prototype.onXMLReady=function() {
 		return;
 	}
 
-	error = this.parseIlumination(rootElement);
+	error = this.parseIllumination(rootElement);
 	if (error != null) {
 		this.onXMLError(error);
 		return;
@@ -149,29 +149,29 @@ MySceneGraph.prototype.parseViews = function(rootElement) {
 	}	
 };
 
-MySceneGraph.prototype.parseIlumination = function(rootElement) {
-	var ilumination = rootElement.getElementsByTagName('ilumination')[0];
+MySceneGraph.prototype.parseIllumination = function(rootElement) {
+	var illumination = rootElement.getElementsByTagName('illumination')[0];
 
-	if(ilumination == null || ilumination.length <1){
-		return "ilumination element is missing.";
+	if(illumination == null || illumination.length <1){
+		return "illumination element is missing.";
 	}
 
-	var doubleside = this.reader.getBoolean(ilumination, 'doubleside', true);
-	var local = this.reader.getBoolean(ilumination, 'local', true);
+	var doubleside = this.reader.getBoolean(illumination, 'doubleside', true);
+	var local = this.reader.getBoolean(illumination, 'local', true);
 
-	var tagAmbient = ilumination.getElementsByTagName('ambient')[0];
+	var tagAmbient = illumination.getElementsByTagName('ambient')[0];
 	if(tagAmbient == null){
 		return 'ambient element is missing';
 	}
 	var ambient = new Color(this.reader.getFloat(tagAmbient, 'r', true),this.reader.getFloat(tagAmbient, 'g', true),this.reader.getFloat(tagAmbient, 'b', true),this.reader.getFloat(tagAmbient, 'a', true));
 	
-	var tagBackground = ilumination.getElementsByTagName('background')[0];
+	var tagBackground = illumination.getElementsByTagName('background')[0];
 	if(tagBackground == null){
 		return 'background element is missing';
 	}
 	var background = new Color(this.reader.getFloat(tagBackground, 'r', true),this.reader.getFloat(tagBackground, 'g', true),this.reader.getFloat(tagBackground, 'b', true),this.reader.getFloat(tagBackground, 'a', true));
 
-	this.ilumination = new Ilumination(doubleside, local, ambient, background);
+	this.illumination = new Illumination(doubleside, local, ambient, background);
 };
 
 MySceneGraph.prototype.parseLights = function(rootElement) {
@@ -309,7 +309,7 @@ MySceneGraph.prototype.parseTransformations = function(rootElement) {
 		for(j;j<listTransformations[i].children.length;j++){
 			var transformation = listTransformations[i].children[j];
 			switch(transformation.tagName){
-				case "rotation":
+				case "rotate":
 					var axis = this.reader.getString(transformation, 'axis', true);
 					var angle = this.reader.getFloat(transformation, 'angle', true) * this.toRad;
 					var coord;
@@ -444,7 +444,7 @@ MySceneGraph.prototype.parseComponents = function(rootElement){
 								var id = this.reader.getString(componentTag.children[t], "id", true);
 								matrix = this.transformations[id]; 
 								break;
-							case "rotation":
+							case "rotate":
 								var axis = this.reader.getString(componentTag.children[t], 'axis', true);
 								var angle = this.reader.getFloat(componentTag.children[t], 'angle', true) * this.toRad;
 								var coord;
