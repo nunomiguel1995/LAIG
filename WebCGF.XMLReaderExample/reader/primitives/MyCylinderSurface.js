@@ -10,20 +10,21 @@ function MyCylinderSurface(scene, base, top, height, slices, stacks) {
     this.initBuffers();
 };
 
-MyCylinderSurfaceSurface.prototype = Object.create(CGFobject.prototype);
+MyCylinderSurface.prototype = Object.create(CGFobject.prototype);
 MyCylinderSurface.prototype.constructor = MyCylinderSurface;
 
 MyCylinderSurface.prototype.initBuffers = function() {
     this.vertices = [];
     this.indices = [];
     this.normals = [];
+    this.texCoords = [];
 
     var alfa = (Math.PI * 2) / this.slices;
     var zStep = this.height / this.stacks;
     var rStep = (this.top - this.base) / this.stacks;
 
     for(var st = 0; st <= this.stacks; st++){
-        var r = this.top - stack * rStep;
+        var r = this.top - st * rStep;
 
         for(var sl = 0; sl <= this.slices; sl++){
             this.vertices.push(r * Math.cos(sl * alfa), r * Math.sin(sl * alfa), st * zStep);
@@ -38,7 +39,7 @@ MyCylinderSurface.prototype.initBuffers = function() {
             var sInd = fInd + this.slices + 1;
 
             this.indices.push(fInd, sInd + 1, sInd);
-            this.indices.push(fInd, fInd + 1, sind + 1);
+            this.indices.push(fInd, fInd + 1, sInd + 1);
         }
     }
     

@@ -22,36 +22,39 @@ MySphere.prototype.initBuffers = function() {
     this.normals = [];
     this.texCoords = [];
 
-    var halfPi = Math.PI / 2;
- 	var pi = halfPi / this.stacks;
- 	var beta = (Math.PI * 2) / this.slices;
-
     for(var i = 0; i <= this.stacks; i++){
         var alfa = i * Math.PI / this.stacks;
+        var sinAlfa = Math.sin(alfa);
+        var cosAlfa = Math.cos(alfa);
 
         for(var j = 0; j <= this.slices; j++){
-            var beta = 2 * j * Math.PI / this.slices;
+            var beta = j * 2 * Math.PI / this.slices;
+            var sinBeta = Math.sin(beta);
+            var cosBeta = Math.cos(beta);
 
-            this.vertices.push(this.radius * Math.cos(beta) * Math.sin(alfa),
-                               this.radius * Math.cos(alfa),
-                               this.radius * Math.sin(beta) * Math.sin(alfa));
-            this.normals.push(this.radius * Math.cos(beta) * Math.sin(alfa),
-                               this.radius * Math.cos(alfa),
-                               this.radius * Math.sin(beta) * Math.sin(alfa));
-            this.texCoords.push(1 - (i / this.stacks), 1 - (j / this.slices));
-        }
-    }
+            var x = cosBeta * sinAlfa;
+            var y = cosAlfa;
+            var z = sinBeta * sinAlfa;
+            var u = 1 - (j / this.slices);
+            var v = 1 - (i / this.stacks);
 
-    for(var st = 0; st <= this.stacks; st++){
-        for(var sl = 0; sl <= this.slices; sl++){
-            var fInd = (st * (this.slices + 1)) + sl;
-            var sInd = fInd + this.slices + 1;
-
-            this.indices.push(fInd, sInd + 1, sInd);
-            this.indices.push(fInd, fInd + 1, sind + 1);
+            this.vertices.push(this.radius * x, this.radius * y, this.radius * z);
+            this.normals.push(x,y,z);
+            this.texCoords.push(u,v);
         }
     }
     
+    for(var i = 0; i < this.stacks; i++){
+        for(var j = 0; j < this.slices; j++){
+            var first = (i * (this.slices + 1)) + j;
+            var second = first + this.slices + 1;
+
+            this.indices.push(first, second, first + 1);
+            this.indices.push(second, second + 1, first + 1);
+        }
+    }
+
+
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers(); 
 };

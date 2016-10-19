@@ -17,9 +17,9 @@
  MyTriangle.prototype.constructor = MyTriangle;
 
  MyTriangle.prototype.initBuffers = function() {
- 	this.vertices = [point0[0], point0[1], point0[2],
- 					 point1[0], point1[1], point1[2],
- 					 point2[0], point2[1], point2[2]];
+ 	this.vertices = [this.point0[0], this.point0[1], this.point0[2],
+ 					 this.point1[0], this.point1[1], this.point1[2],
+ 					 this.point2[0], this.point2[1], this.point2[2]];
 
  	this.indices = [0, 1, 2];
 
@@ -45,7 +45,7 @@
  	var cosBeta = (vec3.sqrLen(dA) - vec3.sqrLen(dB) + vec3.sqrLen(dC)) / (2 * a * c);
  	var beta = Math.acos(this.cosBeta);
 
-    this.texCoords = [c - a * cos(beta), a * sin(beta),
+    this.texCoords = [c - a * Math.cos(beta), a * Math.sin(beta),
     				  0, 0,
     				  c, 0];
     				  

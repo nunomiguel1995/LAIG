@@ -21,7 +21,7 @@ XMLscene.prototype.init = function (application) {
     this.gl.depthFunc(this.gl.LEQUAL);
 
 	this.axis=new CGFaxis(this);	
-	this.c = new MyCylinderCircle(this, 10, 10);
+	this.c = new MySphere(this, 1, 50, 50);
 
 };
 

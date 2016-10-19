@@ -23,7 +23,7 @@ MyCylinderCircle.prototype.display = function() {
 
   var alfa = (Math.PI * 2) / this.slices;
 
-  this.vertices.push.push(0, 0, 0);
+  this.vertices.push(0, 0, 0);
   this.normals.push(0, 0, 1);
   this.texCoords.push(0.5, 0.5);
 
@@ -37,7 +37,7 @@ MyCylinderCircle.prototype.display = function() {
     if(i == this.slices - 1){
         this.indices.push(0,i+1,1);
     }else{
-      this.indices.push(0,i+1,i+2);
+        this.indices.push(0,i+1,i+2);
     }
   }
 

@@ -35,7 +35,7 @@ MyTorus.prototype.initBuffers = function() {
     		this.normals.push((this.outer + (this.inner * Math.cos(alfa)) * Math.cos(beta)),
     			               (this.outer + (this.inner * Math.cos(alfa)) * Math.sin(beta)),
     			        	   (this.inner * Math.sin(alfa)));
-    		this.texCoords(1 - (i / this.loops), 1 - (sl / this.slices));
+    		this.texCoords.push(1 - (i / this.loops), 1 - (sl / this.slices));
     	}
     }
 
@@ -45,7 +45,7 @@ MyTorus.prototype.initBuffers = function() {
             var sInd = fInd + this.slices + 1;
 
             this.indices.push(fInd, sInd + 1, sInd);
-            this.indices.push(fInd, fInd + 1, sind + 1);
+            this.indices.push(fInd, fInd + 1, sInd + 1);
         }
     }
 
