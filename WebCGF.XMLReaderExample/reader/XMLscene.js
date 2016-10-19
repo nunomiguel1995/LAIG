@@ -20,18 +20,7 @@ XMLscene.prototype.init = function (application) {
 	this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
 
-	this.axis=new CGFaxis(this);	
-
-	//this.c = new MyTorus(this, 1, 2, 50, 50);
-	this.c = new MySphere(this, 2, 50, 50);
-
-	this.windowAppearance= new CGFappearance(this);
- 	this.windowAppearance.setAmbient(0.3,0.3,0.3,1);
-	this.windowAppearance.setDiffuse(1,1,1,1);
-	this.windowAppearance.setSpecular(0.5,0.5,0.5,1);
-	this.windowAppearance.setShininess(50);
-	this.windowAppearance.loadTexture("res/wood.jpeg");
-
+	this.axis=new CGFaxis(this);
 };
 
 XMLscene.prototype.initLights = function () {
@@ -107,11 +96,6 @@ XMLscene.prototype.display = function () {
 
 	this.setDefaultAppearance();
 	
-/*
-	this.pushMatrix();
-		this.windowAppearance.apply();
-		this.c.display();
-	this.popMatrix();*/
 
 	// ---- END Background, camera and axis setup
 

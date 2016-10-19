@@ -1,8 +1,8 @@
 /**
- * MyCylinderCircle
- * @constructor
- * <cylinder base="ff" top="ff" height="ff" slices="ii" stacks="ii" />
- */
+* MyCylinderCircle
+* @constructor
+* <cylinder base="ff" top="ff" height="ff" slices="ii" stacks="ii" />
+*/
 function MyCylinderCircle(scene, radius, slices) {
   CGFobject.call(this,scene);
     
@@ -20,8 +20,6 @@ MyCylinderCircle.prototype.display = function() {
   this.indices = [];
   this.normals = [];
   this.texCoords = [];
-
-  
 
   this.primitiveType = this.scene.gl.TRIANGLES;
   this.initGLBuffers(); 

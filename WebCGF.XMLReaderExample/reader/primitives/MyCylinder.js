@@ -22,12 +22,12 @@ MyCylinder.prototype.display = function() {
   this.scene.popMatrix();
 
   this.scene.pushMatrix();
-    this.scene.rotate(Math.PI, 0, 0, 1);
+    //this.scene.rotate(Math.PI, 0, 0, 1);
     this.baseCircle.display();
   this.scene.popMatrix();
 
   this.scene.pushMatrix();
-    this.scene.translate(0, this.height, 0);
-    this.topCircle.display();
+    //this.scene.translate(0, this.height, 0);
+    //this.topCircle.display();
   this.scene.popMatrix();
 }
