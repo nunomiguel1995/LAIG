@@ -35,11 +35,15 @@ function MySceneGraph(filename, scene) {
  * Callback to be executed after successful reading
  */
 MySceneGraph.prototype.onXMLReady=function() {
-	console.log("XML Loading finished.");
 	var rootElement = this.reader.xmlDoc.documentElement;
 	
+	var error = this.dsxOrder(rootElement);
+	if (error != null) {
+		this.onXMLError(error);
+		return;
+	}
 	// Here should go the calls for different functions to parse the various blocks
-	var error = this.parseGlobals(rootElement);
+	error = this.parseGlobals(rootElement);
 	if (error != null) {
 		this.onXMLError(error);
 		return;
@@ -94,10 +98,39 @@ MySceneGraph.prototype.onXMLReady=function() {
 	}
 
 	this.loadedOk=true;
-	
+	console.log("XML Loading finished.");
 	// As the graph loaded ok, signal the scene so that any additional initialization depending on the graph can take place
 	this.scene.onGraphLoaded();
 };
+
+MySceneGraph.prototype.dsxOrder = function(rootElement){
+	if(rootElement.children[0].tagName != 'scene'){
+		return 'First DSX tag should be scene';	
+	} 
+	else if(rootElement.children[1].tagName != 'views'){
+		return 'First DSX tag should be views';
+	}
+	else if(rootElement.children[2].tagName != 'illumination'){
+		return 'First DSX tag should be illumination';
+	}
+	else if(rootElement.children[3].tagName != 'lights'){
+		return 'First DSX tag should be lights';
+	}
+	else if(rootElement.children[4].tagName != 'textures'){
+		return 'First DSX tag should be textures';
+	}
+	else if(rootElement.children[5].tagName != 'materials'){
+		return 'First DSX tag should be materials';
+	}
+	else if(rootElement.children[6].tagName != 'transformations'){
+		return 'First DSX tag should be transformations';
+	}
+	else if(rootElement.children[7].tagName != 'primitives'){
+		return 'First DSX tag should be primitives';
+	}
+	else if(rootElement.children[8].tagName != 'components')
+		return 'First DSX tag should be components';
+}
 
 /*
  * Example of method that parses elements of one block and stores information in a specific data structure
