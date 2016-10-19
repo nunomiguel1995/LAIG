@@ -23,25 +23,42 @@ MyCylinderSurface.prototype.initBuffers = function() {
     var zStep = this.height / this.stacks;
     var rStep = (this.top - this.base) / this.stacks;
 
-    for(var st = 0; st <= this.stacks; st++){
-        var r = this.top - st * rStep;
+    for(var i = 0; i <= this.stacks; i++){
 
-        for(var sl = 0; sl <= this.slices; sl++){
-            this.vertices.push(r * Math.cos(sl * alfa), r * Math.sin(sl * alfa), st * zStep);
-            this.normals.push(r * Math.cos(sl * alfa), r * Math.sin(sl * alfa), 0);
-            this.texCoords.push(1 - (st / this.stacks), 1 - (sl / this.slices));
+        for(var j = 0; j <= this.slices; j++){
+            var r = this.base + (i * rStep);
+            var z = i * zStep;
+
+            var x = r * Math.cos(alfa * j);
+            var y = r * Math.sin(alfa * j);
+            var u = 1 - (j / this.slices);
+            var v = 1 - (i / this.stacks);
+
+            this.vertices.push(x, y, z);
+            this.normals.push(x, y, z);
+            this.texCoords.push(u,v);
         }
     }
 
-    for(var st = 0; st <= this.stacks; st++){
-        for(var sl = 0; sl <= this.slices; sl++){
-            var fInd = (st * (this.slices + 1)) + sl;
-            var sInd = fInd + this.slices + 1;
+    for(var i = 0; i < this.stacks; i++){
+        for(var j = 0; j < this.slices; j++){
+            var first = (i * (this.slices + 1)) + j;
+            var second = first + this.slices + 1;
 
-            this.indices.push(fInd, sInd + 1, sInd);
-            this.indices.push(fInd, fInd + 1, sInd + 1);
+            this.indices.push(first, second + 1, second);
+            this.indices.push(first, first + 1, second + 1);
         }
     }
+    /*
+    for(var i = 0; i < this.slices; i++){
+        if(i == (this.slices - 1)){
+            this.indices.push((2*i)+0, 0, 1);
+            this.indices.push(1, (2*i)+1, (2*i)+0);
+        }else{
+            this.indices.push((2*i)+0, (2*i)+2, (2*i)+3);
+            this.indices.push((2*i)+3, (2*i)+1, (2*i)+0);
+        }
+    }*/
     
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers(); 

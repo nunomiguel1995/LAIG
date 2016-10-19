@@ -139,7 +139,7 @@
 
         <component id="top_square">
             <transformation>
-                <rotation axis="x" angle="-90" />
+                <rotate axis="x" angle="-90" />
                 <translate x="0" y="0" z="0.5" />
             </transformation>
 

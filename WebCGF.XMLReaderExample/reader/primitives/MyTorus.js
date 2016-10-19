@@ -24,28 +24,35 @@ MyTorus.prototype.initBuffers = function() {
     this.texCoords = [];
 
     for(var i = 0; i <= this.loops; i++){
-    	var alfa = i * 2 * Math.PI / this.loops;
+        var alfa = i * 2 * Math.PI / this.loops;
+        var sinAlfa = Math.sin(alfa);
+        var cosAlfa = Math.cos(alfa);
 
-    	for(var sl = 0; sl <= this.slices; sl++){
-    		var beta = sl * 2 * Math.PI / this.slices;
+        for(var j = 0; j <= this.slices; j++){
+            var beta = j * 2 * Math.PI / this.slices;
+            var sinBeta = Math.sin(beta);
+            var cosBeta = Math.cos(beta);
 
-    		this.vertices.push((this.outer + (this.inner * Math.cos(alfa)) * Math.cos(beta)),
-    			               (this.outer + (this.inner * Math.cos(alfa)) * Math.sin(beta)),
-    			        	   (this.inner * Math.sin(alfa)));
-    		this.normals.push((this.outer + (this.inner * Math.cos(alfa)) * Math.cos(beta)),
-    			               (this.outer + (this.inner * Math.cos(alfa)) * Math.sin(beta)),
-    			        	   (this.inner * Math.sin(alfa)));
-    		this.texCoords.push(1 - (i / this.loops), 1 - (sl / this.slices));
-    	}
+            var x = (this.outer + this.inner * cosBeta) * cosAlfa;
+            var y = (this.outer + this.inner * cosBeta) * sinAlfa;
+            var z = this.inner * sinBeta;
+
+            var u = 1 - (j / this.slices);
+            var v = 1 - (i / this.stacks);
+            
+            this.vertices.push(x, y, z);
+            this.normals.push(x, y, z);
+            this.texCoords.push(u,v);
+        }
     }
+    
+    for(var i = 0; i < this.loops; i++){
+        for(var j = 0; j < this.slices; j++){
+            var first = (i * (this.slices + 1)) + j;
+            var second = first + this.slices + 1;
 
-    for(var st = 0; st <= this.stacks; st++){
-        for(var sl = 0; sl <= this.slices; sl++){
-            var fInd = (st * (this.slices + 1)) + sl;
-            var sInd = fInd + this.slices + 1;
-
-            this.indices.push(fInd, sInd + 1, sInd);
-            this.indices.push(fInd, fInd + 1, sInd + 1);
+            this.indices.push(first, second, first + 1);
+            this.indices.push(second, second + 1, first + 1);
         }
     }
 

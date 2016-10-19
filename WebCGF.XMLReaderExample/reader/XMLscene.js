@@ -21,7 +21,16 @@ XMLscene.prototype.init = function (application) {
     this.gl.depthFunc(this.gl.LEQUAL);
 
 	this.axis=new CGFaxis(this);	
-	this.c = new MySphere(this, 1, 50, 50);
+
+	//this.c = new MyTorus(this, 1, 2, 50, 50);
+	this.c = new MySphere(this, 2, 50, 50);
+
+	this.windowAppearance= new CGFappearance(this);
+ 	this.windowAppearance.setAmbient(0.3,0.3,0.3,1);
+	this.windowAppearance.setDiffuse(1,1,1,1);
+	this.windowAppearance.setSpecular(0.5,0.5,0.5,1);
+	this.windowAppearance.setShininess(50);
+	this.windowAppearance.loadTexture("res/wood.jpeg");
 
 };
 
@@ -64,15 +73,16 @@ XMLscene.prototype.processGraph = function(nodeID){
 	/*if(material != null)
 		material.apply;*/
 
+			this.multMatrix(node.transformation);
 	if(node.primitive != null){
 		this.pushMatrix();
-		this.graph.primitives[node.primitive].display();
+			this.graph.primitives[node.primitive].display();
 		this.popMatrix();
 	}
-	var i =0;
+	var i =0;		
 	for(i; i< node.children.length; i++){
 		this.pushMatrix();
-		this.processGraph(node.children[i]);
+			this.processGraph(node.children[i]);
 		this.popMatrix();
 	}
 
@@ -97,10 +107,11 @@ XMLscene.prototype.display = function () {
 
 	this.setDefaultAppearance();
 	
-
+/*
 	this.pushMatrix();
+		this.windowAppearance.apply();
 		this.c.display();
-	this.popMatrix();
+	this.popMatrix();*/
 
 	// ---- END Background, camera and axis setup
 
@@ -110,7 +121,7 @@ XMLscene.prototype.display = function () {
 	if (this.graph.loadedOk)
 	{
 		this.lights[0].update();
-		//this.processGraph(this.graph.root);
+		this.processGraph(this.graph.root);
 	};	
 };
 

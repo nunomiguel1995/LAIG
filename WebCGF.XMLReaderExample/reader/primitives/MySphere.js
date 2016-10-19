@@ -23,7 +23,7 @@ MySphere.prototype.initBuffers = function() {
     this.texCoords = [];
 
     for(var i = 0; i <= this.stacks; i++){
-        var alfa = i * Math.PI / this.stacks;
+        var alfa = i * 2 *Math.PI / this.stacks;
         var sinAlfa = Math.sin(alfa);
         var cosAlfa = Math.cos(alfa);
 
@@ -32,13 +32,18 @@ MySphere.prototype.initBuffers = function() {
             var sinBeta = Math.sin(beta);
             var cosBeta = Math.cos(beta);
 
-            var x = cosBeta * sinAlfa;
-            var y = cosAlfa;
-            var z = sinBeta * sinAlfa;
-            var u = 1 - (j / this.slices);
-            var v = 1 - (i / this.stacks);
+            var x = this.radius * cosAlfa * sinBeta;
+            var y = this.radius * sinAlfa * sinBeta;
+            var z = this.radius * cosBeta;
 
-            this.vertices.push(this.radius * x, this.radius * y, this.radius * z);
+            var u = 0.5 + (Math.atan2(z, x) / (Math.PI * 2));
+            var v = 0.5 - (Math.asin(y) / Math.PI);
+
+            /*
+            var u = 1 - (j / this.slices);
+            var v = 1 - (i / this.stacks);*/
+
+            this.vertices.push(x, y, z);
             this.normals.push(x,y,z);
             this.texCoords.push(u,v);
         }
