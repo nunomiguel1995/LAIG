@@ -20,7 +20,9 @@ XMLscene.prototype.init = function (application) {
 	this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
 
-	this.axis=new CGFaxis(this);
+	this.axis=new CGFaxis(this);	
+	this.c = new MyCylinderCircle(this, 10, 10);
+
 };
 
 XMLscene.prototype.initLights = function () {
@@ -50,6 +52,32 @@ XMLscene.prototype.onGraphLoaded = function ()
     this.lights[0].enable();
 };
 
+XMLscene.prototype.processGraph = function(nodeID){
+	//var material = null;
+
+	if(nodeID == null) return "nodeID is null";
+
+	var node  = this.graph.nodes[nodeID];
+	/*if(node.material.length != 0)
+		material = this.graph.materials[node.material[0]];*/
+
+	/*if(material != null)
+		material.apply;*/
+
+	if(node.primitive != null){
+		this.pushMatrix();
+		this.graph.primitives[node.primitive].display();
+		this.popMatrix();
+	}
+	var i =0;
+	for(i; i< node.children.length; i++){
+		this.pushMatrix();
+		this.processGraph(node.children[i]);
+		this.popMatrix();
+	}
+
+}
+
 XMLscene.prototype.display = function () {
 	// ---- BEGIN Background, camera and axis setup
 	
@@ -69,6 +97,11 @@ XMLscene.prototype.display = function () {
 
 	this.setDefaultAppearance();
 	
+
+	this.pushMatrix();
+		this.c.display();
+	this.popMatrix();
+
 	// ---- END Background, camera and axis setup
 
 	// it is important that things depending on the proper loading of the graph
@@ -77,6 +110,7 @@ XMLscene.prototype.display = function () {
 	if (this.graph.loadedOk)
 	{
 		this.lights[0].update();
+		//this.processGraph(this.graph.root);
 	};	
 };
 

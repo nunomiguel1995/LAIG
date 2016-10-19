@@ -364,15 +364,15 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement) {
 				var x2 = this.reader.getFloat(primitive, 'x2', true);
 				var y1 = this.reader.getFloat(primitive, 'y1', true);
 				var y2 = this.reader.getFloat(primitive, 'y2', true);
-				var rectangle = new MySquare(this.scene, x1,y1,x2,y2);
+				var rectangle = new MyRectangle(this.scene, x1,y1,x2,y2);
 				this.primitives[id] = rectangle;
 				break;
 			case "sphere":
 				var radius = this.reader.getFloat(primitive, 'radius', true);
 				var slices = this.reader.getFloat(primitive, 'slices', true);
 				var stacks = this.reader.getFloat(primitive, 'stacks', true);
-				//var sphere = new MySphere(this.scene,radius, slices,stacks);
-				//this.primitives[id] = sphere;
+				var sphere = new MySphere(this.scene,radius, slices,stacks);
+				this.primitives[id] = sphere;
 				break;
 			case "triangle":
 				var x1 = this.reader.getFloat(primitive, 'x1', true);
@@ -384,8 +384,8 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement) {
 				var z1 = this.reader.getFloat(primitive, 'z1', true);
 				var z2 = this.reader.getFloat(primitive, 'z2', true);
 				var z3 = this.reader.getFloat(primitive, 'z3', true);
-				//var triangle = new MyTriangle(this.scene, x1,y1,z1,x2,y2,z2,x3,y3,z3);
-				//this.primitives[id] = triangle;
+				var triangle = new MyTriangle(this.scene, x1,y1,z1,x2,y2,z2,x3,y3,z3);
+				this.primitives[id] = triangle;
 				break;
 			case "cylinder":
 				var base = this.reader.getFloat(primitive, 'base', true);
@@ -393,16 +393,16 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement) {
 				var height = this.reader.getFloat(primitive, 'height', true);
 				var slices = this.reader.getFloat(primitive, 'slices', true);
 				var stacks = this.reader.getFloat(primitive, 'stacks', true);
-				//var cylinder = new MyCylinder(this.scene, base, top, height, slices, stacks);
-				//this.primitives[id] = cylinder;
+				var cylinder = new MyCylinder(this.scene, base, top, height, slices, stacks);
+				this.primitives[id] = cylinder;
 				break;
 			case "torus":
 				var inner = this.reader.getFloat(primitive, 'inner', true);
 				var outer = this.reader.getFloat(primitive, 'outer', true);
 				var slices = this.reader.getFloat(primitive, 'slices', true);
 				var loops = this.reader.getFloat(primitive, 'loops', true);
-				//var torus = new MyTorus(this.scene, inner, outer, slices, loops);
-				//this.primitives[id] = torus;
+				var torus = new MyTorus(this.scene, inner, outer, slices, loops);
+				this.primitives[id] = torus;
 				break;
 
 			default: break;
