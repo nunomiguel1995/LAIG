@@ -21,6 +21,8 @@ XMLscene.prototype.init = function (application) {
     this.gl.depthFunc(this.gl.LEQUAL);
 
 	this.axis=new CGFaxis(this);
+
+	//this.t = new MyRectangle(this,0,0,1,1);
 };
 
 XMLscene.prototype.initLights = function () {
@@ -96,6 +98,9 @@ XMLscene.prototype.display = function () {
 
 	this.setDefaultAppearance();
 	
+	this.pushMatrix();
+	//	this.t.display();
+	this.popMatrix();
 
 	// ---- END Background, camera and axis setup
 

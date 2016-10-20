@@ -129,18 +129,18 @@
 
             <children>
                 <componentref id="top_square" />
-                <componentref id="bottom_square"/>
+                <componentref id="bottom_square" />
                 <componentref id="left_square" />
                 <componentref id="right_square" />
                 <componentref id="front_square" />
-                <componentref id="back_square" />   
+                <componentref id="back_square" />
             </children>           
         </component> 
 
         <component id="top_square">
             <transformation>
-                <translate x="-0.5" y="0.5" z="-0.5" />
-                <rotate axis="x" angle="90" />
+                <translate x="-0.5" y="0.5" z="0.5" /> 
+                <rotate axis="x" angle="-90" />
             </transformation>
 
             <materials>
@@ -156,8 +156,8 @@
         
         <component id="bottom_square">
             <transformation>
-                <translate x="-0.5" y="-0.5" z="0.5" />
-                <rotate axis="x" angle="-90" />
+                <translate x="-0.5" y="-0.5" z="-0.5" />
+                <rotate axis="x" angle="90" />
             </transformation>
 
             <materials>
@@ -173,8 +173,8 @@
 
         <component id="left_square">
             <transformation>
-                <translate x="-0.5" y="-0.5" z="0.5" />
-                <rotate axis="y" angle="90" />
+                <translate x="-0.5" y="-0.5" z="-0.5" />
+                <rotate axis="y" angle="-90" />
             </transformation>
 
             <materials>
@@ -190,8 +190,8 @@
 
         <component id="right_square">
             <transformation>
-                <translate x="0.5" y="-0.5" z="-0.5" />
-                <rotate axis="y" angle="-90" />
+                <translate x="0.5" y="-0.5" z="0.5" />
+                <rotate axis="y" angle="90" />
             </transformation>
 
             <materials>
@@ -207,7 +207,8 @@
 
         <component id="front_square">
             <transformation>
-                <translate x="-0.5" y="-0.5" z="-0.5"/>
+                <translate x="-0.5" y="0.5" z="0.5" />
+                <rotate axis="z" angle="-90" />
             </transformation>
 
             <materials>
@@ -223,8 +224,8 @@
 
         <component id="back_square">
             <transformation>
-                <translate x="-0.5" y="0.5" z="0.5"/>
-                <rotate axis="x" angle="180" />
+                <translate x="0.5" y="-0.5" z="-0.5" />
+                <rotate axis="y" angle="180" />
             </transformation>
 
             <materials>
