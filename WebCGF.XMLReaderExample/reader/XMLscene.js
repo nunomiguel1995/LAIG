@@ -53,17 +53,19 @@ XMLscene.prototype.onGraphLoaded = function ()
 };
 
 XMLscene.prototype.processGraph = function(nodeID){
-	//var material = null;
+	var material = null;
 
 	if(nodeID == null) return "nodeID is null";
 
 	var node  = this.graph.nodes[nodeID];
-	/*if(node.material.length != 0)
-		material = this.graph.materials[node.material[0]];*/
+	if(node.material.length != 0)
+		material = this.graph.materials[node.material[0]];
 
-	/*if(material != null)
-		material.apply;*/
-		this.multMatrix(node.transformation);	
+	if(material != null){
+		material.apply;
+	}
+
+	this.multMatrix(node.transformation);	
 	if(node.primitive != null){
 		this.pushMatrix();
 			this.graph.primitives[node.primitive].display();
@@ -109,7 +111,19 @@ XMLscene.prototype.display = function () {
 	if (this.graph.loadedOk)
 	{
 		this.lights[0].update();
+		this.loadLights();
 		this.processGraph(this.graph.root);
 	};	
 };
 
+XMLscene.prototype.loadLights = function(){
+	var spot = this.graph.spotLights[0];
+	console.log(this.graph.spotLights.length);
+	/*this.lights[0].setPosition(spot.location.x, spot.location.y, spot.location.z, 1);
+	this.lights[0].setAmbient(spot.ambient.r, spot.ambient.g, spot.ambient.b, spot.ambient.a);
+    this.lights[0].setDiffuse(spot.diffuse.r, spot.diffuse.g, spot.diffuse.b, spot.diffuse.a);
+    this.lights[0].setSpecular(spot.specular.r, spot.specular.g, spot.specular.b, spot.specular.a);
+    this.lights[0].setSpotExponent(spot.exponent);
+    this.lights[0].setSpotDirection(spot.direction.x, spot.direction.y, spot.direction.z);
+    this.lights[0].update();*/
+}
