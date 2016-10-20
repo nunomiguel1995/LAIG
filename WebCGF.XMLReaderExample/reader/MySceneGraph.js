@@ -189,7 +189,7 @@ MySceneGraph.prototype.parseIllumination = function(rootElement) {
 		return "illumination element is missing.";
 	}
 
-	var doubleside = this.reader.getBoolean(illumination, 'doubleside', true);
+	var doubleside = this.reader.getBoolean(illumination, 'doublesided', true);
 	var local = this.reader.getBoolean(illumination, 'local', true);
 
 	var tagAmbient = illumination.getElementsByTagName('ambient')[0];
@@ -334,12 +334,12 @@ MySceneGraph.prototype.parseTransformations = function(rootElement) {
 
 	var i =0;
 	for(i; i< listTransformations.length; i++){
-		var j=0;
+		var j=listTransformations[i].children.length -1;
 		var t = listTransformations[i];
 		var transformationID = this.reader.getString(t, 'id', true);
 		var matrix= mat4.create();
 		
-		for(j;j<listTransformations[i].children.length;j++){
+		for(j;j>=0;j--){
 			var transformation = listTransformations[i].children[j];
 			switch(transformation.tagName){
 				case "rotate":
@@ -463,14 +463,14 @@ MySceneGraph.prototype.parseComponents = function(rootElement){
 		var node = new Node(componentId);
 
 		//Percorre todos os elementos de componente
-		var j = 0;
+		var j =0;
 		for(j; j < listComponents[i].children.length; j++){	
 			var componentTag = listComponents[i].children[j];
 
 			switch(componentTag.tagName){
 				case "transformation":
-					var t = 0, matrix = mat4.create();
-					for(t; t < componentTag.children.length; t++){
+					var t = componentTag.children.length -1 , matrix = mat4.create();
+					for(t; t >= 0 ; t--){
 
 						switch(componentTag.children[t].tagName){
 							case "transformationref":

@@ -49,16 +49,6 @@ MyCylinderSurface.prototype.initBuffers = function() {
             this.indices.push(first, first + 1, second + 1);
         }
     }
-    /*
-    for(var i = 0; i < this.slices; i++){
-        if(i == (this.slices - 1)){
-            this.indices.push((2*i)+0, 0, 1);
-            this.indices.push(1, (2*i)+1, (2*i)+0);
-        }else{
-            this.indices.push((2*i)+0, (2*i)+2, (2*i)+3);
-            this.indices.push((2*i)+3, (2*i)+1, (2*i)+0);
-        }
-    }*/
     
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers(); 

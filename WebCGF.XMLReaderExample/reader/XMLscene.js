@@ -22,7 +22,7 @@ XMLscene.prototype.init = function (application) {
 
 	this.axis=new CGFaxis(this);
 
-	//this.t = new MyRectangle(this,0,0,1,1);
+	this.c = new MyCylinder(this,1,1,2,50,50);
 };
 
 XMLscene.prototype.initLights = function () {
@@ -63,8 +63,7 @@ XMLscene.prototype.processGraph = function(nodeID){
 
 	/*if(material != null)
 		material.apply;*/
-
-			this.multMatrix(node.transformation);
+		this.multMatrix(node.transformation);	
 	if(node.primitive != null){
 		this.pushMatrix();
 			this.graph.primitives[node.primitive].display();
@@ -98,9 +97,9 @@ XMLscene.prototype.display = function () {
 
 	this.setDefaultAppearance();
 	
-	this.pushMatrix();
-	//	this.t.display();
-	this.popMatrix();
+	/*this.pushMatrix();
+		this.c.display();
+	this.popMatrix();*/
 
 	// ---- END Background, camera and axis setup
 

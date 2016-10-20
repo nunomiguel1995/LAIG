@@ -10,7 +10,7 @@
         </perspective>
     </views>
 
-    <illumination doubleside="false" local="true"> 
+    <illumination doublesided="false" local="true"> 
         <ambient r="1" g="1" b="0" a="0" />
         <background r="0" g="1" b="1" a="0" />
     </illumination>
@@ -99,9 +99,8 @@
         </component>
         
         <component id="chair_cylinder">
-            <transformation>
+            <transformation> 
                 <translate x="2.5" y="1.6" z="2" />
-                <rotate axis="x" angle="-90" />
                 <scale x="0.4" y="0.4" z="0.4" />
             </transformation>
 

@@ -4,7 +4,7 @@ function Node(id){
     this.children = [];
     this.primitive= null;
     this.texture = null;
-    this.transformation= null;
+    this.transformation= mat4.create();
 }
 
 function Texture(id, file, lenght_s, lenght_t){
