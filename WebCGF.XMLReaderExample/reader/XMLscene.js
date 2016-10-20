@@ -21,8 +21,6 @@ XMLscene.prototype.init = function (application) {
     this.gl.depthFunc(this.gl.LEQUAL);
 
 	this.axis=new CGFaxis(this);
-
-	this.c = new MyCylinder(this,1,1,2,50,50);
 };
 
 XMLscene.prototype.initLights = function () {
@@ -58,11 +56,10 @@ XMLscene.prototype.processGraph = function(nodeID){
 	if(nodeID == null) return "nodeID is null";
 
 	var node  = this.graph.nodes[nodeID];
-	if(node.material.length != 0)
+	if(node.material[0] != 'inherit'){
 		material = this.graph.materials[node.material[0]];
-
-	if(material != null){
-		material.apply;
+		if(material != null)
+			material.apply;
 	}
 
 	this.multMatrix(node.transformation);	
@@ -98,10 +95,6 @@ XMLscene.prototype.display = function () {
 	this.axis.display();
 
 	this.setDefaultAppearance();
-	
-	/*this.pushMatrix();
-		this.c.display();
-	this.popMatrix();*/
 
 	// ---- END Background, camera and axis setup
 
@@ -117,13 +110,20 @@ XMLscene.prototype.display = function () {
 };
 
 XMLscene.prototype.loadLights = function(){
-	var spot = this.graph.spotLights[0];
-	console.log(this.graph.spotLights.length);
-	/*this.lights[0].setPosition(spot.location.x, spot.location.y, spot.location.z, 1);
+	/*var spot = this.graph.spotLights[0];
+	this.lights[0].setPosition(spot.location.x, spot.location.y, spot.location.z, 1);
 	this.lights[0].setAmbient(spot.ambient.r, spot.ambient.g, spot.ambient.b, spot.ambient.a);
     this.lights[0].setDiffuse(spot.diffuse.r, spot.diffuse.g, spot.diffuse.b, spot.diffuse.a);
     this.lights[0].setSpecular(spot.specular.r, spot.specular.g, spot.specular.b, spot.specular.a);
+    this.lights[0].setSpotDirection((spot.target.x - spot.location.x ), (spot.target.y - spot.location.y), (spot.target.z - spot.location.z));
     this.lights[0].setSpotExponent(spot.exponent);
-    this.lights[0].setSpotDirection(spot.direction.x, spot.direction.y, spot.direction.z);
     this.lights[0].update();*/
+
+    var omni = this.graph.omniLights[0];
+	this.lights[0].setPosition(omni.location.x, omni.location.y, omni.location.z, omni.location.w);
+	this.lights[0].setAmbient(omni.ambient.r, omni.ambient.g, omni.ambient.b, omni.ambient.a);
+    this.lights[0].setDiffuse(omni.diffuse.r, omni.diffuse.g, omni.diffuse.b, omni.diffuse.a);
+    this.lights[0].setSpecular(omni.specular.r, omni.specular.g, omni.specular.b, omni.specular.a);
+    this.lights[0].update();
+
 }

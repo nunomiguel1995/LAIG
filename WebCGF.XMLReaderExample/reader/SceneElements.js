@@ -18,6 +18,7 @@ function Spot(id,enable,angle,exponent,target,location,ambient,diffuse,specular)
     this.id = id;
     this. enable = false;
     this.angle = angle;
+
     this.exponent = exponent;
     this.target = target;
     this.location = location;
@@ -26,9 +27,10 @@ function Spot(id,enable,angle,exponent,target,location,ambient,diffuse,specular)
     this.specular = specular;
 }
 
-function Omni(id,enable,target,location,ambient,diffuse,specular){
+function Omni(id,enable,location,ambient,diffuse,specular){
     this.id = id;
     this. enable = false;
+
     this.location = location;
     this.ambient = ambient;
     this.diffuse = diffuse;
@@ -53,4 +55,15 @@ function Illumination(doubleside, local, ambient, background){
     this.local = local;
     this.ambient = ambient;
     this.background = background;
+}
+
+function OmniLocation(x,y,z,w){
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    this.w = w;
+}
+
+function MaterialInfo(id){
+    this.id = id;
 }

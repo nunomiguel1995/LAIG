@@ -9,8 +9,8 @@ function MySceneGraph(filename, scene) {
 	this.transformations={};
 	this.materials={};
 	this.textures={};
-	this.spotLights = {};
-	this.omniLights = {};
+	this.spotLights = [];
+	this.omniLights = [];
 	this.primitives= {};
 	this.nodes= {};
 	this.views=[];
@@ -216,11 +216,10 @@ MySceneGraph.prototype.parseLights = function(rootElement) {
 
 	//Deals with omni blocks 
 	var omni = lights[0].getElementsByTagName('omni');
-	console.log(omni.length);
 	var i=0;
 	for(i;i<omni.length;i++){
 		var id = omni[i].attributes.getNamedItem('id').value;
-		var enabled = omni[i].attributes.getNamedItem('enabled').value;
+		var enabled = this.reader.getBoolean(omni[i], 'enabled', true);
 
 		var location, ambient = [], diffuse= [], specular=[];
 		var tagLocation = omni[i].getElementsByTagName('location')[0];
@@ -228,22 +227,24 @@ MySceneGraph.prototype.parseLights = function(rootElement) {
 		var tagDiffuse = omni[i].getElementsByTagName('diffuse')[0];
 		var tagSpecular = omni[i].getElementsByTagName('specular')[0];
 		
-		location = new Coordinates(this.reader.getFloat(tagLocation, 'x', true),this.reader.getFloat(tagLocation, 'y', true), this.reader.getFloat(tagLocation, 'z', true));
+		location = new OmniLocation(this.reader.getFloat(tagLocation, 'x', true),this.reader.getFloat(tagLocation, 'y', true), this.reader.getFloat(tagLocation, 'z', true), this.reader.getFloat(tagLocation, 'w', true));
 		ambient = new Color(this.reader.getFloat(tagAmbient, 'r', true),this.reader.getFloat(tagAmbient, 'g', true),this.reader.getFloat(tagAmbient, 'b', true),this.reader.getFloat(tagAmbient, 'a', true));
 		diffuse = new Color(this.reader.getFloat(tagDiffuse, 'r', true),this.reader.getFloat(tagDiffuse, 'g', true),this.reader.getFloat(tagDiffuse, 'b', true),this.reader.getFloat(tagDiffuse, 'a', true));
 		specular = new Color(this.reader.getFloat(tagSpecular, 'r', true),this.reader.getFloat(tagSpecular, 'g', true),this.reader.getFloat(tagSpecular, 'b', true),this.reader.getFloat(tagAmbient, 'a', true));
 
-		this.omniLights[id] = new Omni(id, enabled,location, ambient, diffuse, specular);
+		var o=  new Omni(id, enabled,location, ambient, diffuse, specular)
+		this.omniLights.push(o);
 	}
 
 	//Deals with spot bloc
 	var spot = lights[0].getElementsByTagName('spot');
-	var i=0;
+	i=0;
 	for(i;i<spot.length;i++){
 		var id = spot[i].attributes.getNamedItem('id').value;
 		var enabled = spot[i].attributes.getNamedItem('enabled').value;
 		var angle = this.reader.getFloat(spot[i], 'angle', true) * this.toRad; 
-		var exponent = this.reader.getFloat(spot[i], 'exponent', true); 
+		var exponent = this.reader.getFloat(spot[i], 'exponent', true);
+
 		var tagLocation = spot[i].getElementsByTagName('location')[0];
 		var tagTarget = spot[i].getElementsByTagName('target')[0];
 		var tagAmbient = spot[i].getElementsByTagName('ambient')[0];
@@ -257,9 +258,9 @@ MySceneGraph.prototype.parseLights = function(rootElement) {
 		diffuse = new Color(this.reader.getFloat(tagDiffuse, 'r', true),this.reader.getFloat(tagDiffuse, 'g', true),this.reader.getFloat(tagDiffuse, 'b', true),this.reader.getFloat(tagDiffuse, 'a', true));
 		specular = new Color(this.reader.getFloat(tagSpecular, 'r', true),this.reader.getFloat(tagSpecular, 'g', true),this.reader.getFloat(tagSpecular, 'b', true),this.reader.getFloat(tagSpecular, 'a', true));
 
-		this.spotLights[id] = new Spot(id, enabled,location, ambient, diffuse, specular);
+		var s = new Spot(id, enabled,angle,exponent,target,location, ambient, diffuse, specular);
+		this.spotLights.push(s);
 	}
-
 };
 
 MySceneGraph.prototype.parseTextures = function(rootElement) {
@@ -335,12 +336,12 @@ MySceneGraph.prototype.parseTransformations = function(rootElement) {
 
 	var i =0;
 	for(i; i< listTransformations.length; i++){
-		var j=listTransformations[i].children.length -1;
+		var j= 0;
 		var t = listTransformations[i];
 		var transformationID = this.reader.getString(t, 'id', true);
 		var matrix= mat4.create();
 		
-		for(j;j>=0;j--){
+		for(j;j < listTransformations[i].children.length;j++){
 			var transformation = listTransformations[i].children[j];
 			switch(transformation.tagName){
 				case "rotate":
@@ -470,8 +471,8 @@ MySceneGraph.prototype.parseComponents = function(rootElement){
 
 			switch(componentTag.tagName){
 				case "transformation":
-					var t = componentTag.children.length -1 , matrix = mat4.create();
-					for(t; t >= 0 ; t--){
+					var t = 0 , matrix = mat4.create();
+					for(t; t < componentTag.children.length ; t++){
 						switch(componentTag.children[t].tagName){
 							case "transformationref":
 								var id = this.reader.getString(componentTag.children[t], "id", true);
@@ -512,9 +513,8 @@ MySceneGraph.prototype.parseComponents = function(rootElement){
 				case "materials":
 					var k = 0;
 					for(k; k< componentTag.children.length; k++){
-						var materialID;
-						if ((material = this.reader.getString(componentTag.children[k], "id")) != 'inherit')
-							node.material.push(materialID);	
+						var materialID = this.reader.getString(componentTag.children[k], "id", true);;
+						node.material.push(materialID);						
 					}
 					break;
 				case "texture": 

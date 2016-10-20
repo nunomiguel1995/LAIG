@@ -87,7 +87,7 @@
             </transformation>
 
             <materials> 
-                <material id="metalApperance" />
+                <material id="metalAppearance" />
             </materials>
 
             <texture id="none" />
@@ -106,7 +106,7 @@
             </transformation>
 
             <materials> 
-                <material id="metalApperance" />
+                <material id="metalAppearance" />
             </materials>
 
             <texture id="blue" />
@@ -245,8 +245,8 @@
             </transformation>
 
             <materials>
-                <material id="metalApperance" />
-                <material id="woodApperance" />
+                <material id="metalAppearance" />
+                <material id="woodAppearance" />
             </materials>
 
             <texture id="none" />
@@ -340,7 +340,7 @@
             </transformation>
             
             <materials>
-                <material id="woodApperance" />
+                <material id="woodAppearance" />
             </materials>
 
             <texture id="wood" />
@@ -357,7 +357,7 @@
             </transformation>
             
             <materials>
-                <material id="woodApperance" />
+                <material id="woodAppearance" />
             </materials>
 
             <texture id="wood" />
