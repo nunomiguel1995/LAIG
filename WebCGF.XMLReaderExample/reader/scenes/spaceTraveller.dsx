@@ -131,13 +131,13 @@
         <!-- Nao necessario aplicar fatores de escala em  -->
         <!-- quadricas (esfera, ciclindro...) -->
         <texture id="earthTex" file="./res/earth.png" length_s="1.0" length_t="1.0" />
-        <texture id="jupiterTex" file="./res/jupiter.jpg" length_s="1.0" length_t="1.0" />
+        <texture id="jupiterTex" file="./res/saturn.png" length_s="1.0" length_t="1.0" />
         <texture id="neptuneTex" file="./res/neptune.jpg" length_s="1.0" length_t="1.0" />
         <texture id="saturnTex" file="./res/saturn.png" length_s="1.0" length_t="1.0" />
         <texture id="marsTex" file="./res/mars.jpg" length_s="1.0" length_t="1.0" />
         <texture id="eye" file="./res/eye.png" length_s="1.0" length_t="1.0" />
         <texture id="robot_skin" file="./res/robotSkin.jpg" length_s="1.0" length_t="1.0" />
-        <texture id="robot_torso" file="./res/robotTorso.jpg" length_s="1.0" length_t="1.0" />
+        <texture id="robot_torso" file="./res/robotSkin.jpg" length_s="1.0" length_t="1.0" />
         <texture id="black" file="./res/black.jpg" length_s="1.0" length_t="1.0" />
         <texture id="abstract_orange" file="./res/abstractorange.jpg" length_s="1.0" length_t="1.0" />
         <texture id="space" file="./res/space.jpg" length_s="1.0" length_t="1.0" />

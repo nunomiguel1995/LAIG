@@ -67,8 +67,10 @@ XMLscene.prototype.processGraph = function(nodeID){
 		var node = this.graph.nodes[nodeID];
 		if(node.material[this.materialIndex] != null){
 			if(node.material[this.materialIndex] != "inherit"){
-				this.materials.push(this.graph.materials[node.material[this.materialIndex]]);
-				material = this.materials.top();
+				if (this.graph.materials[node.material[this.materialIndex]] != null){
+					this.materials.push(this.graph.materials[node.material[this.materialIndex]]);
+					material = this.materials.top();
+				}
 			}else{
 				this.materials.push(this.materials.top());
 			}
@@ -147,6 +149,7 @@ XMLscene.prototype.display = function () {
 
 XMLscene.prototype.loadViews = function(){
 	this.camera = this.graph.views[this.viewIndex];
+	this.myInterface.setActiveCamera(this.camera);
 }
 
 XMLscene.prototype.loadLights = function (){
