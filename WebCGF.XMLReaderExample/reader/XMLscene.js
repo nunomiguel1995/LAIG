@@ -1,6 +1,7 @@
 
-function XMLscene() {
+function XMLscene(myInterface) {
     CGFscene.call(this);
+    this.myInterface = myInterface;
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -24,13 +25,13 @@ XMLscene.prototype.init = function (application) {
 
 	this.materials = new Stack(null);
 	this.textures = new Stack(null);
+
+	this.materialIndex = 0;
+	this.viewIndex = 0;
+	this.lightBoolean = [];
 };
 
 XMLscene.prototype.initLights = function () {
-
-	this.lights[0].setPosition(2, 3, 3, 1);
-    this.lights[0].setDiffuse(1.0,1.0,1.0,1.0);
-    this.lights[0].update();
 };
 
 XMLscene.prototype.initCameras = function () {
@@ -48,9 +49,12 @@ XMLscene.prototype.setDefaultAppearance = function () {
 // As loading is asynchronous, this may be called already after the application has started the run loop
 XMLscene.prototype.onGraphLoaded = function () 
 {
-	this.gl.clearColor(this.graph.background[0],this.graph.background[1],this.graph.background[2],this.graph.background[3]);
+	this.gl.clearColor(this.graph.illumination.background.r,this.graph.illumination.background.g,this.graph.illumination.background.b,this.graph.illumination.background.a);
+	this.setGlobalAmbientLight(this.graph.illumination.ambient.r, this.graph.illumination.ambient.g, this.graph.illumination.ambient.b, this.graph.illumination.ambient.a);
 	this.lights[0].setVisible(true);
     this.lights[0].enable();
+    this.loadViews();
+    this.loadLights();
 };
 
 XMLscene.prototype.processGraph = function(nodeID){
@@ -125,27 +129,70 @@ XMLscene.prototype.display = function () {
 	// This is one possible way to do it
 	if (this.graph.loadedOk)
 	{
-		this.lights[0].update();
-		this.loadLights();
 		this.processGraph(this.graph.root);
+		this.updateLights();
 	};	
 };
 
-XMLscene.prototype.loadLights = function(){
-	/*var spot = this.graph.spotLights[0];
-	this.lights[0].setPosition(spot.location.x, spot.location.y, spot.location.z, 1);
-	this.lights[0].setAmbient(spot.ambient.r, spot.ambient.g, spot.ambient.b, spot.ambient.a);
-    this.lights[0].setDiffuse(spot.diffuse.r, spot.diffuse.g, spot.diffuse.b, spot.diffuse.a);
-    this.lights[0].setSpecular(spot.specular.r, spot.specular.g, spot.specular.b, spot.specular.a);
-    this.lights[0].setSpotDirection((spot.target.x - spot.location.x ), (spot.target.y - spot.location.y), (spot.target.z - spot.location.z));
-    this.lights[0].setSpotExponent(spot.exponent);
-    this.lights[0].update();*/
+XMLscene.prototype.loadViews = function(){
+	//this.camera = this.graph.pers[this.viewIndex];
+}
 
-    /*var omni = this.graph.omniLights[0];
-	this.lights[0].setPosition(omni.location.x, omni.location.y, omni.location.z, omni.location.w);
-	this.lights[0].setAmbient(omni.ambient.r, omni.ambient.g, omni.ambient.b, omni.ambient.a);
-    this.lights[0].setDiffuse(omni.diffuse.r, omni.diffuse.g, omni.diffuse.b, omni.diffuse.a);
-    this.lights[0].setSpecular(omni.specular.r, omni.specular.g, omni.specular.b, omni.specular.a);
-    this.lights[0].update();
-*/
+XMLscene.prototype.loadLights = function (){
+	var lighti = 0;
+
+	for(var i =0 ; i< this.graph.spotLights.length; i++){
+		//Loads Light
+		var spot = this.graph.spotLights[i];
+		this.lights[lighti].setPosition(spot.location.x, spot.location.y, spot.location.z, 1);
+		this.lights[lighti].setAmbient(spot.ambient.r, spot.ambient.g, spot.ambient.b, spot.ambient.a);
+	    this.lights[lighti].setDiffuse(spot.diffuse.r, spot.diffuse.g, spot.diffuse.b, spot.diffuse.a);
+	    this.lights[lighti].setSpecular(spot.specular.r, spot.specular.g, spot.specular.b, spot.specular.a);
+	    this.lights[lighti].setSpotDirection((spot.target.x - spot.location.x ), (spot.target.y - spot.location.y), (spot.target.z - spot.location.z));
+	    this.lights[lighti].setSpotExponent(spot.exponent);
+
+	    //Enable light
+	    if(spot.enable == true)
+	    	this.lights[lighti].enable();
+
+	    this.lights[lighti].setVisible(true);
+	    this.lights[lighti].update();
+
+	    //Adds light to MyInterface
+	  	this.lightBoolean[lighti] = spot.enable;
+	  	this.myInterface.addLightBox(lighti,spot.id);
+	  	lighti++;
+	}
+
+	for(var j = 0; j < this.graph.omniLights.length;j++){
+		//Loads Light
+	    var omni = this.graph.omniLights[0];
+		this.lights[lighti].setPosition(omni.location.x, omni.location.y, omni.location.z, omni.location.w);
+		this.lights[lighti].setAmbient(omni.ambient.r, omni.ambient.g, omni.ambient.b, omni.ambient.a);
+	    this.lights[lighti].setDiffuse(omni.diffuse.r, omni.diffuse.g, omni.diffuse.b, omni.diffuse.a);
+	    this.lights[lighti].setSpecular(omni.specular.r, omni.specular.g, omni.specular.b, omni.specular.a);
+
+	    //Enable light
+	    if(omni.enable == true)
+	    	this.lights[lighti].enable();
+
+	    this.lights[lighti].setVisible(true);
+	    this.lights[lighti].update();
+	
+	    //Adds light to MyInterface
+	    this.lightBoolean[lighti] = omni.enable;
+	  	this.myInterface.addLightBox(lighti,omni.id);
+	  	lighti++;
+	}
+}
+
+XMLscene.prototype.updateLights = function(){
+	for(var i = 0; i < this.lightBoolean.length; i++){
+		if(this.lightBoolean[i] == true)
+			this.lights[i].enable();
+		else
+			this.lights[i].disable();
+
+		this.lights[i].update();
+	}
 }

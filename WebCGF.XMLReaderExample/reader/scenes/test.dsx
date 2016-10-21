@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-16" standalone="yes"?>
 
 <dsx>
-    <scene root="chair_scene" axis_length="15" background="0 0 0 1" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
+    <scene root="chair_scene" axis_length="15"/>
 
-    <views default = "default">
-        <perspective id="default" near="10" far="20" angle="45">
-            <from x="0" y="0" z="0" />
-            <to x="20" y="20" z="20" />
+ <views default = "default">
+          <perspective id="default" near="0.4" far="500" angle="45">
+            <from x="12" y="8" z="12" />
+            <to x="0" y="0" z="0" />
         </perspective>
     </views>
 
     <illumination doublesided="false" local="true"> 
-        <ambient r="1" g="1" b="0" a="0" />
-        <background r="0" g="1" b="1" a="0" />
+        <ambient r="1" g="1" b="1" a="0" />
+        <background r="0" g="0" b="0" a="1" />
     </illumination>
 
     <lights>
@@ -22,8 +22,8 @@
             <diffuse r="1" g="1" b="1" a="0" />
             <specular r="0" g="0" b="1" a="1" />
         </omni>
-
-        <spot id="spot1" enabled="false" angle="45" exponent="2">
+        
+        <spot id="spot1" enabled="true" angle="45" exponent="2">
             <target x="5" y="5" z="5" />
             <location x="1" y="2" z="1" />
             <ambient r="0" g="1" b="0" a="0" />

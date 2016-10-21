@@ -149,10 +149,6 @@ MySceneGraph.prototype.parseGlobals= function(rootElement) {
 	var globals = elems[0];
 	this.root = this.reader.getString(globals,'root',true);
 	this.axisLength = this.reader.getFloat(globals, 'axis_length', true);
-	this.background = this.reader.getRGBA(globals, 'background');
-	this.drawmode = this.reader.getItem(globals, 'drawmode', ["fill","line","point"]);
-	this.cullface = this.reader.getItem(globals, 'cullface', ["back","front","none", "frontandback"]);
-	this.cullorder = this.reader.getItem(globals, 'cullorder', ["ccw","cw"]);
 };
 
 MySceneGraph.prototype.parseViews = function(rootElement) {
