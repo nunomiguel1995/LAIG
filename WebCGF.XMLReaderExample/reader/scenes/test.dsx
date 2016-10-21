@@ -57,8 +57,8 @@
 
     <transformations>
         <transformation id="trans_chair">
-           <rotate axis="y" angle="-90" />
            <translate x="3" y="0" z="1" />
+           <rotate axis="y" angle="-90" />
         </transformation>
     </transformations>
 
@@ -100,9 +100,9 @@
         
         <component id="chair_cylinder">
             <transformation>
-                <scale x="0.5" y="0.5" z="0.5" />
-                <rotate axis="x" angle="-90" />
                 <translate x="2.2" y="2.1" z="1.6"/>
+                <rotate axis="x" angle="-90" />
+                <scale x="0.5" y="0.5" z="0.5" />
             </transformation>
 
             <materials> 
@@ -139,8 +139,8 @@
 
         <component id="top_square">
             <transformation>
-                <rotate axis="x" angle="-90" />
                 <translate x="-0.5" y="0.5" z="0.5" /> 
+                <rotate axis="x" angle="-90" />
             </transformation>
 
             <materials>
@@ -156,8 +156,8 @@
         
         <component id="bottom_square">
             <transformation>
-                <rotate axis="x" angle="90" />
                 <translate x="-0.5" y="-0.5" z="-0.5" />
+                <rotate axis="x" angle="90" />
             </transformation>
 
             <materials>
@@ -173,8 +173,8 @@
 
         <component id="left_square">
             <transformation>
-                <rotate axis="y" angle="-90" />
                 <translate x="-0.5" y="-0.5" z="-0.5" />
+                <rotate axis="y" angle="-90" />
             </transformation>
 
             <materials>
@@ -190,8 +190,8 @@
 
         <component id="right_square">
             <transformation>
-                <rotate axis="y" angle="90" />
                 <translate x="0.5" y="-0.5" z="0.5" />
+                <rotate axis="y" angle="90" />
             </transformation>
 
             <materials>
@@ -207,8 +207,8 @@
 
         <component id="front_square">
             <transformation>
-                <rotate axis="z" angle="-90" />
                 <translate x="-0.5" y="0.5" z="0.5" />
+                <rotate axis="z" angle="-90" />
             </transformation>
 
             <materials>
@@ -224,8 +224,8 @@
 
         <component id="back_square">
             <transformation>
-                <rotate axis="y" angle="180" />
                 <translate x="0.5" y="-0.5" z="-0.5" />
+                <rotate axis="y" angle="180" />
             </transformation>
 
             <materials>
@@ -263,9 +263,9 @@
 
         <component id="front_right_leg">
             <transformation>
-                <rotate axis="x" angle="-90" />
-                <scale x="0.1" y="0.8" z="0.1" />
                 <translate x="1.5" y="0.6" z="1.5" />
+                <scale x="0.1" y="0.8" z="0.1" />
+                <rotate axis="x" angle="-90" />
             </transformation>
             
             <materials>
@@ -281,9 +281,9 @@
 
         <component id="front_left_leg">
             <transformation>
-                <rotate axis="x" angle="-90" />
-                <scale x="0.1" y="0.8" z="0.1" />
                 <translate x="0" y="0.6" z="1.5" />
+                <scale x="0.1" y="0.8" z="0.1" />
+                <rotate axis="x" angle="-90" />
             </transformation>
             
             <materials>
@@ -299,9 +299,9 @@
 
         <component id="back_right_leg">
             <transformation>
-                <rotate axis="x" angle="-90" />
-                <scale x="0.1" y="0.8" z="0.1" />
                 <translate x="1.5" y="0.6" z="0" />
+                <scale x="0.1" y="0.8" z="0.1" />
+                <rotate axis="x" angle="-90" />
             </transformation>
             
             <materials>
@@ -317,9 +317,9 @@
 
         <component id="back_left_leg">
             <transformation>
-                <rotate axis="x" angle="-90" />
-                <scale x="0.1" y="0.8" z="0.1" />
                 <translate x="0" y="0.6" z="0" />
+                <scale x="0.1" y="0.8" z="0.1" />
+                <rotate axis="x" angle="90" />
             </transformation>
             
             <materials>
@@ -335,8 +335,8 @@
 
         <component id="seat">
             <transformation>
-                <scale x="2" y="0.2" z="2" />
                 <translate x="0.85" y="1.5" z="0.75" />
+                <scale x="2" y="0.2" z="2" />
             </transformation>
             
             <materials>
@@ -352,8 +352,8 @@
 
         <component id="backrest">
             <transformation>
-                <scale x="0.2" y="2" z="2" />
                 <translate x="-0.1" y="2.4" z="0.75" />
+                <scale x="0.2" y="2" z="2" />
             </transformation>
             
             <materials>
