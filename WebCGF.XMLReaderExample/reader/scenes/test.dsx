@@ -4,7 +4,11 @@
     <scene root="chair_scene" axis_length="15"/>
 
  <views default = "default">
-          <perspective id="default" near="0.4" far="500" angle="45">
+        <perspective id="default" near="0.4" far="500" angle="45">
+            <from x="12" y="8" z="12" />
+            <to x="0" y="0" z="0" />
+        </perspective>
+       <perspective id="v1" near="0.4" far="500" angle="70">
             <from x="12" y="8" z="12" />
             <to x="0" y="0" z="0" />
         </perspective>
@@ -42,16 +46,16 @@
     <materials>
         <material id="metalAppearance" >
             <emission r="0" g="0" b="0" a="0" />
-            <ambient r="0.5" g="0.5" b="0.5" a="1" />
+            <ambient r="1" g="0" b="0" a="1" />
             <diffuse r="0.5" g="0.5" b="0.5" a="0.5" />
             <specular r="1" g="1" b="1" a="1" />
-            <shininess value="30" />
+            <shininess value="100" />
         </material> 
         <material id="woodAppearance">
             <emission r="0" g="0" b="0" a="0" />
-            <ambient r="0.5" g="0.5" b="0.5" a="1" />
+            <ambient r="0" g="1" b="0" a="1" />
             <diffuse r="0.5" g="0.5" b="0.5" a="0.5" />
-            <specular r="1" g="1" b="1" a="1" />
+            <specular r="0" g="0" b="0" a="0" />
             <shininess value= "2" /> 
         </material>
     </materials>
@@ -89,6 +93,7 @@
 
             <materials> 
                 <material id="metalAppearance" />
+                <material id="woodAppearance" />
             </materials>
 
             <texture id="none" />

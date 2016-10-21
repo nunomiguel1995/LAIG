@@ -17,6 +17,10 @@ MyInterface.prototype.init = function(application) {
 	this.Lights = this.gui.addFolder("Lights");	
 	this.Lights.open();
 
+	this.Cameras = this.gui.addFolder("Cameras");
+	this.Cameras.add(this.scene,'defaultCamera');
+	this.Cameras.open();
+
 	return true;
 };
 
@@ -24,3 +28,21 @@ MyInterface.prototype.addLightBox = function(i,id){
 	this.Lights.add(this.scene.lightBoolean, i, this.scene.lightBoolean[i]).name(id);
 }
 
+MyInterface.prototype.processKeyboard = function(event){
+	CGFinterface.prototype.processKeyboard.call(this,event);
+
+	switch (event.keyCode){
+		//If M or m key is pressed materials should change
+		case(77):
+		case(109):
+			this.scene.materialIndex++;
+			break;
+		//If V or v is pressed views should change
+		case(86):
+		case(118):
+			if(this.scene.defaultCamera == false){
+				this.scene.updateViews();
+			}
+			break;
+	}
+}

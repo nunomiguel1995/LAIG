@@ -26,6 +26,8 @@ XMLscene.prototype.init = function (application) {
 	this.materials = new Stack(null);
 	this.textures = new Stack(null);
 
+	this.cameraModify = false;
+	this.defaultCamera = true;
 	this.materialIndex = 0;
 	this.viewIndex = 0;
 	this.lightBoolean = [];
@@ -36,6 +38,7 @@ XMLscene.prototype.initLights = function () {
 
 XMLscene.prototype.initCameras = function () {
     this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+    this.myInterface.setActiveCamera(this.camera);
 };
 
 XMLscene.prototype.setDefaultAppearance = function () {
@@ -53,7 +56,6 @@ XMLscene.prototype.onGraphLoaded = function ()
 	this.setGlobalAmbientLight(this.graph.illumination.ambient.r, this.graph.illumination.ambient.g, this.graph.illumination.ambient.b, this.graph.illumination.ambient.a);
 	this.lights[0].setVisible(true);
     this.lights[0].enable();
-    this.loadViews();
     this.loadLights();
 };
 
@@ -63,13 +65,15 @@ XMLscene.prototype.processGraph = function(nodeID){
 
 	if(nodeID != null){
 		var node = this.graph.nodes[nodeID];
-		if(node.material[0] != "inherit"){
-			this.materials.push(this.graph.materials[node.material[0]]);
-			material = this.materials.top();
-		}else{
-			this.materials.push(this.materials.top());
+		if(node.material[this.materialIndex] != null){
+			if(node.material[this.materialIndex] != "inherit"){
+				this.materials.push(this.graph.materials[node.material[this.materialIndex]]);
+				material = this.materials.top();
+			}else{
+				this.materials.push(this.materials.top());
+			}
 		}
-
+		
 		if(material != null){
 			material.apply();
 			this.materials.pop();
@@ -131,11 +135,18 @@ XMLscene.prototype.display = function () {
 	{
 		this.processGraph(this.graph.root);
 		this.updateLights();
+		if(this.defaultCamera == this.cameraModify){
+			this.initCameras();
+			if(this.defaultCamera == true)
+				this.cameraModify = false;
+			else
+				this.cameraModify = true;
+		}
 	};	
 };
 
 XMLscene.prototype.loadViews = function(){
-	//this.camera = this.graph.pers[this.viewIndex];
+	this.camera = this.graph.views[this.viewIndex];
 }
 
 XMLscene.prototype.loadLights = function (){
@@ -195,4 +206,14 @@ XMLscene.prototype.updateLights = function(){
 
 		this.lights[i].update();
 	}
+}
+
+XMLscene.prototype.updateViews = function(){
+	if(this.viewIndex < this.graph.views.length - 1){
+		this.viewIndex++;
+	}else{
+		this.viewIndex = 0;
+	}
+
+	this.loadViews();
 }
