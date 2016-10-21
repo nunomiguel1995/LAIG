@@ -277,12 +277,12 @@ MySceneGraph.prototype.parseTextures = function(rootElement) {
 	var i=0;
 	for(i;i<listTextures.length;i++){
 		var texture, id, file, length_s, length_t;
-		texture = listTextures[i];
 		id = this.reader.getString(listTextures[i], 'id', true);
 		file = this.reader.getString(listTextures[i], 'file', true);
+		texture = new CGFtexture(this.scene,file);
 		length_s = this.reader.getFloat(listTextures[i], 'length_s', true);
 		length_t = this.reader.getFloat(listTextures[i], 'length_t', true);
-		var t= new Texture(id, file, length_s, length_t);
+		var t= new Texture(id, texture, length_s, length_t);
 		this.textures[id]=t;
 	}
 };

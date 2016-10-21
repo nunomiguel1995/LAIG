@@ -21,6 +21,9 @@ XMLscene.prototype.init = function (application) {
     this.gl.depthFunc(this.gl.LEQUAL);
 
 	this.axis=new CGFaxis(this);
+
+	this.materials = new Stack(null);
+	this.textures = new Stack(null);
 };
 
 XMLscene.prototype.initLights = function () {
@@ -52,30 +55,46 @@ XMLscene.prototype.onGraphLoaded = function ()
 
 XMLscene.prototype.processGraph = function(nodeID){
 	var material = null;
+	var texture = new CGFappearance(this);
 
-	if(nodeID == null) return "nodeID is null";
+	if(nodeID != null){
+		var node = this.graph.nodes[nodeID];
+		if(node.material[0] != "inherit"){
+			this.materials.push(this.graph.materials[node.material[0]]);
+			material = this.materials.top();
+		}else{
+			this.materials.push(this.materials.top());
+		}
 
-	var node  = this.graph.nodes[nodeID];
-	if(node.material[0] != 'inherit'){
 		if(material != null){
-			material.loadTexture("./res/mars.jpg");
 			material.apply();
+			this.materials.pop();
+		}
+
+		if(node.texture != "none"){
+			if(node.texture != "inherit"){
+				this.textures.push(this.graph.textures[node.texture].texture);
+				texture.setTexture(this.textures.top());
+				texture.apply();
+			}else{
+				this.textures.push(this.textures.top());
+			}
+		}
+		
+		this.textures.pop();
+
+		this.multMatrix(node.transformation);
+		if(node.primitive != null){
+			this.pushMatrix();
+				this.graph.primitives[node.primitive].display();
+			this.popMatrix();
+		}
+		for(var i = 0; i < node.children.length; i++){
+			this.pushMatrix();
+				this.processGraph(node.children[i]);
+			this.popMatrix();
 		}
 	}
-
-	this.multMatrix(node.transformation);	
-	if(node.primitive != null){
-		this.pushMatrix();
-			this.graph.primitives[node.primitive].display();
-		this.popMatrix();
-	}
-	var i =0;		
-	for(i; i< node.children.length; i++){
-		this.pushMatrix();
-			this.processGraph(node.children[i]);
-		this.popMatrix();
-	}
-
 }
 
 XMLscene.prototype.display = function () {
@@ -88,6 +107,8 @@ XMLscene.prototype.display = function () {
 	// Initialize Model-View matrix as identity (no transformation
 	this.updateProjectionMatrix();
     this.loadIdentity();
+
+    this.enableTextures(true);
 
 	// Apply transformations corresponding to the camera position relative to the origin
 	this.applyViewMatrix();
@@ -120,11 +141,11 @@ XMLscene.prototype.loadLights = function(){
     this.lights[0].setSpotExponent(spot.exponent);
     this.lights[0].update();*/
 
-    var omni = this.graph.omniLights[0];
+    /*var omni = this.graph.omniLights[0];
 	this.lights[0].setPosition(omni.location.x, omni.location.y, omni.location.z, omni.location.w);
 	this.lights[0].setAmbient(omni.ambient.r, omni.ambient.g, omni.ambient.b, omni.ambient.a);
     this.lights[0].setDiffuse(omni.diffuse.r, omni.diffuse.g, omni.diffuse.b, omni.diffuse.a);
     this.lights[0].setSpecular(omni.specular.r, omni.specular.g, omni.specular.b, omni.specular.a);
     this.lights[0].update();
-
+*/
 }

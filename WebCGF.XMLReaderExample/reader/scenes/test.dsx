@@ -22,7 +22,7 @@
             <diffuse r="1" g="1" b="1" a="0" />
             <specular r="0" g="0" b="1" a="1" />
         </omni>
-        
+
         <spot id="spot1" enabled="false" angle="45" exponent="2">
             <target x="5" y="5" z="5" />
             <location x="1" y="2" z="1" />
@@ -35,23 +35,23 @@
     <textures>
         <texture id="blue" file="./res/blue.jpg" length_s="1" length_t="1" /> 
         <texture id="wood" file="./res/wood.jpeg" length_s="1" length_t="1" />
-        <texture id="wall" file="./res/rugoso.jpeg" length_s="1" length_t="0.4" />       
+        <texture id="wall" file="./res/rugoso.jpeg" length_s="1" length_t="1" />       
     </textures>
 
         
     <materials>
         <material id="metalAppearance" >
             <emission r="0" g="0" b="0" a="0" />
-            <ambient r="204" g="204" b="204" a="1" />
-            <diffuse r="180" g="180" b="180" a="1" />
-            <specular r="25" g="25" b="25" a="1" />
-            <shininess value="100" />
+            <ambient r="0.5" g="0.5" b="0.5" a="1" />
+            <diffuse r="0.5" g="0.5" b="0.5" a="0.5" />
+            <specular r="1" g="1" b="1" a="1" />
+            <shininess value="30" />
         </material> 
         <material id="woodAppearance">
             <emission r="0" g="0" b="0" a="0" />
-            <ambient r="76" g="76" b="76" a="1" />
-            <diffuse r="204" g="204" b="204" a="1" />
-            <specular r="25" g="25" b="25" a="1" /> 
+            <ambient r="0.5" g="0.5" b="0.5" a="1" />
+            <diffuse r="0.5" g="0.5" b="0.5" a="0.5" />
+            <specular r="1" g="1" b="1" a="1" />
             <shininess value= "2" /> 
         </material>
     </materials>
@@ -74,7 +74,7 @@
             <triangle x1="0" y1="0" z1="0" x2="2" y2="2" z2="0" x3="1" y3="5" z3="0" />
         </primitive>
         <primitive id="cylinder">
-            <cylinder base="1" top="1" height="2" slices="50" stacks="50"/>
+            <cylinder base="1" top="1" height="2" slices="10" stacks="10"/>
         </primitive>
         <primitive id="torus">
             <torus inner="10" outer="25" slices="10" loops="2"/>
@@ -101,16 +101,16 @@
         
         <component id="chair_cylinder">
             <transformation>
-                <translate x="2.2" y="2.1" z="1.6"/>
+                <translate x="2.2" y="1.5" z="1.6"/>
                 <rotate axis="x" angle="-90" />
                 <scale x="0.5" y="0.5" z="0.5" />
             </transformation>
 
             <materials> 
-                <material id="metalAppearance" />
+                <material id="woodAppearance" />
             </materials>
 
-            <texture id="blue" />
+            <texture id="wall" />
 
             <children>
                 <primitiveref id="cylinder" />
@@ -126,7 +126,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" />
+            <texture id="inherit" />
 
             <children>
                 <componentref id="top_square" />
@@ -247,7 +247,6 @@
 
             <materials>
                 <material id="metalAppearance" />
-                <material id="woodAppearance" />
             </materials>
 
             <texture id="none" />
@@ -264,7 +263,7 @@
 
         <component id="front_right_leg">
             <transformation>
-                <translate x="1.5" y="0.6" z="1.5" />
+                <translate x="1.5" y="0" z="0" />
                 <scale x="0.1" y="0.8" z="0.1" />
                 <rotate axis="x" angle="-90" />
             </transformation>
@@ -282,7 +281,7 @@
 
         <component id="front_left_leg">
             <transformation>
-                <translate x="0" y="0.6" z="1.5" />
+                <translate x="1.5" y="0" z="1.5" />
                 <scale x="0.1" y="0.8" z="0.1" />
                 <rotate axis="x" angle="-90" />
             </transformation>
@@ -300,7 +299,7 @@
 
         <component id="back_right_leg">
             <transformation>
-                <translate x="1.5" y="0.6" z="0" />
+                <translate x="0" y="0" z="0" />
                 <scale x="0.1" y="0.8" z="0.1" />
                 <rotate axis="x" angle="-90" />
             </transformation>
@@ -318,9 +317,9 @@
 
         <component id="back_left_leg">
             <transformation>
-                <translate x="0" y="0.6" z="0" />
+                <translate x="0" y="0" z="1.5" />
                 <scale x="0.1" y="0.8" z="0.1" />
-                <rotate axis="x" angle="90" />
+                <rotate axis="x" angle="-90" />
             </transformation>
             
             <materials>
@@ -341,7 +340,7 @@
             </transformation>
             
             <materials>
-                <material id="woodAppearance" />
+                <material id="metalAppearance" />
             </materials>
 
             <texture id="wood" />
@@ -358,7 +357,7 @@
             </transformation>
             
             <materials>
-                <material id="woodAppearance" />
+                <material id="metalAppearance" />
             </materials>
 
             <texture id="wood" />

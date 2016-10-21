@@ -1,3 +1,21 @@
+function Stack(stackItem){
+    this.stack = [];
+    if(stackItem != null)
+        this.stack.push(stackItem);
+}
+
+Stack.prototype.push = function(stackItem){
+    this.stack.push(stackItem);
+}
+
+Stack.prototype.pop = function(){
+    this.stack.pop();
+}
+
+Stack.prototype.top = function(){
+    return this.stack[this.stack.length - 1];
+}
+
 function Node(id){
     this.id = id;
     this.material = [];
@@ -7,9 +25,9 @@ function Node(id){
     this.transformation= mat4.create();
 }
 
-function Texture(id, file, lenght_s, lenght_t){
+function Texture(id, texture, lenght_s, lenght_t){
     this.id = id;
-    this.file= file;
+    this.texture= texture;
     this.lenght_s = lenght_s;
     this.lenght_t = lenght_t;
 }

@@ -20,18 +20,16 @@ MyCylinder.prototype.constructor = MyCylinder;
 
 MyCylinder.prototype.display = function() {
   this.scene.pushMatrix();
-    this.scene.translate(0,0,-this.height/2);
     this.surface.display();
   this.scene.popMatrix();
 
   this.scene.pushMatrix();
-    this.scene.translate(0,0,-this.height/2);
     this.scene.rotate(Math.PI, 1, 0, 0);
     this.baseCircle.display();
   this.scene.popMatrix();
 
   this.scene.pushMatrix();  
-    this.scene.translate(0, 0, this.height/2); 
+    this.scene.translate(0, 0, this.height); 
     this.topCircle.display();
   this.scene.popMatrix();
 }
