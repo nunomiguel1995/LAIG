@@ -57,9 +57,10 @@ XMLscene.prototype.processGraph = function(nodeID){
 
 	var node  = this.graph.nodes[nodeID];
 	if(node.material[0] != 'inherit'){
-		material = this.graph.materials[node.material[0]];
-		if(material != null)
-			material.apply;
+		if(material != null){
+			material.loadTexture("./res/mars.jpg");
+			material.apply();
+		}
 	}
 
 	this.multMatrix(node.transformation);	

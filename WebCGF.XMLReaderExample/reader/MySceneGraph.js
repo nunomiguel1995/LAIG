@@ -232,7 +232,7 @@ MySceneGraph.prototype.parseLights = function(rootElement) {
 		diffuse = new Color(this.reader.getFloat(tagDiffuse, 'r', true),this.reader.getFloat(tagDiffuse, 'g', true),this.reader.getFloat(tagDiffuse, 'b', true),this.reader.getFloat(tagDiffuse, 'a', true));
 		specular = new Color(this.reader.getFloat(tagSpecular, 'r', true),this.reader.getFloat(tagSpecular, 'g', true),this.reader.getFloat(tagSpecular, 'b', true),this.reader.getFloat(tagAmbient, 'a', true));
 
-		var o=  new Omni(id, enabled,location, ambient, diffuse, specular)
+		var o=  new Omni(id, enabled,location, ambient, diffuse, specular);
 		this.omniLights.push(o);
 	}
 
@@ -312,13 +312,12 @@ MySceneGraph.prototype.parseMaterials = function(rootElement) {
 
 		shininess = this.reader.getFloat(tagShininess, 'value', true);
 
-		var material = new CGFappearance();
+		var material = new CGFappearance(this.scene);
 		material.setEmission(emission.r, emission.g, emission.b, emission.a);
-		material.setAmbient(ambient.r, ambient.g, ambient.b, emission.a);
+		material.setAmbient(ambient.r, ambient.g, ambient.b, ambient.a);
 		material.setDiffuse(diffuse.r, diffuse.g, diffuse.b, diffuse.a);
 		material.setSpecular(specular.r, specular.g, specular.b, specular.a);
 		material.setShininess(shininess);
-
 		this.materials[id] = material;
 	}
 };
