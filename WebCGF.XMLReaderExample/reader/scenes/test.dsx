@@ -22,6 +22,7 @@
             <diffuse r="1" g="1" b="1" a="0" />
             <specular r="0" g="0" b="1" a="1" />
         </omni>
+        
         <spot id="spot1" enabled="false" angle="45" exponent="2">
             <target x="5" y="5" z="5" />
             <location x="1" y="2" z="1" />
