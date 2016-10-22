@@ -12,8 +12,6 @@ XMLscene.prototype.init = function (application) {
 
     this.initCameras();
 
-    this.initLights();
-
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
     this.gl.clearDepth(100.0);
@@ -31,9 +29,6 @@ XMLscene.prototype.init = function (application) {
 	this.materialIndex = 0;
 	this.viewIndex = 0;
 	this.lightBoolean = [];
-};
-
-XMLscene.prototype.initLights = function () {
 };
 
 XMLscene.prototype.initCameras = function () {
@@ -219,4 +214,11 @@ XMLscene.prototype.updateViews = function(){
 	}
 
 	this.loadViews();
+}
+
+XMLscene.prototype.updateMaterials = function(){
+	if(this.materialIndex < this.graph.maxMaterialIndex)
+		this.materialIndex ++ ;
+	else
+		this.materialIndex = 0;
 }

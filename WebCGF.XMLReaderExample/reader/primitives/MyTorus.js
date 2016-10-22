@@ -37,11 +37,13 @@ MyTorus.prototype.initBuffers = function() {
             var y = (this.outer + this.inner * cosBeta) * sinAlfa;
             var z = this.inner * sinBeta;
 
-            var u = 1 - (j / this.slices);
-            var v = 1 - (i / this.stacks);
-            
+            var norm = vec3.fromValues(x,y,z);
+            vec3.normalize(norm,norm);
+            var u = 0.5 + (Math.atan2(norm[2], norm[0]) / (Math.PI * 2));
+            var v = 0.5 - (Math.asin(norm[1]) / Math.PI);
+
             this.vertices.push(x, y, z);
-            this.normals.push(x, y, z);
+            this.normals.push(x,y,z);
             this.texCoords.push(u,v);
         }
     }

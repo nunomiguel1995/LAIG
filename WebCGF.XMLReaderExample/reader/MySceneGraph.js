@@ -23,6 +23,8 @@ function MySceneGraph(filename, scene) {
 	// File reading 
 	this.reader = new CGFXMLreader();
 
+	this.maxMaterialIndex=0;
+
 	/*
 	 * Read the contents of the xml file, and refer to this class for loading and error handlers.
 	 * After the file is read, the reader calls onXMLReady on this object.
@@ -274,10 +276,10 @@ MySceneGraph.prototype.parseTextures = function(rootElement) {
 	for(i;i<listTextures.length;i++){
 		var texture, id, file, length_s, length_t;
 		id = this.reader.getString(listTextures[i], 'id', true);
-		file = this.reader.getString(listTextures[i], 'file', true);
-		texture = new CGFtexture(this.scene,file);
+		file = this.reader.getString(listTextures[i], 'file', true);		
 		length_s = this.reader.getFloat(listTextures[i], 'length_s', true);
 		length_t = this.reader.getFloat(listTextures[i], 'length_t', true);
+		texture = new CGFtexture(this.scene,file,length_t,length_s);
 		var t= new Texture(id, texture, length_s, length_t);
 		this.textures[id]=t;
 	}
@@ -314,6 +316,8 @@ MySceneGraph.prototype.parseMaterials = function(rootElement) {
 		material.setDiffuse(diffuse.r, diffuse.g, diffuse.b, diffuse.a);
 		material.setSpecular(specular.r, specular.g, specular.b, specular.a);
 		material.setShininess(shininess);
+		material.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
 		this.materials[id] = material;
 	}
 };
@@ -507,6 +511,8 @@ MySceneGraph.prototype.parseComponents = function(rootElement){
 					break;
 				case "materials":
 					var k = 0;
+					if(componentTag.children.length - 1  > this.maxMaterialIndex)
+						this.maxMaterialIndex = componentTag.children.length -1;
 					for(k; k< componentTag.children.length; k++){
 						var materialID = this.reader.getString(componentTag.children[k], "id", true);;
 						node.material.push(materialID);						

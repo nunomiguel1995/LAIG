@@ -36,8 +36,10 @@ MySphere.prototype.initBuffers = function() {
             var y = this.radius * sinAlfa * sinBeta;
             var z = this.radius * cosBeta;
 
-            var u = 0.5 + (Math.atan2(z, x) / (Math.PI * 2));
-            var v = 0.5 - (Math.asin(y) / Math.PI);
+            var norm = vec3.fromValues(x,y,z);
+            vec3.normalize(norm,norm);
+            var u = 0.5 + (Math.atan2(norm[2], norm[0]) / (Math.PI * 2));
+            var v = 0.5 - (Math.asin(norm[1]) / Math.PI);
 
             /*
             var u = 1 - (j / this.slices);

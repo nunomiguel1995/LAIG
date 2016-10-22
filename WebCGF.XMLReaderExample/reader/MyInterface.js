@@ -1,3 +1,7 @@
+/*
+	Creates a new Interface
+	Allows the user to enable/disable the lights, change perspective and materials
+*/
 function MyInterface() {
 	//call CGFinterface constructor 
 	CGFinterface.call(this);
@@ -24,10 +28,15 @@ MyInterface.prototype.init = function(application) {
 	return true;
 };
 
+/*
+	Adds a checkbox to change the light value
+*/
 MyInterface.prototype.addLightBox = function(i,id){
 	this.Lights.add(this.scene.lightBoolean, i, this.scene.lightBoolean[i]).name(id);
 }
 
+/*
+*/
 MyInterface.prototype.processKeyboard = function(event){
 	CGFinterface.prototype.processKeyboard.call(this,event);
 
@@ -35,7 +44,7 @@ MyInterface.prototype.processKeyboard = function(event){
 		//If M or m key is pressed materials should change
 		case(77):
 		case(109):
-			this.scene.materialIndex++;
+			this.scene.updateMaterials();
 			break;
 		//If V or v is pressed views should change
 		case(86):
