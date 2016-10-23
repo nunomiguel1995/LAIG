@@ -45,9 +45,9 @@
  	var cosBeta = (vec3.sqrLen(dA) - vec3.sqrLen(dB) + vec3.sqrLen(dC)) / (2 * a * c);
  	var beta = Math.acos(this.cosBeta);
 
-    this.texCoords = [c - a * Math.cos(beta), a * Math.sin(beta),
-    				  0, 0,
-    				  c, 0];
+    this.texCoords = [0, 0,
+    				  c, 0,
+    				  c - a * Math.cos(beta), a * Math.sin(beta)];
     				  
  	this.primitiveType = this.scene.gl.TRIANGLES;
  	this.initGLBuffers();

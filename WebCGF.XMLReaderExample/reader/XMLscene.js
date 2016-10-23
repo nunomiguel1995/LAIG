@@ -60,16 +60,12 @@ XMLscene.prototype.processGraph = function(nodeID){
 
 	if(nodeID != null){
 		var node = this.graph.nodes[nodeID];
-		if(node.material[this.materialIndex] != null){
-			if(node.material[this.materialIndex] != "inherit"){
-				if (this.graph.materials[node.material[this.materialIndex]] != null){
-					this.materials.push(this.graph.materials[node.material[this.materialIndex]]);
-				}
-			}else{
-				this.materials.push(this.materials.top());
-			}
+		if(node.material[this.materialIndex] != "inherit"){
+			this.materials.push(this.graph.materials[node.material[this.materialIndex]]);
 			material = this.materials.top();
 			this.materials.pop();
+		}else{
+			this.materials.push(this.materials.top());
 		}
 		
 		if(material != null){
@@ -83,15 +79,16 @@ XMLscene.prototype.processGraph = function(nodeID){
 		if(node.texture != "none"){
 			if(node.texture != "inherit"){
 				this.textures.push(this.graph.textures[node.texture].texture);
+				
+				appearance.setTexture(this.textures.top());
+				appearance.apply();
 			}else{
 				this.textures.push(this.textures.top());
 			}
-			appearance.setTexture(this.textures.top());
-			this.textures.pop();
 		}
-		
-		appearance.apply();
 
+		this.textures.pop();
+		
 		this.multMatrix(node.transformation);
 		if(node.primitive != null){
 			this.pushMatrix();

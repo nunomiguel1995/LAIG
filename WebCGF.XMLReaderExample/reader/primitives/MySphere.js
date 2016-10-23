@@ -41,12 +41,8 @@ MySphere.prototype.initBuffers = function() {
             var u = 0.5 + (Math.atan2(norm[2], norm[0]) / (Math.PI * 2));
             var v = 0.5 - (Math.asin(norm[1]) / Math.PI);
 
-            /*
-            var u = 1 - (j / this.slices);
-            var v = 1 - (i / this.stacks);*/
-
             this.vertices.push(x, y, z);
-            this.normals.push(x,y,z);
+            this.normals.push(norm[0],norm[1],norm[2]);
             this.texCoords.push(u,v);
         }
     }
