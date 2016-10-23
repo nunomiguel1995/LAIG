@@ -910,7 +910,7 @@
                 <material id="m1" />
             </materials>
 
-            <texture id="inherit" />
+            <texture id="robot_skin" />
 
             <children>
                   <componentref id="leg" />
@@ -931,7 +931,7 @@
                 <material id="m1" />
             </materials>
 
-            <texture id="inherit" />
+            <texture id="robot_skin" />
 
             <children>
                  <componentref id="leg" />
@@ -951,7 +951,7 @@
                 <material id="m1" />
             </materials>
 
-            <texture id="inherit" />
+            <texture id="robot_skin" />
 
             <children>
                 <primitiveref id="cylinder" />
