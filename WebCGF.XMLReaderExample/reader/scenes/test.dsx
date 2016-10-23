@@ -44,6 +44,7 @@
         <texture id="vase" file= "./res/vase.jpg" length_s = "1" length_t ="1" /> 
         <texture id="trunk" file= "./res/trunk.jpg" length_s = "1" length_t ="1" /> 
         <texture id="grass" file= "./res/grass.png" length_s = "1" length_t ="1" /> 
+        <texture id="black" file= "./res/black.jpg" length_s ="1" length_t ="1" />
     </textures>
 
         
@@ -128,6 +129,12 @@
                 <componentref id="backWall" />
                 <componentref id="leftWall" />
                 <componentref id="plant" />
+               <componentref id="chair" />
+               <componentref id="chair_cylinder"/>
+               <componentref id="floor" />
+               <componentref id="backWall" />
+               <componentref id="leftWall" />
+               <componentref id="hanger" />
             </children>
         </component>
 
@@ -135,7 +142,7 @@
         
         <component id="chair_cylinder">
             <transformation>
-                <translate x="2.2" y="1.5" z="1.6"/>
+                <translate x="1.5" y="1.5" z="6.5" />
                 <rotate axis="x" angle="-90" />
                 <scale x="0.5" y="0.5" z="0.5" />
             </transformation>
@@ -276,7 +283,8 @@
 
         <component id="chair">
             <transformation>
-                <transformationref id="trans_chair" />
+                <translate x="0.5" y="0" z="6.5" />
+                <rotate axis="y" angle="45" />
             </transformation>
 
             <materials>
@@ -297,7 +305,7 @@
 
         <component id="front_right_leg">
             <transformation>
-                <translate x="1.5" y="0" z="0" />
+                <translate x="1.5" y="-0.01" z="0" />
                 <scale x="0.1" y="0.8" z="0.1" />
                 <rotate axis="x" angle="-90" />
             </transformation>
@@ -315,7 +323,7 @@
 
         <component id="front_left_leg">
             <transformation>
-                <translate x="1.5" y="0" z="1.5" />
+                <translate x="1.5" y="-0.01" z="1.5" />
                 <scale x="0.1" y="0.8" z="0.1" />
                 <rotate axis="x" angle="-90" />
             </transformation>
@@ -333,7 +341,7 @@
 
         <component id="back_right_leg">
             <transformation>
-                <translate x="0" y="0" z="0" />
+                <translate x="0" y="-0.01" z="0" />
                 <scale x="0.1" y="0.8" z="0.1" />
                 <rotate axis="x" angle="-90" />
             </transformation>
@@ -351,7 +359,7 @@
 
         <component id="back_left_leg">
             <transformation>
-                <translate x="0" y="0" z="1.5" />
+                <translate x="0" y="-0.01" z="1.5" />
                 <scale x="0.1" y="0.8" z="0.1" />
                 <rotate axis="x" angle="-90" />
             </transformation>
@@ -561,8 +569,95 @@
             <children>
                 <primitiveref id="torus2" />
             </children>
+        </component>     
+
+        <component id="hanger">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="woodAppearance" />
+            </materials>
+
+            <texture id="wood" />
+
+            <children>
+                <componentref id="hanger_base" />
+                <componentref id="coat_hanger1" />
+                <componentref id="coat_hanger2" />
+                <componentref id="coat_hanger3" />
+            </children>
+        </component>  
+
+        <component id="hanger_base">
+            <transformation>
+                <scale x="0.2" y="1" z="3" />
+                <translate x="0.5" y="5" z="0.5" />
+            </transformation>
+
+            <materials>
+                <material id="woodAppearance" />
+            </materials>
+
+            <texture id="wood" />
+
+            <children>
+                <componentref id="square" />
+            </children>
         </component>
-                                    
+
+        <component id="coat_hanger1">
+            <transformation>
+                <translate x="0.3" y="5" z="0.5" />
+                <scale x="0.05" y="0.05" z="0.05" />
+            </transformation>
+
+            <materials>
+                <material id="metalAppearance" />
+            </materials>
+
+            <texture id="black" />
+
+            <children>
+                <primitiveref id="sphere" />
+            </children>
+        </component>
+
+        <component id="coat_hanger2">
+            <transformation>
+                <translate x="0.3" y="5" z="1.5" />
+                <scale x="0.05" y="0.05" z="0.05" />
+            </transformation>
+
+            <materials>
+                <material id="metalAppearance" />
+            </materials>
+
+            <texture id="black" />
+
+            <children>
+                <primitiveref id="sphere" />
+            </children>
+        </component> 
+
+        <component id="coat_hanger3">
+            <transformation>
+                <translate x="0.3" y="5" z="2.5" />
+                <scale x="0.05" y="0.05" z="0.05" />
+            </transformation>
+
+            <materials>
+                <material id="metalAppearance" />
+            </materials>
+
+            <texture id="black" />
+
+            <children>
+                <primitiveref id="sphere" />
+            </children>
+        </component>  
+
     </components>
     
 </dsx>
