@@ -130,7 +130,7 @@
         <!-- objetos respetivos podem a violar esta regra.         -->
         <!-- Nao necessario aplicar fatores de escala em  -->
         <!-- quadricas (esfera, ciclindro...) -->
-        <texture id="earthTex" file="./res/earth.png" length_s="1.0" length_t="1.0" />
+        <texture id="earthTex" file="./res/earth.png" length_s="0.5" length_t="1.0" />
         <texture id="jupiterTex" file="./res/saturn.png" length_s="1.0" length_t="1.0" />
         <texture id="neptuneTex" file="./res/neptune.jpg" length_s="1.0" length_t="1.0" />
         <texture id="saturnTex" file="./res/saturn.png" length_s="1.0" length_t="1.0" />

@@ -85,3 +85,12 @@ function OmniLocation(x,y,z,w){
 function MaterialInfo(id){
     this.id = id;
 }
+
+function Material(id, emission, ambient, diffuse, specular, shininess){
+    this.id = id;
+    this.emission = emission;
+    this.ambient = ambient;
+    this.diffuse = diffuse;
+    this.specular = specular;
+    this.shininess = shininess;
+}

@@ -56,7 +56,7 @@ XMLscene.prototype.onGraphLoaded = function ()
 
 XMLscene.prototype.processGraph = function(nodeID){
 	var material = null;
-	var texture = new CGFappearance(this);
+	var appearance = new CGFappearance(this);
 
 	if(nodeID != null){
 		var node = this.graph.nodes[nodeID];
@@ -64,29 +64,33 @@ XMLscene.prototype.processGraph = function(nodeID){
 			if(node.material[this.materialIndex] != "inherit"){
 				if (this.graph.materials[node.material[this.materialIndex]] != null){
 					this.materials.push(this.graph.materials[node.material[this.materialIndex]]);
-					material = this.materials.top();
 				}
 			}else{
 				this.materials.push(this.materials.top());
 			}
+			material = this.materials.top();
+			this.materials.pop();
 		}
 		
 		if(material != null){
-			material.apply();
-			this.materials.pop();
+			appearance.setEmission(material.emission.r, material.emission.g, material.emission.b, material.emission.a);
+			appearance.setAmbient(material.ambient.r,material.ambient.g,material.ambient.b,material.ambient.a);
+			appearance.setDiffuse(material.diffuse.r,material.diffuse.g,material.diffuse.b,material.diffuse.a);
+			appearance.setSpecular(material.specular.r,material.specular.g,material.specular.b,material.specular.a);
+			appearance.setShininess(material.shininess);
 		}
 
 		if(node.texture != "none"){
 			if(node.texture != "inherit"){
 				this.textures.push(this.graph.textures[node.texture].texture);
-				texture.setTexture(this.textures.top());
-				texture.apply();
 			}else{
 				this.textures.push(this.textures.top());
 			}
+			appearance.setTexture(this.textures.top());
+			this.textures.pop();
 		}
 		
-		this.textures.pop();
+		appearance.apply();
 
 		this.multMatrix(node.transformation);
 		if(node.primitive != null){

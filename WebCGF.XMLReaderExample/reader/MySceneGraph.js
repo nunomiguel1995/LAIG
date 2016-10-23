@@ -310,13 +310,7 @@ MySceneGraph.prototype.parseMaterials = function(rootElement) {
 
 		shininess = this.reader.getFloat(tagShininess, 'value', true);
 
-		var material = new CGFappearance(this.scene);
-		material.setEmission(emission.r, emission.g, emission.b, emission.a);
-		material.setAmbient(ambient.r, ambient.g, ambient.b, ambient.a);
-		material.setDiffuse(diffuse.r, diffuse.g, diffuse.b, diffuse.a);
-		material.setSpecular(specular.r, specular.g, specular.b, specular.a);
-		material.setShininess(shininess);
-		material.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+		var material = new Material(id, emission, ambient, diffuse, specular, shininess);
 
 		this.materials[id] = material;
 	}
