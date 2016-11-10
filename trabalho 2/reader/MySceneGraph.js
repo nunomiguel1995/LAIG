@@ -12,6 +12,7 @@ function MySceneGraph(filename, scene) {
 	this.spotLights = [];
 	this.omniLights = [];
 	this.primitives= {};
+	this.animations = {};
 	this.nodes= {};
 	this.views=[];
 	this.illumination;
@@ -88,6 +89,12 @@ MySceneGraph.prototype.onXMLReady=function() {
 		return;
 	}
 
+	error = this.parseAnimations(rootElement);
+	if (error != null) {
+		this.onXMLError(error);
+		return;
+	}
+
     error = this.parsePrimitives(rootElement);
 	if (error != null) {
 		this.onXMLError(error);
@@ -128,10 +135,13 @@ MySceneGraph.prototype.dsxOrder = function(rootElement){
 	else if(rootElement.children[6].tagName != 'transformations'){
 		return 'First DSX tag should be transformations';
 	}
-	else if(rootElement.children[7].tagName != 'primitives'){
+	else if(rootElement.children[7].tagName != 'animations'){
+		return 'First DSX tag should be animations';
+	}
+	else if(rootElement.children[8].tagName != 'primitives'){
 		return 'First DSX tag should be primitives';
 	}
-	else if(rootElement.children[8].tagName != 'components')
+	else if(rootElement.children[9].tagName != 'components')
 		return 'First DSX tag should be components';
 }
 
@@ -370,6 +380,58 @@ MySceneGraph.prototype.parseTransformations = function(rootElement) {
 		this.transformations[transformationID] = matrix;
 	}
 };
+
+MySceneGraph.prototype.parseAnimations = function(rootElement){
+	var animations = rootElement.getElementsByTagName('animations');
+	if(animations == null){
+		return "animations element is missing.";
+	}
+
+	var listAnimations = animations[0].getElementsByTagName('animation');
+	if(listAnimations == null){
+		return "animation element is missing.";
+	}
+
+	for(var i = 0; i < listAnimations.length; i++){
+		var animation = listAnimations[i];
+		var id = this.reader.getString(listAnimations[i], 'id', true);
+		var span = this.reader.getFloat(listAnimations[i], 'span', true);
+		var type = this.reader.getString(listAnimations[i], 'type', true);
+
+		switch(type){
+		case "linear":
+			var controlpoints = [];
+	
+			for(var j = 0; j < listAnimations[i].children.length; j++){
+				var x = this.reader.getFloat(listAnimations[i].children[j], 'xx', true);	
+				var y = this.reader.getFloat(listAnimations[i].children[j], 'yy', true);
+				var z = this.reader.getFloat(listAnimations[i].children[j], 'zz', true);
+
+				var point = vec3.fromValues(x, y, z);
+				controlpoints.push(point);
+			}
+
+			var linearAni = new LinearAnimation(id, span, controlpoints);
+			this.animations[id] = linearAni;
+
+			break;
+		case "circular":
+			var centerx = this.reader.getFloat(listAnimations[i], 'centerx', true);
+			var centery = this.reader.getFloat(listAnimations[i], 'centery', true);
+			var centerz = this.reader.getFloat(listAnimations[i], 'centerz', true);
+			var radius = this.reader.getFloat(listAnimations[i], 'radius', true);
+			var startang = this.reader.getFloat(listAnimations[i], 'startang', true);
+			var rotang = this.reader.getFloat(listAnimations[i], 'rotang', true);
+
+			var circularAni = new CircularAnimation(id, span, centerx, centery, centerz, radius, startang, rotang);
+			this.animations[id] = linearAni;
+			break;
+		default:
+			break;
+		}
+	}
+}
+
 
 MySceneGraph.prototype.parsePrimitives = function(rootElement) {
 	var primitives = rootElement.getElementsByTagName('primitives');

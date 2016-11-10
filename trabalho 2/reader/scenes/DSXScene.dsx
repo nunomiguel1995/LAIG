@@ -79,6 +79,18 @@
         </transformation>
     </transformations>
 
+    <animations>
+        <animation id="linear" span="10" type="linear">
+                <controlpoint xx="0" yy="0" zz="0" />
+                <controlpoint xx="1" yy="0" zz="0" />
+                <controlpoint xx="1" yy="1" zz="0" />
+        </animation>
+
+        <animation id="circular" span="20" type="circular"
+               centerx="10" centery="10" centerz="10"
+               radius="5" startang="40" rotang="20" />  
+    </animations>   
+
     <primitives>
         <primitive id="rectangle">
             <rectangle x1="0" y1="0" x2="1" y2="1" />
