@@ -54,7 +54,7 @@ XMLscene.prototype.onGraphLoaded = function ()
     this.loadLights();
 };
 
-XMLscene.prototype.processGraph = function(nodeID){
+XMLscene.prototype.processGraph = function(nodeID, textureID){
 	var material = null;
 	var appearance = new CGFappearance(this);
 
@@ -76,19 +76,16 @@ XMLscene.prototype.processGraph = function(nodeID){
 			appearance.setShininess(material.shininess);
 		}
 
-		if(node.texture != "none"){
-			if(node.texture != "inherit"){
-				this.textures.push(this.graph.textures[node.texture].texture);
-				
-				appearance.setTexture(this.textures.top());
-				appearance.apply();
-			}else{
-				this.textures.push(this.textures.top());
+			if(node.texture != "inherit" && node.texture != "none"){
+				appearance.setTexture(this.graph.textures[node.texture].texture);
+			}else if(node.texture == "inherit"){
+				if(textureID != null){
+					appearance.setTexture(this.graph.textures[textureID].texture);
+				}
 			}
-		}
 
-		this.textures.pop();
-		
+		appearance.apply();
+
 		this.multMatrix(node.transformation);
 		if(node.primitive != null){
 			this.pushMatrix();
@@ -97,7 +94,10 @@ XMLscene.prototype.processGraph = function(nodeID){
 		}
 		for(var i = 0; i < node.children.length; i++){
 			this.pushMatrix();
-				this.processGraph(node.children[i]);
+			if(node.texture != "inherit")
+				this.processGraph(node.children[i],node.texture);
+			else
+				this.processGraph(node.children[i],textureID);
 			this.popMatrix();
 		}
 	}
@@ -131,7 +131,7 @@ XMLscene.prototype.display = function () {
 	// This is one possible way to do it
 	if (this.graph.loadedOk)
 	{
-		this.processGraph(this.graph.root);
+		this.processGraph(this.graph.root,null);
 		this.updateLights();
 		if(this.defaultCamera == this.cameraModify){
 			this.initCameras();
