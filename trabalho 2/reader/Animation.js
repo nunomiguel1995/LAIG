@@ -2,13 +2,15 @@
 * Animation
 * @constructor
 */
-function Animation(id, span) {
+function Animation() {
     var id, span;
 };
 
 Animation.prototype = Object.create(CGFobject.prototype);
 Animation.prototype.constructor = Animation;
-Animation.prototype.init = function(id, span){
+Animation.prototype.init = function(scene, id, span){
+    CGFobject.call(this,scene);
+
     this.id = id;
     this.span = span;
 }
