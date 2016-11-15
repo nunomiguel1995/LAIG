@@ -40,12 +40,12 @@ XMLscene.prototype.setDefaultAppearance = function () {
     this.setAmbient(0.2, 0.4, 0.8, 1.0);
     this.setDiffuse(0.2, 0.4, 0.8, 1.0);
     this.setSpecular(0.2, 0.4, 0.8, 1.0);
-    this.setShininess(10.0);	
+    this.setShininess(10.0);
 };
 
-// Handler called when the graph is finally loaded. 
+// Handler called when the graph is finally loaded.
 // As loading is asynchronous, this may be called already after the application has started the run loop
-XMLscene.prototype.onGraphLoaded = function () 
+XMLscene.prototype.onGraphLoaded = function ()
 {
 	this.gl.clearColor(this.graph.illumination.background.r,this.graph.illumination.background.g,this.graph.illumination.background.b,this.graph.illumination.background.a);
 	this.setGlobalAmbientLight(this.graph.illumination.ambient.r, this.graph.illumination.ambient.g, this.graph.illumination.ambient.b, this.graph.illumination.ambient.a);
@@ -67,7 +67,7 @@ XMLscene.prototype.processGraph = function(nodeID){
 		}else{
 			this.materials.push(this.materials.top());
 		}
-		
+
 		if(material != null){
 			appearance.setEmission(material.emission.r, material.emission.g, material.emission.b, material.emission.a);
 			appearance.setAmbient(material.ambient.r,material.ambient.g,material.ambient.b,material.ambient.a);
@@ -79,7 +79,7 @@ XMLscene.prototype.processGraph = function(nodeID){
 		if(node.texture != "none"){
 			if(node.texture != "inherit"){
 				this.textures.push(this.graph.textures[node.texture].texture);
-				
+
 				appearance.setTexture(this.textures.top());
 				appearance.apply();
 			}else{
@@ -88,7 +88,7 @@ XMLscene.prototype.processGraph = function(nodeID){
 		}
 
 		this.textures.pop();
-		
+
 		this.multMatrix(node.transformation);
 		if(node.primitive != null){
 			this.pushMatrix();
@@ -105,7 +105,7 @@ XMLscene.prototype.processGraph = function(nodeID){
 
 XMLscene.prototype.display = function () {
 	// ---- BEGIN Background, camera and axis setup
-	
+
 	// Clear image and depth buffer everytime we update the scene
     this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
@@ -131,7 +131,27 @@ XMLscene.prototype.display = function () {
 	// This is one possible way to do it
 	if (this.graph.loadedOk)
 	{
-		this.processGraph(this.graph.root);
+		//this.processGraph(this.graph.root);
+    this.plane = new Patch(this, 2, // degree on U: 3 control vertexes U
+  					 1,10,10, // degree on V: 2 control vertexes on V
+  					[	// U = 0
+  						[ // V = 0..1;
+  							 [ -1.5, -1.5, 0.0, 1 ],
+  							 [ -1.5,  1.5, 0.0, 1 ]
+
+  						],
+  						// U = 1
+  						[ // V = 0..1
+  							 [ 0, -1.5, 3.0, 1 ],
+  							 [ 0,  1.5, 3.0, 1 ]
+  						],
+  						// U = 2
+  						[ // V = 0..1
+  							[ 1.5, -1.5, 0.0, 1 ],
+  							[ 1.5,  1.5, 0.0, 1 ]
+  						]
+  					]);
+    this.plane.display();
 		this.updateLights();
 		if(this.defaultCamera == this.cameraModify){
 			this.initCameras();
@@ -140,7 +160,7 @@ XMLscene.prototype.display = function () {
 			else
 				this.cameraModify = true;
 		}
-	};	
+	};
 };
 
 XMLscene.prototype.loadViews = function(){
@@ -188,7 +208,7 @@ XMLscene.prototype.loadLights = function (){
 
 	    this.lights[lighti].setVisible(true);
 	    this.lights[lighti].update();
-	
+
 	    //Adds light to MyInterface
 	    this.lightBoolean[lighti] = omni.enable;
 	  	this.myInterface.addLightBox(lighti,omni.id);
