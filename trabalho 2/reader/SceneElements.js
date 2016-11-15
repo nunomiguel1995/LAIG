@@ -20,6 +20,7 @@ function Node(id){
     this.id = id;
     this.material = [];
     this.children = [];
+    this.animation = [];
     this.primitive= null;
     this.texture = null;
     this.transformation= mat4.create();
