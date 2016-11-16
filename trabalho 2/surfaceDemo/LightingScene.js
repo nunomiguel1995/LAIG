@@ -155,7 +155,7 @@ LightingScene.prototype.makeSurface = function (id, degree1, degree2, controlver
 		return nurbsSurface.getPoint(u, v);
 	};
 
-	var obj = new CGFnurbsObject(this, getSurfacePoint, divX, divY );
+	var obj = new CGFnurbsObject(this, getSurfacePoint, 10, 10 );
 	this.surfaces.push(obj);
 }
 

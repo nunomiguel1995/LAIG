@@ -5,29 +5,23 @@
 function LinearAnimation(scene, id, span, listControlPoints) {
     CGFobject.call(this,scene);
 
-    this.init(this.scene, id, span);
+  /*  this.init(this.scene, id, span);
 
     this.controlPoints = listControlPoints;
     this.dist = [];
-    for(var i = 0; i < listControlPoints.length - 1; i++){
-      this.segmentDist[i] = 0;
-    }
+
     this.speed = this.dist / this.span;
 
     this.transformation = mat4.create();
     mat4.identity(this.transformMatrix);
 
-    this.original = mat4.create();
+    this.original = mat4.create();*/
 }
 
 LinearAnimation.prototype = new Animation();
 
 LinearAnimation.prototype.apply = function(currTime){
-  for(var i = 0; i < this.controlPoints.length; i++){
-    if(this.segmentDist[i] == 0){
 
-    }
-  }
 
 }
 

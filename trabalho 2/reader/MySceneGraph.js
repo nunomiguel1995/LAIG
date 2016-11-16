@@ -494,7 +494,38 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement) {
 				var torus = new MyTorus(this.scene, inner, outer, slices, loops);
 				this.primitives[id] = torus;
 				break;
-
+			case "plane":
+				var dimX = this.reader.getFloat(primitive,'dimX', true);
+				var dimY = this.reader.getFloat(primitive, 'dimY', true);
+				var partsX = this.reader.getFloat(primitive, 'partsX', true);
+				var partsY = this.reader.getFloat(primitive, 'partsY', true);
+				var plane = new MyPlane(this.scene, dimX, dimY, partsX, partsY);
+				this.primitives[id]= plane;
+				break;
+			case "patch":
+				var orderU = this.reader.getInteger(primitive, 'orderU', true);
+				var orderV = this.reader.getInteger(primitive, 'orderV', true);
+				var partsU = this.reader.getInteger(primitive, 'partsU', true);
+				var partsV = this.reader.getInteger(primitive, 'partsV', true);
+				var k = 0, ctrlIndex = 0;
+				var controlPoints = [];
+				for(k; k <= orderU ; k++){
+					var point = [];
+					var j = 0;
+					for(j ; j <= orderV; j++){
+						var ctrlTag = primitive.children[ctrlIndex];
+						var x = this.reader.getFloat(ctrlTag, 'x', true);
+						var y = this.reader.getFloat(ctrlTag, 'y', true);
+						var z = this.reader.getFloat(ctrlTag, 'z', true);
+						ctrlIndex++;
+						var coord = [x,y,z,1];
+						point.push(coord);
+					}
+					controlPoints.push(point);
+				}
+				var patch = new MyPatch(this.scene, orderU, orderV, partsU, partsV, controlPoints);
+				this.primitives[id] = patch;
+				break;
 			default: break;
 		}
 	}

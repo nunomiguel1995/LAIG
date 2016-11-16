@@ -1,8 +1,8 @@
 /**
-* Plane
+* MyPlane
 * @constructor
 */
-function Plane(scene, divX, divY) {
+function MyPlane(scene, dimX, dimY, partsX, partsY) {
   this.scene = scene;
 
   getKnotsVector = function(degree) {
@@ -21,12 +21,12 @@ function Plane(scene, divX, divY) {
 
   var controlPoints = [
                         [
-                          [-divX/2 , -divY/2, 0, 1],
-                          [-divX/2, divY/2, 0, 1]
+                          [-dimX/2 , -dimY/2, 0, 1],
+                          [-dimX/2, dimY/2, 0, 1]
                         ],
                         [
-                          [divX/2, -divY/2, 0, 1],
-                          [divX/2, divY/2, 0, 1]
+                          [dimX/2, -dimY/2, 0, 1],
+                          [dimX/2, dimY/2, 0, 1]
                         ]
                       ];
 
@@ -35,12 +35,12 @@ function Plane(scene, divX, divY) {
   		return nurbsSurface.getPoint(u, v);
   	};
 
-  	 this.obj = new CGFnurbsObject(this.scene, getSurfacePoint, divX, divY );
+  	 this.obj = new CGFnurbsObject(this.scene, getSurfacePoint, partsX, partsY );
 }
 
-Plane.prototype = Object.create(CGFobject.prototype);
-Plane.prototype.constructor = Plane;
+MyPlane.prototype = Object.create(CGFobject.prototype);
+MyPlane.prototype.constructor = MyPlane;
 
-Plane.prototype.display = function(){
+MyPlane.prototype.display = function(){
   this.obj.display();
 }
