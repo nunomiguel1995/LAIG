@@ -17,9 +17,13 @@ CircularAnimation.prototype = Object.create(Animation.prototype);
 CircularAnimation.prototype.constructor = CircularAnimation;
 
 CircularAnimation.prototype.apply = function(currTime){
-  if(currTime > this.time){
-    currTime = this.time;
+  if(currTime > this.span){
+    currTime = this.span;
     this.scene.animationIndex++;
+    if(this.scene.animationIndex == this.scene.numAnimations){
+      this.scene.animationIndex = 0;
+    }
+    this.scene.time = 0;
   }
 
   var currPosition = this.speed * currTime;

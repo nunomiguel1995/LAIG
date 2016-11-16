@@ -30,6 +30,7 @@ XMLscene.prototype.init = function (application) {
 
   this.time = 0;
   this.animationIndex = 0;
+  this.numAnimations = 0;
 };
 
 XMLscene.prototype.initCameras = function () {
@@ -93,7 +94,6 @@ XMLscene.prototype.processGraph = function(nodeID, textureID){
     if(animation != null){
       animation.apply(this.elapsedTime);
     }
-
 
 		if(node.primitive != null){
 			this.pushMatrix();
