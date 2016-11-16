@@ -84,10 +84,11 @@
                 <controlpoint xx="0" yy="0" zz="0" />
                 <controlpoint xx="1" yy="0" zz="0" />
                 <controlpoint xx="1" yy="1" zz="0" />
+                <controlpoint xx="1" yy="1" zz="1" />
         </animation>
 
         <animation id="circular" span="20" type="circular"
-               centerx="10" centery="10" centerz="10"
+               centerx="1" centery="1" centerz="1"
                radius="5" startang="40" rotang="20" />
     </animations>
 
@@ -143,6 +144,10 @@
             <transformation>
                 <translate x="0" y="0" z="0" />
             </transformation>
+
+            <animation>
+              <animationref id="circular"/>
+            </animation>
 
             <materials>
                 <material id="inherit" />
@@ -238,7 +243,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" />
+            <texture id="grass" />
 
             <children>
                 <primitiveref id="rectangle"/>

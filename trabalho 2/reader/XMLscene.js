@@ -1,64 +1,65 @@
-
 function XMLscene(myInterface) {
-    CGFscene.call(this);
-    this.myInterface = myInterface;
+  CGFscene.call(this);
+  this.myInterface = myInterface;
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
 XMLscene.prototype.constructor = XMLscene;
 
 XMLscene.prototype.init = function (application) {
-    CGFscene.prototype.init.call(this, application);
+  CGFscene.prototype.init.call(this, application);
 
-    this.initCameras();
+  this.initCameras();
 
-    this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
+  this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
-    this.gl.clearDepth(100.0);
-    this.gl.enable(this.gl.DEPTH_TEST);
+  this.gl.clearDepth(100.0);
+  this.gl.enable(this.gl.DEPTH_TEST);
 	this.gl.enable(this.gl.CULL_FACE);
-    this.gl.depthFunc(this.gl.LEQUAL);
+  this.gl.depthFunc(this.gl.LEQUAL);
 
 	this.axis=new CGFaxis(this);
 
 	this.materials = new Stack(null);
-	this.textures = new Stack(null);
 
 	this.cameraModify = false;
 	this.defaultCamera = true;
 	this.materialIndex = 0;
 	this.viewIndex = 0;
 	this.lightBoolean = [];
+
+  this.time = 0;
 };
 
 XMLscene.prototype.initCameras = function () {
-    this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
-    this.myInterface.setActiveCamera(this.camera);
+  this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+  this.myInterface.setActiveCamera(this.camera);
 };
 
 XMLscene.prototype.setDefaultAppearance = function () {
-    this.setAmbient(0.2, 0.4, 0.8, 1.0);
-    this.setDiffuse(0.2, 0.4, 0.8, 1.0);
-    this.setSpecular(0.2, 0.4, 0.8, 1.0);
-    this.setShininess(10.0);
+  this.setAmbient(0.2, 0.4, 0.8, 1.0);
+  this.setDiffuse(0.2, 0.4, 0.8, 1.0);
+  this.setSpecular(0.2, 0.4, 0.8, 1.0);
+  this.setShininess(10.0);
 };
 
 // Handler called when the graph is finally loaded.
 // As loading is asynchronous, this may be called already after the application has started the run loop
-XMLscene.prototype.onGraphLoaded = function ()
-{
+XMLscene.prototype.onGraphLoaded = function (){
 	this.gl.clearColor(this.graph.illumination.background.r,this.graph.illumination.background.g,this.graph.illumination.background.b,this.graph.illumination.background.a);
 	this.setGlobalAmbientLight(this.graph.illumination.ambient.r, this.graph.illumination.ambient.g, this.graph.illumination.ambient.b, this.graph.illumination.ambient.a);
 	this.lights[0].setVisible(true);
-    this.lights[0].enable();
-    this.loadLights();
+  this.lights[0].enable();
+  this.loadLights();
+  this.setUpdatePeriod(100/6);
 };
 
-XMLscene.prototype.processGraph = function(nodeID){
+XMLscene.prototype.processGraph = function(nodeID, textureID){
 	var material = null;
 	var appearance = new CGFappearance(this);
+  var animation = null;
 
-	if(nodeID != null){
+  if(nodeID != null){
 		var node = this.graph.nodes[nodeID];
 		if(node.material[this.materialIndex] != "inherit"){
 			this.materials.push(this.graph.materials[node.material[this.materialIndex]]);
@@ -76,20 +77,22 @@ XMLscene.prototype.processGraph = function(nodeID){
 			appearance.setShininess(material.shininess);
 		}
 
-		if(node.texture != "none"){
-			if(node.texture != "inherit"){
-				this.textures.push(this.graph.textures[node.texture].texture);
-
-				appearance.setTexture(this.textures.top());
-				appearance.apply();
-			}else{
-				this.textures.push(this.textures.top());
-			}
-		}
-
-		this.textures.pop();
+    if(node.texture != "inherit" && node.texture != "none"){
+      appearance.setTexture(this.graph.textures[node.texture].texture);
+    }else if(node.texture == "inherit"){
+      if(textureID != null){
+        appearance.setTexture(this.graph.textures[textureID].texture);
+      }
+    }
+    appearance.apply();
 
 		this.multMatrix(node.transformation);
+
+    animation = this.graph.animations[node.animation];
+    if(animation != null){
+      animation.apply(this.elapsedTime);
+    }
+
 		if(node.primitive != null){
 			this.pushMatrix();
 				this.graph.primitives[node.primitive].display();
@@ -97,7 +100,11 @@ XMLscene.prototype.processGraph = function(nodeID){
 		}
 		for(var i = 0; i < node.children.length; i++){
 			this.pushMatrix();
-				this.processGraph(node.children[i]);
+        if(node.texture != "inherit"){
+				  this.processGraph(node.children[i], node.texture);
+        }else{
+          this.processGraph(node.children[i], textureID);
+        }
 			this.popMatrix();
 		}
 	}
@@ -107,14 +114,14 @@ XMLscene.prototype.display = function () {
 	// ---- BEGIN Background, camera and axis setup
 
 	// Clear image and depth buffer everytime we update the scene
-    this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
-    this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+  this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
+  this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
 	// Initialize Model-View matrix as identity (no transformation
 	this.updateProjectionMatrix();
-    this.loadIdentity();
+  this.loadIdentity();
 
-    this.enableTextures(true);
+  this.enableTextures(true);
 
 	// Apply transformations corresponding to the camera position relative to the origin
 	this.applyViewMatrix();
@@ -131,27 +138,7 @@ XMLscene.prototype.display = function () {
 	// This is one possible way to do it
 	if (this.graph.loadedOk)
 	{
-		//this.processGraph(this.graph.root);
-    this.plane = new Patch(this, 2, // degree on U: 3 control vertexes U
-  					 1,10,10, // degree on V: 2 control vertexes on V
-  					[	// U = 0
-  						[ // V = 0..1;
-  							 [ -1.5, -1.5, 0.0, 1 ],
-  							 [ -1.5,  1.5, 0.0, 1 ]
-
-  						],
-  						// U = 1
-  						[ // V = 0..1
-  							 [ 0, -1.5, 3.0, 1 ],
-  							 [ 0,  1.5, 3.0, 1 ]
-  						],
-  						// U = 2
-  						[ // V = 0..1
-  							[ 1.5, -1.5, 0.0, 1 ],
-  							[ 1.5,  1.5, 0.0, 1 ]
-  						]
-  					]);
-    this.plane.display();
+		this.processGraph(this.graph.root, null);
 		this.updateLights();
 		if(this.defaultCamera == this.cameraModify){
 			this.initCameras();
@@ -214,6 +201,13 @@ XMLscene.prototype.loadLights = function (){
 	  	this.myInterface.addLightBox(lighti,omni.id);
 	  	lighti++;
 	}
+}
+
+XMLscene.prototype.update = function(currTime){
+  if (this.time == 0)
+    this.time = currTime;
+
+  this.elapsedTime = (currTime - this.time) / 1000;
 }
 
 XMLscene.prototype.updateLights = function(){
