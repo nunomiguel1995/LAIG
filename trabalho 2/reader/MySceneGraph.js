@@ -1,4 +1,3 @@
-
 function MySceneGraph(filename, scene) {
 	this.loadedOk = null;
 
@@ -424,14 +423,14 @@ MySceneGraph.prototype.parseAnimations = function(rootElement){
 			var rotang = this.reader.getFloat(listAnimations[i], 'rotang', true);
 
 			var circularAni = new CircularAnimation(this.scene, id, span, centerx, centery, centerz, radius, startang, rotang);
-			this.animations[id] = linearAni;
+			this.animations[id] = circularAni;
+
 			break;
 		default:
 			break;
 		}
 	}
 }
-
 
 MySceneGraph.prototype.parsePrimitives = function(rootElement) {
 	var primitives = rootElement.getElementsByTagName('primitives');

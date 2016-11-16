@@ -3,14 +3,33 @@
 * @constructor
 */
 function CircularAnimation(scene, id, span, centerx, centery, centerz, radius, startang, rotang) {
-    CGFobject.call(this,scene);
+  Animation.call(this,scene,id,span);
 
-    this.init(this.scene, id, span);
+  this.center = vec3.fromValues(centerx, centery, centerz);
+  this.radius = radius;
+  this.startAng = startang;
+  this.rotAng = rotang;
 
-    this.center = vec3.fromValues(centerx, centery, centerz);
-    this.radius = radius;
-    this.startAng = startang;
-    this.rotAng = rotang;
+  this.speed = this.rotAng / this.span;
 }
 
-CircularAnimation.prototype = new Animation();
+CircularAnimation.prototype = Object.create(Animation.prototype);
+CircularAnimation.prototype.constructor = CircularAnimation;
+
+CircularAnimation.prototype.apply = function(currTime){
+  if(currTime > this.span){
+    currTime = this.span;
+    this.scene.animationIndex++;
+    if(this.scene.animationIndex == this.scene.numAnimations){
+      this.scene.animationIndex = 0;
+    }
+    this.scene.time = 0;
+  }
+
+  var currPosition = this.speed * currTime;
+  var currAngle = this.startAng + currPosition;
+
+  this.scene.translate(this.center[0], this.center[1], this.center[2]);
+  this.scene.rotate(currAngle, 0, 1, 0);
+  this.scene.translate(this.radius, 0, 0);
+}
