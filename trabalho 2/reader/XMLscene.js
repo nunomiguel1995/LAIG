@@ -29,6 +29,7 @@ XMLscene.prototype.init = function (application) {
 	this.lightBoolean = [];
 
   this.time = 0;
+  this.animationIndex = 0;
 };
 
 XMLscene.prototype.initCameras = function () {
@@ -88,10 +89,11 @@ XMLscene.prototype.processGraph = function(nodeID, textureID){
 
 		this.multMatrix(node.transformation);
 
-    animation = this.graph.animations[node.animation];
+    animation = this.graph.animations[node.animation[this.animationIndex]];
     if(animation != null){
       animation.apply(this.elapsedTime);
     }
+
 
 		if(node.primitive != null){
 			this.pushMatrix();
@@ -107,9 +109,8 @@ XMLscene.prototype.processGraph = function(nodeID, textureID){
         }
 			this.popMatrix();
 		}
-	}
+  }
 }
-
 XMLscene.prototype.display = function () {
 	// ---- BEGIN Background, camera and axis setup
 

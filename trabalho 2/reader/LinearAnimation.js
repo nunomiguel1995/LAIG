@@ -27,6 +27,7 @@ LinearAnimation.prototype.constructor = LinearAnimation;
 LinearAnimation.prototype.apply = function(currTime){
   if(currTime > this.span){
     currTime = this.span;
+    this.scene.animationIndex++;
   }
 
   this.currPosition = this.speed * currTime;

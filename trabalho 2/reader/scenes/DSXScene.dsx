@@ -80,16 +80,15 @@
     </transformations>
 
     <animations>
-        <animation id="linear" span="10" type="linear">
+        <animation id="linear" span="3" type="linear">
                 <controlpoint xx="0" yy="0" zz="0" />
                 <controlpoint xx="1" yy="0" zz="0" />
-                <controlpoint xx="1" yy="1" zz="0" />
-                <controlpoint xx="1" yy="1" zz="1" />
+                <controlpoint xx="1" yy="3" zz="0" />
         </animation>
 
-        <animation id="circular" span="20" type="circular"
-               centerx="1" centery="1" centerz="1"
-               radius="5" startang="40" rotang="20" />
+        <animation id="circular" span="3" type="circular"
+               centerx="1" centery="3" centerz="0"
+               radius="0" startang="0" rotang="20" />
     </animations>
 
     <primitives>
@@ -146,6 +145,7 @@
             </transformation>
 
             <animation>
+              <animationref id="linear" />
               <animationref id="circular"/>
             </animation>
 
