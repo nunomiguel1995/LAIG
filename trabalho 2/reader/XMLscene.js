@@ -7,15 +7,12 @@ XMLscene.prototype = Object.create(CGFscene.prototype);
 XMLscene.prototype.constructor = XMLscene;
 
 XMLscene.prototype.init = function (application) {
-<<<<<<< HEAD
     CGFscene.prototype.init.call(this, application);
-  this.aviao = new MyVehicle(this);
     this.initCameras();
-=======
+
   CGFscene.prototype.init.call(this, application);
 
   this.initCameras();
->>>>>>> 15d99509932c129993ccdf6e078ac842f3b8aaae
 
   this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
@@ -145,12 +142,8 @@ XMLscene.prototype.display = function () {
 	// This is one possible way to do it
 	if (this.graph.loadedOk)
 	{
-<<<<<<< HEAD
-		//this.processGraph(this.graph.root);
-    this.aviao.display();
-=======
+		this.processGraph(this.graph.root);
 		this.processGraph(this.graph.root, null);
->>>>>>> 15d99509932c129993ccdf6e078ac842f3b8aaae
 		this.updateLights();
 		if(this.defaultCamera == this.cameraModify){
 			this.initCameras();
