@@ -3,17 +3,10 @@
 * @constructor
 */
 function LinearAnimation(scene, id, span, listControlPoints) {
-    CGFobject.call(this,scene);
-
-  /*  this.init(this.scene, id, span);
-
     Animation.call(this, scene, id, span);
 
     this.scene = scene;
     this.controlPoints = listControlPoints;
-    this.dist = [];
-
-    this.speed = this.dist / this.span;
     this.segments = [];
     this.totalDistance = 0;
 
@@ -24,7 +17,6 @@ function LinearAnimation(scene, id, span, listControlPoints) {
       this.segments[i] = this.totalDistance;
     }
 
-    this.original = mat4.create();*/
     this.speed = this.totalDistance / this.span;
     this.angle = 0;
 }
@@ -32,15 +24,14 @@ function LinearAnimation(scene, id, span, listControlPoints) {
 LinearAnimation.prototype = Object.create(Animation.prototype);
 LinearAnimation.prototype.constructor = LinearAnimation;
 
-LinearAnimation.prototype.apply = function(currTime){
-
+LinearAnimation.prototype.apply = function(currTime, node){
   if(currTime > this.span){
     currTime = this.span;
-    this.scene.animationIndex++;
-    if(this.scene.animationIndex == this.scene.numAnimations){
-      this.scene.animationIndex = 0;
+    if(node.animationIndex < node.animation.length){
+      node.animationIndex++;
     }
     this.scene.time = 0;
+    this.scene.elapsedTime = 0;
   }
 
   this.currPosition = this.speed * currTime;

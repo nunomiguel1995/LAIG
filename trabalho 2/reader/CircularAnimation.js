@@ -16,14 +16,14 @@ function CircularAnimation(scene, id, span, centerx, centery, centerz, radius, s
 CircularAnimation.prototype = Object.create(Animation.prototype);
 CircularAnimation.prototype.constructor = CircularAnimation;
 
-CircularAnimation.prototype.apply = function(currTime){
+CircularAnimation.prototype.apply = function(currTime, node){
   if(currTime > this.span){
     currTime = this.span;
-    this.scene.animationIndex++;
-    if(this.scene.animationIndex == this.scene.numAnimations){
-      this.scene.animationIndex = 0;
+    if(node.animationIndex < node.animation.length){
+      node.animationIndex++;
     }
     this.scene.time = 0;
+    this.scene.elapsedTime = 0;
   }
 
   var currPosition = this.speed * currTime;
