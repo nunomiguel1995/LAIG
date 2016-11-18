@@ -289,7 +289,7 @@ MySceneGraph.prototype.parseTextures = function(rootElement) {
 		length_s = this.reader.getFloat(listTextures[i], 'length_s', true);
 		length_t = this.reader.getFloat(listTextures[i], 'length_t', true);
 		texture = new CGFtexture(this.scene,file,length_t,length_s);
-		var t= new Texture(id, texture, length_s, length_t);
+		var t= new Texture(id, texture, length_s, length_t,file);
 		this.textures[id]=t;
 	}
 };
@@ -525,6 +525,20 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement) {
 				var patch = new MyPatch(this.scene, orderU, orderV, partsU, partsV, controlPoints);
 				this.primitives[id] = patch;
 				break;
+			case "chessboard":
+				var du = this.reader.getInteger(primitive,'du',true);
+				var dv = this.reader.getInteger(primitive,'dv', true);
+				var texRef = this.reader.getString(primitive, 'textureref', true);
+				var filepath = this.textures[texRef].file;
+				var sv = this.reader.getInteger(primitive, 'sv', true);
+				var su = this.reader.getInteger(primitive, 'su', true);
+
+				var colors = primitive.children;
+				var c1 = new Color(this.reader.getFloat(colors[0],'r',true), this.reader.getFloat(colors[0], 'g', true), this.reader.getFloat(colors[0],'b',true), this.reader.getFloat(colors[0],'a',true));
+				var c2 = new Color(this.reader.getFloat(colors[1],'r',true), this.reader.getFloat(colors[1], 'g', true), this.reader.getFloat(colors[1],'b',true), this.reader.getFloat(colors[1],'a',true));
+				var cs = new Color(this.reader.getFloat(colors[2],'r',true), this.reader.getFloat(colors[2], 'g', true), this.reader.getFloat(colors[2],'b',true), this.reader.getFloat(colors[2],'a',true));
+				var chessboard = new MyChessboard(this.scene,du,dv,filepath,su,sv,c1,c2,cs);
+				this.primitives[id] = chessboard;
 			default: break;
 		}
 	}

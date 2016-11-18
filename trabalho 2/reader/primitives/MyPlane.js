@@ -4,7 +4,6 @@
 */
 function MyPlane(scene, dimX, dimY, partsX, partsY) {
   this.scene = scene;
-
   getKnotsVector = function(degree) {
   	var v = new Array();
   	for (var i=0; i<=degree; i++) {
