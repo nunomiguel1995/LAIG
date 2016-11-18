@@ -35,7 +35,11 @@ main=function()
 	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml
 	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor)
 
+<<<<<<< HEAD
 	var filename=getUrlVars()['file'] || "chessboard.dsx";
+=======
+	var filename=getUrlVars()['file'] || "DSXScene.dsx";
+>>>>>>> 51a959a0b1c409ad5a72c8dc5a5a7dd665cae261
 
 	// create and load graph, and associate it to scene.
 	// Check console for loading errors

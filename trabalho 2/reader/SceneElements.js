@@ -21,6 +21,7 @@ function Node(id){
     this.material = [];
     this.children = [];
     this.animation = [];
+    this.animationIndex = 0;
     this.primitive= null;
     this.texture = null;
     this.transformation= mat4.create();

@@ -7,9 +7,6 @@ XMLscene.prototype = Object.create(CGFscene.prototype);
 XMLscene.prototype.constructor = XMLscene;
 
 XMLscene.prototype.init = function (application) {
-    CGFscene.prototype.init.call(this, application);
-    this.initCameras();
-
   CGFscene.prototype.init.call(this, application);
 
   this.initCameras();
@@ -32,8 +29,6 @@ XMLscene.prototype.init = function (application) {
 	this.lightBoolean = [];
 
   this.time = 0;
-  this.animationIndex = 0;
-  this.numAnimations = 0;
 };
 
 XMLscene.prototype.initCameras = function () {
@@ -93,9 +88,12 @@ XMLscene.prototype.processGraph = function(nodeID, textureID){
 
 		this.multMatrix(node.transformation);
 
-    animation = this.graph.animations[node.animation[this.animationIndex]];
+    animation = this.graph.animations[node.animation[node.animationIndex]];
     if(animation != null){
-      animation.apply(this.elapsedTime);
+      animation.apply(this.elapsedTime, node);
+    }
+    if(node.animationIndex == (node.animation.length)){
+      node.animationIndex = 0;
     }
 
 		if(node.primitive != null){

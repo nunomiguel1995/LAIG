@@ -9,4 +9,4 @@ function Animation(scene, id, span) {
   this.span = span;
 };
 
-Animation.prototype.apply = function(currTime){}
+Animation.prototype.apply = function(currTime, node){}
