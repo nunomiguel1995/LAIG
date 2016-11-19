@@ -129,8 +129,17 @@
               <controlpoint x="1.5" y="1.5" z="0.0" />
            </patch>
         </primitive>
+<<<<<<< HEAD
         <primitive id="vehicle">
           <vehicle />
+=======
+        <primitive id="board">
+            <chessboard du="8" dv="8" textureref="wood" su="4" sv="4">
+                       <c1 r="0.5" g="0.3" b="0.2" a="1" />
+                       <c2 r="0.5" g="0.2" b="0.5" a="1" />
+                       <cs r="1" g="0" b="0" a="0" />
+            </chessboard>
+>>>>>>> origin/master
         </primitive>
     </primitives>
 

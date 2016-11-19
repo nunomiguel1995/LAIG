@@ -163,7 +163,7 @@
               <componentref id="hanger" />
             </children>
         </component>
-        
+
         <component id="chair_cylinder">
             <transformation>
                 <translate x="1.5" y="1.5" z="6.5" />

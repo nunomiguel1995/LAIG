@@ -289,7 +289,7 @@ MySceneGraph.prototype.parseTextures = function(rootElement) {
 		length_s = this.reader.getFloat(listTextures[i], 'length_s', true);
 		length_t = this.reader.getFloat(listTextures[i], 'length_t', true);
 		texture = new CGFtexture(this.scene,file,length_t,length_s);
-		var t= new Texture(id, texture, length_s, length_t);
+		var t= new Texture(id, texture, length_s, length_t,file);
 		this.textures[id]=t;
 	}
 };
@@ -543,7 +543,7 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement) {
 				var cs = new Color(this.reader.getFloat(colors[2],'r',true), this.reader.getFloat(colors[2], 'g', true), this.reader.getFloat(colors[2],'b',true), this.reader.getFloat(colors[2],'a',true));
 				var chessboard = new MyChessboard(this.scene,du,dv,filepath,su,sv,c1,c2,cs);
 				this.primitives[id] = chessboard;
-				break;	
+				break;
 			default: break;
 		}
 	}
