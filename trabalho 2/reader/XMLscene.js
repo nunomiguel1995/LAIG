@@ -140,7 +140,6 @@ XMLscene.prototype.display = function () {
 	// This is one possible way to do it
 	if (this.graph.loadedOk)
 	{
-		this.processGraph(this.graph.root);
 		this.processGraph(this.graph.root, null);
 		this.updateLights();
 		if(this.defaultCamera == this.cameraModify){

@@ -525,6 +525,10 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement) {
 				var patch = new MyPatch(this.scene, orderU, orderV, partsU, partsV, controlPoints);
 				this.primitives[id] = patch;
 				break;
+			case "vehicle":
+				var vehicle = new MyVehicle(this.scene);
+				this.primitives[id] = vehicle;
+				break;
 			default: break;
 		}
 	}

@@ -1,6 +1,6 @@
 function MyCylinderSurface(scene, base, top, height, slices, stacks) {
     CGFobject.call(this,scene);
-    
+
     this.base = base;
     this.top = top;
     this.height = height;
@@ -31,15 +31,13 @@ MyCylinderSurface.prototype.initBuffers = function() {
 
             var x = r * Math.cos(alfa * j);
             var y = r * Math.sin(alfa * j);
-            
+
             var norm = vec3.fromValues(x,y,z);
             vec3.normalize(norm,norm);
-            var u = 0.5 + (Math.atan2(norm[2], norm[0]) / (Math.PI * 2));
-            var v = 0.5 - (Math.asin(norm[1]) / Math.PI);
-
+            
             this.vertices.push(x, y, z);
             this.normals.push(x, y, z);
-            this.texCoords.push(u,v);
+            this.texCoords.push(j/this.slices,i/this.stacks);
         }
     }
 
@@ -52,7 +50,7 @@ MyCylinderSurface.prototype.initBuffers = function() {
             this.indices.push(first, first + 1, second + 1);
         }
     }
-    
+
     this.primitiveType = this.scene.gl.TRIANGLES;
-    this.initGLBuffers(); 
+    this.initGLBuffers();
 };

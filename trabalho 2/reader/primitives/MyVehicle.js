@@ -5,7 +5,7 @@
 function MyVehicle(scene) {
   CGFobject.call(this,scene);
   //Elementos do avião
-  this.body = new MyCylinder(this.scene, 0.25, 0.5 , 2.0 , 50,50);
+  this.body = new MyCylinder(this.scene, 0.05, 0.5 , 2.0 , 50,50);
   this.rightWing = new MyWing(this.scene);
   this.leftWing = new MyWing(this.scene);
   this.ball = new MySphere(this.scene,0.1,50,50);
@@ -68,6 +68,12 @@ MyVehicle.prototype.display = function() {
     this.body.display();
   this.scene.popMatrix();
   this.scene.pushMatrix();
+    this.scene.translate(-0.7,0,-0,3);
+    this.scene.rotate(Math.PI/4, 0,1,0);
+    this.backWing.display();
+  this.scene.popMatrix();
+  this.scene.pushMatrix();
+    this.scene.rotate(Math.PI, 0, 0, 1);
     this.scene.translate(-0.7,0,-0,3);
     this.scene.rotate(Math.PI/4, 0,1,0);
     this.backWing.display();
