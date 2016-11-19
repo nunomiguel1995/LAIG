@@ -22,7 +22,7 @@ void main() {
 
       vec3 offset = vec3(0.0,0.0,0.0);
       if((posX == su) && (posY == sv)){
-        offset.z += 0.1;
+        offset.z += 0.08;
       }
 
       gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + offset, 1.0);
