@@ -74,13 +74,34 @@
     </transformations>
 
     <animations>
-        <animation id="linear" span="10" type="linear">
-                <controlpoint xx="0" yy="0" zz="0" />
-                <controlpoint xx="1" yy="0" zz="0" />
-                <controlpoint xx="1" yy="1" zz="0" />
+        <animation id="fly" span="5" type="linear">
+                <controlpoint xx="2" yy="0.2" zz="12" />
+                <controlpoint xx="4" yy="0.4" zz="12" />
+                <controlpoint xx="6" yy="0.6" zz="12" />
+                <controlpoint xx="8" yy="0.8" zz="12" />
+                <controlpoint xx="10" yy="1" zz="12" />
+                <controlpoint xx="12" yy="1.2" zz="12" />
+                <controlpoint xx="14" yy="1.4" zz="12" />
+                <controlpoint xx="16" yy="1.6" zz="12" />
+                <controlpoint xx="18" yy="1.8" zz="12" />
+                <controlpoint xx="20" yy="2" zz="12" />
+                <controlpoint xx="22" yy="2.2" zz="12" />
+                <controlpoint xx="24" yy="2.4" zz="12" />
+                <controlpoint xx="26" yy="2.6" zz="12" />
+                <controlpoint xx="28" yy="2.8" zz="12" />
+                <controlpoint xx="30" yy="3" zz="12" />
+                <controlpoint xx="32" yy="3.2" zz="12" />
+                <controlpoint xx="34" yy="3.4" zz="12" />
+                <controlpoint xx="36" yy="3.6" zz="12" />
+                <controlpoint xx="38" yy="3.8" zz="12" />
+                <controlpoint xx="40" yy="4" zz="12" />
+                <controlpoint xx="42" yy="4.2" zz="12" />
+                <controlpoint xx="44" yy="4.4" zz="12" />
+                <controlpoint xx="46" yy="4.6" zz="12" />
+                <controlpoint xx="48" yy="4.8" zz="12" />
         </animation>
 
-        <animation id="circular" span="20" type="circular"
+        <animation id="circular" span="5" type="circular"
                centerx="0" centery="0" centerz="00"
                radius="0" startang="0" rotang="20" />
     </animations>
@@ -131,12 +152,6 @@
         </primitive>
         <primitive id="vehicle">
           <vehicle />
-        <primitive id="board">
-            <chessboard du="8" dv="8" textureref="wood" su="4" sv="4">
-                       <c1 r="0.5" g="0.3" b="0.2" a="1" />
-                       <c2 r="0.5" g="0.2" b="0.5" a="1" />
-                       <cs r="1" g="0" b="0" a="0" />
-            </chessboard>
         </primitive>
     </primitives>
 
@@ -158,7 +173,30 @@
                 <componentref id="leftWall" />
                 <componentref id="rightWall" />
                 <componentref id="backWall" />
+                <componentref id="airplane" />
             </children>
+        </component>
+
+        <component id="airplane">
+          <transformation>
+            <rotate axis="z" angle="15" />
+            <translate x="2" y="0.2" z="0" />
+          </transformation>
+
+          <animation>
+              <animationref id="fly"/>
+          </animation>
+        
+          <materials>
+              <material id="inherit" />
+          </materials>
+
+          <texture id="none" />
+
+          <children>
+            <primitiveref id="vehicle" />
+          </children>
+
         </component>
 
         <component id="backWall">
@@ -232,6 +270,78 @@
             <componentref id="controlTowerTopCeiling" />
             <componentref id="controlTowerTop" />
             <componentref id="controlTowerBase" />
+            <componentref id="antena" />
+          </children>
+        </component>
+           
+        <component id="antena">
+          <transformation>
+            <translate x="0" y="0" z="0" />
+          </transformation>
+
+          <materials>
+              <material id="inherit" />
+          </materials>
+
+          <texture id="concrete" />
+
+          <children>
+              <componentref id="antenaTop" />
+              <componentref id="antenaBot" />
+          </children>
+        </component>
+        
+        <component id="flatsquare">
+          <transformation>
+            <scale x="1" y="1" z="0.2" />
+          </transformation>
+
+          <materials>
+              <material id="inherit" />
+          </materials>
+
+          <texture id="inherit" />
+
+          <children>
+              <componentref id="square" />
+          </children>
+        </component>
+
+         <component id="antenaTop">
+          <transformation>
+            <translate x="0" y="3.5" z="0" />
+          </transformation>
+          
+          <animation>
+           <animationref id="circular" />
+          </animation>
+
+          <materials>
+              <material id="inherit" />
+          </materials>
+
+          <texture id="concrete" />
+
+          <children>
+              <componentref id="flatsquare" />
+          </children>
+        </component>
+
+        <component id="antenaBot">
+          <transformation>
+            <scale x="0.1" y="0.5" z="0.1" />
+            <translate x="0" y="4" z="0" />
+            <rotate axis="x" angle="-90" />
+          </transformation>
+
+          <materials>
+              <material id="inherit" />
+          </materials>
+
+          <texture id="concrete" />
+
+          <children>
+              <primitiveref id="cylinder" />
           </children>
         </component>
 
