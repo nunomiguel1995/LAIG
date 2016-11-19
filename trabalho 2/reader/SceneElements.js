@@ -27,11 +27,12 @@ function Node(id){
     this.transformation= mat4.create();
 }
 
-function Texture(id, texture, lenght_s, lenght_t){
+function Texture(id, texture, lenght_s, lenght_t,file){
     this.id = id;
     this.texture= texture;
     this.lenght_s = lenght_s;
     this.lenght_t = lenght_t;
+    this.file = file;
 }
 
 function Spot(id,enable,angle,exponent,target,location,ambient,diffuse,specular){

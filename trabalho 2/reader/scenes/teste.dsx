@@ -18,50 +18,44 @@
     </illumination>
 
     <lights>
-        <omni id="omni1" enabled="false" >
+        <omni id="omni1" enabled="true" >
             <location x="1" y="1" z="1" w="0" />
             <ambient r="1" g="1" b="1" a="0" />
             <diffuse r="1" g="1" b="1" a="0" />
             <specular r="0" g="0" b="1" a="1" />
         </omni>
 
-        <spot id="spot1" enabled="true" angle="45" exponent="2">
+        <spot id="spot1" enabled="true" angle="45" exponent="10">
             <target x="5" y="5" z="5" />
             <location x="1" y="2" z="1" />
-            <ambient r="0" g="1" b="0" a="0" />
+            <ambient r="0" g="1" b="0" a="1" />
             <diffuse r="1" g="1" b="1" a="1" />
             <specular r="1" g="1" b="1" a="0" />
         </spot>
     </lights>
 
     <textures>
-        <texture id="blue" file="./res/blue.jpg" length_s="1" length_t="1" />
-        <texture id="wood" file="./res/wood.jpeg" length_s="1" length_t="1" />
-        <texture id="wall" file="./res/rugoso.jpeg" length_s="1" length_t="1" />
-        <texture id="floortex" file="./res/floor.jpg" length_s = "1" length_t ="1" />
-        <texture id="windowWall" file= "./res/backwall.jpg" length_s = "1" length_t ="1" />
-        <texture id="doorWall" file= "./res/doorwall.jpg" length_s = "1" length_t ="1" />
-        <texture id="vase" file= "./res/vase.jpg" length_s = "1" length_t ="1" />
-        <texture id="trunk" file= "./res/trunk.jpg" length_s = "1" length_t ="1" />
-        <texture id="grass" file= "./res/grass.png" length_s = "1" length_t ="1" />
-        <texture id="black" file= "./res/black.jpg" length_s ="1" length_t ="1" />
+        <texture id="grass" file= "./res/grass.jpg" length_s = "1" length_t ="1" />
+        <texture id="concrete" file= "./res/concrete.jpg" length_s ="1" length_t ="1" />
+        <texture id="ctTop" file= "./res/controlTowerTop.jpg" length_s ="1" length_t ="1" />
+        <texture id="sideWall" file= "./res/view.jpg" length_s ="1" length_t ="1" />
+        <texture id="backWall" file= "./res/backview.png" length_s ="1" length_t ="1" />
     </textures>
-
 
     <materials>
         <material id="metalAppearance" >
-            <emission r="0.5" g="0.5" b="0.5" a="0" />
-            <ambient r="0.5" g="0.2" b="0.2" a="1" />
-            <diffuse r="0.5" g="0.5" b="0.5" a="0.5" />
+            <emission r="1" g="1" b="1" a="1" />
+            <ambient r="1" g="1" b="1" a="1" />
+            <diffuse r="1" g="1" b="1" a="1" />
             <specular r="1" g="1" b="1" a="1" />
             <shininess value="100" />
         </material>
         <material id="woodAppearance">
             <emission r="0" g="0" b="0" a="0" />
-            <ambient r="0.2" g="0.2" b="0" a="1" />
+            <ambient r="1" g="1" b="1" a="1" />
             <diffuse r="0.5" g="0.1" b="0.1" a="0.5" />
             <specular r="0" g="0" b="0" a="0" />
-            <shininess value= "2" />
+            <shininess value= "100" />
         </material>
         <material id="floorAppearance">
             <emission r="0.2" g="0.2" b="0.2" a="0" />
@@ -87,8 +81,8 @@
         </animation>
 
         <animation id="circular" span="20" type="circular"
-               centerx="10" centery="10" centerz="10"
-               radius="5" startang="40" rotang="20" />
+               centerx="0" centery="0" centerz="00"
+               radius="0" startang="0" rotang="20" />
     </animations>
 
     <primitives>
@@ -102,7 +96,7 @@
             <triangle x1="0" y1="0" z1="0" x2="2" y2="2" z2="0" x3="1" y3="5" z3="0" />
         </primitive>
         <primitive id="cylinder">
-            <cylinder base="1" top="1" height="2" slices="10" stacks="10"/>
+            <cylinder base="1" top="1" height="2" slices="50" stacks="50"/>
         </primitive>
         <primitive id="torus1">
             <torus inner="0.25" outer="0.4" slices="10" loops="50"/>
@@ -119,8 +113,11 @@
         <primitive id="plantTop">
             <cylinder base="0.55" top="0" height="0.6" slices="50" stacks="50"/>
         </primitive>
+        <primitive id="controlTop">
+          <cylinder base="1" top="2" height="1" slices="50" stacks="50" />
+        </primitive>
         <primitive id="plane">
-          <plane dimX="3" dimY="2" partsX="10" partsY="7"/>
+          <plane dimX="5" dimY="5" partsX="10" partsY="7"/>
         </primitive>
         <primitive id="patch">
           <patch orderU="2" orderV="1" partsU="10" partsV="10" >
@@ -131,6 +128,9 @@
               <controlpoint x="1.5" y="-1.5" z="0.0" />
               <controlpoint x="1.5" y="1.5" z="0.0" />
            </patch>
+        </primitive>
+        <primitive id="vehicle">
+          <vehicle />
         </primitive>
     </primitives>
 
@@ -144,13 +144,283 @@
                 <material id="metalAppearance" />
             </materials>
 
-            <texture id="wood" />
+            <texture id="none" />
 
             <children>
-                <primitiveref id="patch" />
+                <componentref id="controlTower" />
+                <componentref id="landingPad" />
+                <componentref id="leftWall" />
+                <componentref id="rightWall" />
+                <componentref id="backWall" />
             </children>
         </component>
 
+        <component id="backWall">
+          <transformation>
+            <scale x="1" y="5" z="5" />
+            <translate x="0" y="2.5" z="2.5" />
+            <rotate axis="x" angle="180" />
+            <rotate axis="y" angle="90" />
+          </transformation>
+
+          <materials>
+              <material id="inherit" />
+          </materials>
+
+          <texture id="backWall" />
+
+          <children>
+            <primitiveref id="plane" />
+          </children>
+        </component>
+
+        <component id="leftWall">
+          <transformation>
+            <scale x="10" y="5" z="5" />
+            <translate x="2.5" y="2.5" z="5" />
+            <rotate axis="x" angle="-180" />
+          </transformation>
+
+          <materials>
+              <material id="inherit" />
+          </materials>
+
+          <texture id="sideWall" />
+
+          <children>
+            <primitiveref id="plane" />
+          </children>
+        </component>
+
+        <component id="rightWall">
+          <transformation>
+            <scale x="10" y="5" z="5" />
+            <translate x="2.5" y="2.5" z="0" />
+            <rotate axis="z" angle="-180" />
+          </transformation>
+
+          <materials>
+              <material id="inherit" />
+          </materials>
+
+          <texture id="sideWall" />
+
+          <children>
+            <primitiveref id="plane" />
+          </children>
+        </component>
+
+        <component id="controlTower">
+          <transformation>
+            <scale x="2" y="2" z="2" />
+            <translate x="2" y="0" z="1.5" />
+          </transformation>
+
+          <materials>
+              <material id="inherit" />
+          </materials>
+
+          <texture id="concrete" />
+
+          <children>
+            <componentref id="controlTowerTopCeiling" />
+            <componentref id="controlTowerTop" />
+            <componentref id="controlTowerBase" />
+          </children>
+        </component>
+
+        <component id="controlTowerTopCeiling">
+          <transformation>
+            <translate x="0" y="2" z="0" />
+            <scale x="2" y="0.3" z="2" />
+          </transformation>
+
+          <materials>
+              <material id="inherit" />
+          </materials>
+
+          <texture id="concrete" />
+
+          <children>
+              <componentref id="square" />
+          </children>
+        </component>
+
+        <component id="controlTowerTop">
+          <transformation>
+            <translate x="0" y="1" z="0" />
+            <scale x="0.5" y="1" z="0.5" />
+            <rotate axis="x" angle="-90" />
+          </transformation>
+
+          <materials>
+              <material id="inherit" />
+          </materials>
+
+          <texture id="ctTop" />
+
+          <children>
+              <primitiveref id="controlTop" />
+          </children>
+        </component>
+
+        <component id="controlTowerBase">
+            <transformation>
+              <scale x="0.5" y="1" z="0.5" />
+              <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="concrete" />
+
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+        <component id="landingPad">
+          <transformation>
+            <scale x="10" y="5" z="5" />
+            <translate x="2.5" y="0" z="2.5" />
+            <rotate axis="x" angle="-90" />
+          </transformation>
+
+          <materials>
+            <material id="inherit" />
+          </materials>
+
+          <texture id="grass" />
+
+          <children>
+            <primitiveref id="plane" />
+          </children>
+        </component>
+
+        <component id="square">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+                <componentref id="top_square" />
+                <componentref id="bottom_square" />
+                <componentref id="left_square" />
+                <componentref id="right_square" />
+                <componentref id="front_square" />
+                <componentref id="back_square" />
+            </children>
+        </component>
+
+        <component id="top_square">
+            <transformation>
+                <translate x="-0.5" y="0.5" z="0.5" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+                <primitiveref id="rectangle"/>
+            </children>
+        </component>
+
+        <component id="bottom_square">
+            <transformation>
+                <translate x="-0.5" y="-0.5" z="-0.5" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+                <primitiveref id="rectangle"/>
+            </children>
+        </component>
+
+        <component id="left_square">
+            <transformation>
+                <translate x="-0.5" y="-0.5" z="-0.5" />
+                <rotate axis="y" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+                <primitiveref id="rectangle"/>
+            </children>
+        </component>
+
+        <component id="right_square">
+            <transformation>
+                <translate x="0.5" y="-0.5" z="0.5" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+                <primitiveref id="rectangle"/>
+            </children>
+        </component>
+
+        <component id="front_square">
+            <transformation>
+                <translate x="-0.5" y="0.5" z="0.5" />
+                <rotate axis="z" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+                <primitiveref id="rectangle"/>
+            </children>
+        </component>
+
+        <component id="back_square">
+            <transformation>
+                <translate x="0.5" y="-0.5" z="-0.5" />
+                <rotate axis="y" angle="180" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+                <primitiveref id="rectangle"/>
+            </children>
+        </component>
     </components>
 
 </dsx>

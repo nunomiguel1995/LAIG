@@ -529,6 +529,21 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement) {
 				var vehicle = new MyVehicle(this.scene);
 				this.primitives[id] = vehicle;
 				break;
+			case "chessboard":
+				var du = this.reader.getInteger(primitive,'du',true);
+				var dv = this.reader.getInteger(primitive,'dv', true);
+				var texRef = this.reader.getString(primitive, 'textureref', true);
+				var filepath = this.textures[texRef].file;
+				var sv = this.reader.getInteger(primitive, 'sv', true);
+				var su = this.reader.getInteger(primitive, 'su', true);
+
+				var colors = primitive.children;
+				var c1 = new Color(this.reader.getFloat(colors[0],'r',true), this.reader.getFloat(colors[0], 'g', true), this.reader.getFloat(colors[0],'b',true), this.reader.getFloat(colors[0],'a',true));
+				var c2 = new Color(this.reader.getFloat(colors[1],'r',true), this.reader.getFloat(colors[1], 'g', true), this.reader.getFloat(colors[1],'b',true), this.reader.getFloat(colors[1],'a',true));
+				var cs = new Color(this.reader.getFloat(colors[2],'r',true), this.reader.getFloat(colors[2], 'g', true), this.reader.getFloat(colors[2],'b',true), this.reader.getFloat(colors[2],'a',true));
+				var chessboard = new MyChessboard(this.scene,du,dv,filepath,su,sv,c1,c2,cs);
+				this.primitives[id] = chessboard;
+				break;	
 			default: break;
 		}
 	}
