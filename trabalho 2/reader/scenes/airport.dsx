@@ -35,6 +35,7 @@
     </lights>
 
     <textures>
+        <texture id="wood" file="./res/wood.jpeg" length_s="1" length_t="1" />
         <texture id="grass" file= "./res/grass.jpg" length_s = "1" length_t ="1" />
         <texture id="concrete" file= "./res/concrete.jpg" length_s ="1" length_t ="1" />
         <texture id="ctTop" file= "./res/controlTowerTop.jpg" length_s ="1" length_t ="1" />
@@ -153,6 +154,13 @@
         <primitive id="vehicle">
           <vehicle />
         </primitive>
+        <primitive id="board">
+            <chessboard du="8" dv="8" textureref="wood" su="7" sv="1">
+                       <c1 r="0.2" g="0.2" b="0.2" a="1" />
+                       <c2 r="0.5" g="0.5" b="0.8" a="1" />
+                       <cs r="1" g="0" b="0" a="1" />
+            </chessboard>
+        </primitive>
     </primitives>
 
     <components>
@@ -186,7 +194,7 @@
           <animation>
               <animationref id="fly"/>
           </animation>
-        
+
           <materials>
               <material id="inherit" />
           </materials>
@@ -273,7 +281,7 @@
             <componentref id="antena" />
           </children>
         </component>
-           
+
         <component id="antena">
           <transformation>
             <translate x="0" y="0" z="0" />
@@ -290,7 +298,7 @@
               <componentref id="antenaBot" />
           </children>
         </component>
-        
+
         <component id="flatsquare">
           <transformation>
             <scale x="1" y="1" z="0.2" />
@@ -311,7 +319,7 @@
           <transformation>
             <translate x="0" y="3.5" z="0" />
           </transformation>
-          
+
           <animation>
            <animationref id="circular" />
           </animation>
