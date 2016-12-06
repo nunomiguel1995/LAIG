@@ -16,6 +16,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'primitives/My
                 'primitives/MyCylinderSurface.js', 'primitives/MyCylinderCircle.js','MyInterface.js',
                 'Animation.js', 'LinearAnimation.js', 'CircularAnimation.js', 'primitives/MyPlane.js', 'primitives/MyPatch.js',
                 'primitives/MyVehicle.js', 'primitives/MyWing.js', 'primitives/MyHelice.js', 'primitives/MyChessboard.js',
+                'primitives/MyGameboard.js',
 
 
 main=function()
@@ -35,7 +36,7 @@ main=function()
 	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml
 	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor)
 
-	var filename=getUrlVars()['file'] || "DSXScene.dsx";
+	var filename=getUrlVars()['file'] || "board.dsx";
 
 
 	// create and load graph, and associate it to scene.

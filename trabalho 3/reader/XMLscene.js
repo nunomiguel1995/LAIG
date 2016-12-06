@@ -163,8 +163,8 @@ XMLscene.prototype.loadLights = function (){
 	for(var i =0 ; i< this.graph.spotLights.length; i++){
 		//Loads Light
 		var spot = this.graph.spotLights[i];
-		this.lights[lighti].setPosition(spot.location.x, spot.location.y, spot.location.z, 1);
-		this.lights[lighti].setAmbient(spot.ambient.r, spot.ambient.g, spot.ambient.b, spot.ambient.a);
+		  this.lights[lighti].setPosition(spot.location.x, spot.location.y, spot.location.z, 1);
+		  this.lights[lighti].setAmbient(spot.ambient.r, spot.ambient.g, spot.ambient.b, spot.ambient.a);
 	    this.lights[lighti].setDiffuse(spot.diffuse.r, spot.diffuse.g, spot.diffuse.b, spot.diffuse.a);
 	    this.lights[lighti].setSpecular(spot.specular.r, spot.specular.g, spot.specular.b, spot.specular.a);
 	    this.lights[lighti].setSpotDirection((spot.target.x - spot.location.x ), (spot.target.y - spot.location.y), (spot.target.z - spot.location.z));
