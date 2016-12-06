@@ -8,7 +8,7 @@ function CircularAnimation(scene, id, span, centerx, centery, centerz, radius, s
   this.center = vec3.fromValues(centerx, centery, centerz);
   this.radius = radius;
   this.startAng = startang;
-  this.rotAng = rotang;
+  this.rotAng = rotang * Math.PI / 180;
 
   this.speed = this.rotAng / this.span;
 }
