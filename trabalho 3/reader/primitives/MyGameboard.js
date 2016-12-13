@@ -9,10 +9,10 @@ function MyGameboard(scene) {
   this.boardUnit = new MyCylinder(this.scene, 1, 1, 2, 50, 50);
 
 	this.waterT = new CGFappearance(this.scene);
-	this.waterT.loadTexture("./res/water.jpg");
+	this.waterT.loadTexture("./res/Board/water.jpg");
 
 	this.rockT = new CGFappearance(this.scene);
-	this.rockT.loadTexture("./res/rock.jpg");
+	this.rockT.loadTexture("./res/Board/rock.jpg");
 
 	this.initBuffers();
 };

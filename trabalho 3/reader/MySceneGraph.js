@@ -544,17 +544,15 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement) {
 				var chessboard = new MyChessboard(this.scene,du,dv,filepath,su,sv,c1,c2,cs);
 				this.primitives[id] = chessboard;
 				break;
-<<<<<<< HEAD
 			case "piece":
 				var type = this.reader.getInteger(primitive, 'type', true);
 				var player = this.reader.getInteger(primitive, 'player', true);
 				var token = new MyToken(this.scene,type,player);
 				this.primitives[id] = token;
-=======
+				break;
 			case "gameboard":
 				var gameboard = new MyGameboard(this.scene);
 				this.primitives[id] = gameboard;
->>>>>>> 7686aed9029eacd8fcdbbad571e3b135e41328ec
 				break;
 			default: break;
 		}

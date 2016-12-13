@@ -22,7 +22,7 @@ function MyToken(scene, type, player) {
 	this.player1Body.setSpecular(0.5,0.5,0.5,1);
 	this.player1Body.setShininess(500);
 	this.player1Body.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-	this.player1Body.loadTexture("./res/green.png");
+	this.player1Body.loadTexture("./res/Pieces/green.png");
 
   this.small1 = new CGFappearance(this.scene);
  	this.small1.setAmbient(0.5,0.5,0.5,1);
@@ -30,7 +30,7 @@ function MyToken(scene, type, player) {
 	this.small1.setSpecular(0.5,0.5,0.5,1);
 	this.small1.setShininess(500);
 	this.small1.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-	this.small1.loadTexture("./res/small1.png");
+	this.small1.loadTexture("./res/Pieces/small1.png");
 
   this.medium1 = new CGFappearance(this.scene);
   this.medium1.setAmbient(0.5,0.5,0.5,1);
@@ -38,7 +38,7 @@ function MyToken(scene, type, player) {
   this.medium1.setSpecular(0.5,0.5,0.5,1);
   this.medium1.setShininess(500);
   this.medium1.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-  this.medium1.loadTexture("./res/medium1.png");
+  this.medium1.loadTexture("./res/Pieces/medium1.png");
 
   this.big1 = new CGFappearance(this.scene);
   this.big1.setAmbient(0.5,0.5,0.5,1);
@@ -46,7 +46,7 @@ function MyToken(scene, type, player) {
   this.big1.setSpecular(0.5,0.5,0.5,1);
   this.big1.setShininess(500);
   this.big1.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-  this.big1.loadTexture("./res/big1.png");
+  this.big1.loadTexture("./res/Pieces/big1.png");
 
   //player 2 Textures
   this.player2Body = new CGFappearance(this.scene);
@@ -55,7 +55,7 @@ function MyToken(scene, type, player) {
 	this.player2Body.setSpecular(1.0,1.0,1.0,1);
 	this.player2Body.setShininess(500);
 	this.player2Body.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-	this.player2Body.loadTexture("./res/yellow.png");
+	this.player2Body.loadTexture("./res/Pieces/yellow.png");
 
   this.small2 = new CGFappearance(this.scene);
  	this.small2.setAmbient(0.5,0.5,0.5,1);
@@ -63,7 +63,7 @@ function MyToken(scene, type, player) {
 	this.small2.setSpecular(0.5,0.5,0.5,1);
 	this.small2.setShininess(500);
 	this.small2.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-	this.small2.loadTexture("./res/small2.png");
+	this.small2.loadTexture("./res/Pieces/small2.png");
 
   this.medium2 = new CGFappearance(this.scene);
   this.medium2.setAmbient(0.5,0.5,0.5,1);
@@ -71,7 +71,7 @@ function MyToken(scene, type, player) {
   this.medium2.setSpecular(0.5,0.5,0.5,1);
   this.medium2.setShininess(500);
   this.medium2.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-  this.medium2.loadTexture("./res/medium2.png");
+  this.medium2.loadTexture("./res/Pieces/medium2.png");
 
   this.big2 = new CGFappearance(this.scene);
   this.big2.setAmbient(0.5,0.5,0.5,1);
@@ -79,7 +79,7 @@ function MyToken(scene, type, player) {
   this.big2.setSpecular(0.5,0.5,0.5,1);
   this.big2.setShininess(500);
   this.big2.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-  this.big2.loadTexture("./res/big2.png");
+  this.big2.loadTexture("./res/Pieces/big2.png");
 
 };
 
