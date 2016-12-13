@@ -1,0 +1,119 @@
+<dsx>
+  <scene root="root" axis_length="15"/>
+
+  <views default = "default">
+    <perspective id="default" near="0.4" far="500" angle="45">
+      <from x="12" y="8" z="12" />
+      <to x="0" y="0" z="0" />
+    </perspective>
+   <perspective id="v1" near="0.4" far="500" angle="70">
+      <from x="12" y="8" z="12" />
+      <to x="0" y="0" z="0" />
+    </perspective>
+  </views>
+
+  <illumination doublesided="false" local="true">
+    <ambient r="1" g="1" b="1" a="0" />
+    <background r="0" g="0" b="0" a="1" />
+  </illumination>
+
+  <lights>
+    <omni id="omni1" enabled="true" >
+      <location x="1" y="1" z="1" w="0" />
+      <ambient r="1" g="1" b="1" a="0" />
+      <diffuse r="1" g="1" b="1" a="0" />
+      <specular r="0" g="0" b="1" a="1" />
+    </omni>
+
+    <spot id="spot1" enabled="true" angle="45" exponent="10">
+      <target x="5" y="5" z="5" />
+      <location x="1" y="2" z="1" />
+      <ambient r="0" g="1" b="0" a="1" />
+      <diffuse r="1" g="1" b="1" a="1" />
+      <specular r="1" g="1" b="1" a="0" />
+    </spot>
+  </lights>
+
+  <textures>
+    <texture id="wood" file="./res/wood.jpeg" length_s="1" length_t="1" />
+  </textures>
+
+  <materials>
+      <material id="metalAppearance" >
+        <emission r="1" g="1" b="1" a="1" />
+        <ambient r="1" g="1" b="1" a="1" />
+        <diffuse r="1" g="1" b="1" a="1" />
+        <specular r="1" g="1" b="1" a="1" />
+        <shininess value="100" />
+      </material>
+      <material id="woodAppearance">
+        <emission r="0" g="0" b="0" a="0" />
+        <ambient r="1" g="1" b="1" a="1" />
+        <diffuse r="0.5" g="0.1" b="0.1" a="0.5" />
+        <specular r="0" g="0" b="0" a="0" />
+        <shininess value= "100" />
+      </material>
+      <material id="floorAppearance">
+        <emission r="0.2" g="0.2" b="0.2" a="0" />
+        <ambient r="0.2" g="0.2" b="0" a="1" />
+        <diffuse r="0.5" g="0.1" b="0.1" a="0.5" />
+        <specular r="0.2" g="0.2" b="0.2" a="0" />
+        <shininess value= "2" />
+      </material>
+  </materials>
+
+  <transformations>
+    <transformation id="board">
+      <translate x="0" y="0" z="0" />
+    </transformation>
+  </transformations>
+
+  <animations>
+    <animation id="fly" span="5" type="linear">
+      <controlpoint xx="2" yy="0.2" zz="12" />
+      <controlpoint xx="48" yy="4.8" zz="12" />
+    </animation>
+
+    <animation id="circular" span="5" type="circular" centerx="0" centery="0" centerz="00" radius="0" startang="0" rotang="20" />
+  </animations>
+
+  <primitives>
+    <primitive id="gameboard">
+      <gameboard />
+    </primitive>
+  </primitives>
+
+  <components>
+    <component id="root">
+      <transformation>
+        <translate x="0" y="0" z="0" />
+      </transformation>
+
+      <materials>
+        <material id="metalAppearance" />
+      </materials>
+
+      <texture id="none" />
+
+      <children>
+        <componentref id="gameboard" />
+      </children>
+    </component>
+
+    <component id="gameboard">
+      <transformation>
+        <translate x="0" y="0" z="0" />
+      </transformation>
+
+      <materials>
+        <material id="metalAppearance" />
+      </materials>
+
+      <texture id="wood" />
+
+      <children>
+        <primitiveref id="gameboard" />
+      </children>
+    </component>
+  </components>
+</dsx>
