@@ -7,10 +7,10 @@
 */
 function MyToken(scene, type, player) {
   CGFobject.call(this,scene);
-  this.height = type * 0.5;
+  this.height = type * 0.25;
   this.player = player;
-  this.cylinder = new MyCylinder(this.scene, 1.5, 1.5, this.height , 50, 50);
-  this.top = new MyCylinderCircle(this.scene, 1.5, 50);
+  this.cylinder = new MyCylinder(this.scene,0.5, 0.5, this.height , 50, 50);
+  this.top = new MyCylinderCircle(this.scene, 0.5, 50);
   this.type = type;
 
   this.initBuffers();
@@ -108,14 +108,17 @@ MyToken.prototype.display = function() {
           this.medium1.apply();
         else
           this.medium2.apply();
+          break;
       case 3:
         if(this.player == 1)
           this.big1.apply();
         else
           this.big2.apply();
+          break;
       default:
         break;
     }
+    this.scene.rotate(Math.PI,0,0,1);
     this.scene.translate(0,0,this.height);
     this.top.display();
   this.scene.popMatrix();
