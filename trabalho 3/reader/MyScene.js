@@ -10,6 +10,7 @@ MyScene.prototype.init = function (application) {
 
 	this.initCameras();
 	this.initLights();
+  this.loadTextures();
 
 	this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 	this.gl.clearDepth(100.0);
@@ -51,6 +52,84 @@ MyScene.prototype.setDefaultAppearance = function () {
   this.setSpecular(0.8, 0.8, 0.8, 1.0);
   this.setShininess(10.0);
 };
+
+MyScene.prototype.loadTextures = function (){
+  this.waterT = new CGFappearance(this);
+  this.waterT.loadTexture("./res/Board/water.jpg");
+
+  this.rockTexture = new CGFappearance(this);
+  this.rockTexture.loadTexture("./res/Board/rock.jpg");
+
+
+  this.red = new CGFappearance(this);
+  this.red.loadTexture("./res/red.png");
+
+  //player 1 Textures
+  this.player1Body = new CGFappearance(this);
+ 	this.player1Body.setAmbient(0.5,0.5,0.5,1);
+	this.player1Body.setDiffuse(1.0,1.0,1.0,1);
+	this.player1Body.setSpecular(0.5,0.5,0.5,1);
+	this.player1Body.setShininess(500);
+	this.player1Body.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+	this.player1Body.loadTexture("./res/Pieces/green.png");
+
+  this.small1 = new CGFappearance(this);
+ 	this.small1.setAmbient(0.5,0.5,0.5,1);
+	this.small1.setDiffuse(1.0,1.0,1.0,1);
+	this.small1.setSpecular(0.5,0.5,0.5,1);
+	this.small1.setShininess(500);
+	this.small1.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+	this.small1.loadTexture("./res/Pieces/small1.png");
+
+  this.medium1 = new CGFappearance(this);
+  this.medium1.setAmbient(0.5,0.5,0.5,1);
+  this.medium1.setDiffuse(1.0,1.0,1.0,1);
+  this.medium1.setSpecular(0.5,0.5,0.5,1);
+  this.medium1.setShininess(500);
+  this.medium1.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+  this.medium1.loadTexture("./res/Pieces/medium1.png");
+
+  this.big1 = new CGFappearance(this);
+  this.big1.setAmbient(0.5,0.5,0.5,1);
+  this.big1.setDiffuse(1.0,1.0,1.0,1);
+  this.big1.setSpecular(0.5,0.5,0.5,1);
+  this.big1.setShininess(500);
+  this.big1.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+  this.big1.loadTexture("./res/Pieces/big1.png");
+
+  //player 2 Textures
+  this.player2Body = new CGFappearance(this);
+ 	this.player2Body.setAmbient(1.0,1.0,1.0,1);
+	this.player2Body.setDiffuse(1.0,1.0,1.0,1);
+	this.player2Body.setSpecular(1.0,1.0,1.0,1);
+	this.player2Body.setShininess(500);
+	this.player2Body.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+	this.player2Body.loadTexture("./res/Pieces/yellow.png");
+
+  this.small2 = new CGFappearance(this);
+ 	this.small2.setAmbient(0.5,0.5,0.5,1);
+	this.small2.setDiffuse(1.0,1.0,1.0,1);
+	this.small2.setSpecular(0.5,0.5,0.5,1);
+	this.small2.setShininess(500);
+	this.small2.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+	this.small2.loadTexture("./res/Pieces/small2.png");
+
+  this.medium2 = new CGFappearance(this);
+  this.medium2.setAmbient(0.5,0.5,0.5,1);
+  this.medium2.setDiffuse(1.0,1.0,1.0,1);
+  this.medium2.setSpecular(0.5,0.5,0.5,1);
+  this.medium2.setShininess(500);
+  this.medium2.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+  this.medium2.loadTexture("./res/Pieces/medium2.png");
+
+  this.big2 = new CGFappearance(this);
+  this.big2.setAmbient(0.5,0.5,0.5,1);
+  this.big2.setDiffuse(1.0,1.0,1.0,1);
+  this.big2.setSpecular(0.5,0.5,0.5,1);
+  this.big2.setShininess(500);
+  this.big2.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+  this.big2.loadTexture("./res/Pieces/big2.png");
+}
 
 MyScene.prototype.logPicking = function ()
 {

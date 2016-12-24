@@ -19,9 +19,13 @@ MyGameboard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
     }else if(response == 'win'){
       //Show Winner
     }else if(response != 'Bad Request'){
+      var subrequest = requestString.substring(0,9);
+      console.log(subrequest);
         if(requestString == 'startgame'){
           var newBoardMatrix = gameboard.translateProlgBoard(data.target.response);
           gameboard.updateBoardMatrix(newBoardMatrix);
+        }else if(subrequest == 'movePiece'){
+          gameboard.updateBoardMatrix(gameboard.translateProlgBoard(data.target.response));
         }
     }
 
@@ -35,7 +39,7 @@ MyGameboard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
 
 MyGameboard.prototype.requestToPl = function(request){
   request = typeof request !== 'undefined' ? request : false;
-
+  console.log('REQUEST : ' + request);
 	if (!request)
 		swal('Developer Error', "Please make a valid request.", "error")
 

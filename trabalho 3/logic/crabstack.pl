@@ -152,7 +152,7 @@ isplayer2Crab([P2|P2s]):- % Checks if crab belongs to player 2
 %   Given a player crab     %
 % ************************* %
 
-build_moves(BoardGame,R,C,PRow, PCol,[Peca|PecaT]):-
+build_moves(BoardGame,R,C,PRow, PCol,[Peca|Ps]):-
 	(Peca == cp1 ; Peca == cp2) ->(build_small_moves(BoardGame,R,C,PRow, PCol));
 	(Peca == cm1 ; Peca == cm2) ->(build_medium_moves(BoardGame,R,C,PRow,PCol));
 	(Peca == cg1 ; Peca == cg2) ->(build_big_moves(BoardGame,R,C,PRow,PCol));
@@ -223,6 +223,18 @@ select_mov(MovOption, MovRow, MovCol,OldRow,OldCol,GameB,OldPos, CurrentTurn, Ga
 	(CurrentTurn == 1 -> NextTurn = 2; NextTurn = 1),
 	updateBoard(GameB, NewGameB, OldRow, OldCol, NewRow, NewCol, OldPos),
 	playerTurn(NewGameB,NextTurn,GameMode).
+
+
+pair([],[],[]).
+pair([A|P],[B|Q],[{A,B}|R]) :- pair(P,Q,R).
+
+canMove(GameB, NewGameB,RowList,ColList,Row,Col ,OldRow,OldCol,OldPos):-
+	pair(RowList,ColList,ML),
+	X = {Row,Col},
+	member(X,ML),
+  updateBoard(GameB, NewGameB, OldRow, OldCol, NewRow, NewCol, OldPos).
+
+
 
 
 % ****************************************** %

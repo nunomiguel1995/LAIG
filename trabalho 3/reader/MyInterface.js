@@ -1,6 +1,5 @@
 /*
 	Creates a new Interface
-	Allows the user to enable/disable the lights, change perspective and materials
 */
 function MyInterface() {
 	//call CGFinterface constructor
@@ -17,14 +16,10 @@ MyInterface.prototype.init = function(application) {
 
 	this.gui = new dat.GUI();
 
-	this.Lights = this.gui.addFolder("Lights");
-	this.Lights.open();
+	this.Game = this.gui.addFolder("CrabStack");
+	this.Game.open();
 
-	this.Cameras = this.gui.addFolder("Cameras");
-	//this.Cameras.add(this.scene,'defaultCamera');
-	//this.Cameras.open();
-
-	this.Cameras.add(this,'startGame').name('Start Game');
+	this.Game.add(this,'startGame').name('Start Game');
 
 	return true;
 };
@@ -33,15 +28,6 @@ MyInterface.prototype.startGame = function() {
 	this.scene.board.requestToPl('startgame');
 }
 
-/*
-	Adds a checkbox to change the light value
-*/
-MyInterface.prototype.addLightBox = function(i,id){
-	//this.Lights.add(this.scene.lightBoolean, i, this.scene.lightBoolean[i]).name(id);
-}
-
-/*
-*/
 MyInterface.prototype.processKeyboard = function(event){
 	CGFinterface.prototype.processKeyboard.call(this,event);
 
