@@ -7,9 +7,6 @@ function MyGameboard(scene) {
 
   this.gameboard = new MyCylinder(this.scene, 4, 4, 0.1, 6, 6);
 
-	this.waterT = new CGFappearance(this.scene);
-	this.waterT.loadTexture("./res/Board/water.jpg");
-
 	this.matrix = [];
 
 	this.initBoardMatrix();
@@ -42,7 +39,7 @@ MyGameboard.prototype.initBoardMatrix = function(){
 		}
 		var line = [];
 		for(x; x< maxPositions; x++){
-			var posStack = new MyBoardPosition(this.scene, x, y,[],id);
+			var posStack = new MyBoardPosition(this.scene, x, y,[],id,y+1,x+1);
 			id++;
 			line.push(posStack);
 		}
@@ -53,7 +50,7 @@ MyGameboard.prototype.initBoardMatrix = function(){
 MyGameboard.prototype.display = function() {
 	this.scene.clearPickRegistration();
   this.scene.pushMatrix();
-		this.waterT.apply();
+		this.scene.waterT.apply();
 		this.scene.rotate(-Math.PI/2,1,0,0);
     this.gameboard.display();
 		var i = 0;
@@ -166,7 +163,9 @@ MyGameboard.prototype.updateBoardMatrix = function(newMatrix){
 				}
 				pieces.push(obj);
 			}
-			var newPosition = new MyBoardPosition(this.scene,j,i,pieces,id);
+			if(pieces.length != 0)
+				pieces.reverse();
+			var newPosition = new MyBoardPosition(this.scene,j,i,pieces,id,i+1,j+1);
 			id++;
 			newline.push(newPosition);
 		}
@@ -175,8 +174,58 @@ MyGameboard.prototype.updateBoardMatrix = function(newMatrix){
 	this.matrix = matrix;
 }
 
+MyGameboard.prototype.convertBoardToProlog = function(){
+	var prologBoard = '[';
+	var i  = 0;
+	for(i; i < this.matrix.length;i++){
+		var line = '[';
+		var j = 0;
+		for(j ; j<this.matrix[i].length;j++){
+			line += this.matrix[i][j].convertPiecesToProlog();
+			if(j != this.matrix[i].length -1)
+				line +=',';
+		}
+		line += ']';
+		if(i != this.matrix.length -1)
+			line += ',';
+		prologBoard += line;
+	}
+	prologBoard += ']';
+	return prologBoard;
+}
+
+MyGameboard.prototype.getBoardPositionById = function(id){
+	var pos = -1;
+	var i=0;
+	for(i;i<this.matrix.length;i++){
+		var j = 0;
+		for(j;j<this.matrix[i].length;j++){
+			if(this.matrix[i][j].id == id){
+				pos = this.matrix[i][j];
+			}
+		}
+	}
+	return pos;
+}
+
 MyGameboard.prototype.movePiece = function(){
-	console.log("picked: "+this.scene.picked+" move: "+this.scene.movePicked);
+	var currentPosition = this.getBoardPositionById(this.scene.picked);
+	var newPosition = this.getBoardPositionById(this.scene.movePicked);
+	if(currentPosition == -1 || newPosition == -1)
+		console.error("ID não existe");
+
+	//console.log("Current Position: Row "+currentPosition.row+" Col "+currentPosition.col);
+	//console.log("New Position: Row "+newPosition.row+" Col "+newPosition.col);
+
+	var prologBoard = this.convertBoardToProlog();
+	var piece = this.matrix[currentPosition.row - 1][currentPosition.col -1].convertPiecesToProlog();
+
+	var request = 'movePiece(' + prologBoard + ',' + currentPosition.row + ',' + currentPosition.col + ','
+ 			  + piece +','+ newPosition.row +',' + newPosition.col+ ')';
+
+
+	this.requestToPl(request);
+
 	this.scene.picked = -1;
 	this.scene.movePicked = -1;
 }

@@ -2,7 +2,7 @@
 * MyBoardPosition
 * @constructor
 */
-function MyBoardPosition(scene,x,y,pieces,id) {
+function MyBoardPosition(scene,x,y,pieces,id,row,col) {
   this.scene = scene;
   this.x =x;
   this.y =y;
@@ -10,9 +10,8 @@ function MyBoardPosition(scene,x,y,pieces,id) {
   this.boardUnit = new MyCylinder(this.scene, 0.5, 0.5, 0.05, 50, 50);
 
   this.id = id;
-
-  this.rockTexture = new CGFappearance(this.scene);
-  this.rockTexture.loadTexture("./res/Board/rock.jpg");
+  this.row = row;
+  this.col = col;
 
   this.ytranslation = 0;
   this.xtranslation = 0;
@@ -22,10 +21,6 @@ function MyBoardPosition(scene,x,y,pieces,id) {
   this.positionMatrix = mat4.create();
   mat4.identity(this.positionMatrix);
   mat4.translate(this.positionMatrix,this.positionMatrix,[this.xtranslation,this.ytranslation,0.1]);
-
-
-  this.red = new CGFappearance(this.scene);
-  this.red.loadTexture("./res/red.png");
 
   this.initBuffers();
 };
@@ -94,7 +89,7 @@ MyBoardPosition.prototype.getPosition = function(){
 MyBoardPosition.prototype.display = function() {
 
   this.scene.pushMatrix();
-    this.rockTexture.apply();
+    this.scene.rockTexture.apply();
     this.scene.multMatrix(this.positionMatrix);
     this.boardUnit.display();
   this.scene.popMatrix();
@@ -109,4 +104,16 @@ MyBoardPosition.prototype.display = function() {
       top += this.pieces[i].height+0.02;
     this.scene.popMatrix();
   }
+}
+
+MyBoardPosition.prototype.convertPiecesToProlog = function(){
+  var prologPiece='[';
+  var i = 0;
+
+  for(i; i < this.pieces.length; i++){
+    var token = this.pieces[i].getToken();
+    prologPiece += token + ',';
+  }
+  prologPiece += '.]';
+  return prologPiece;
 }

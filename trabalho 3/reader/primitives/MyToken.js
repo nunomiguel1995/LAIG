@@ -14,73 +14,6 @@ function MyToken(scene, type, player) {
   this.type = type;
 
   this.initBuffers();
-
-  //player 1 Textures
-  this.player1Body = new CGFappearance(this.scene);
- 	this.player1Body.setAmbient(0.5,0.5,0.5,1);
-	this.player1Body.setDiffuse(1.0,1.0,1.0,1);
-	this.player1Body.setSpecular(0.5,0.5,0.5,1);
-	this.player1Body.setShininess(500);
-	this.player1Body.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-	this.player1Body.loadTexture("./res/Pieces/green.png");
-
-  this.small1 = new CGFappearance(this.scene);
- 	this.small1.setAmbient(0.5,0.5,0.5,1);
-	this.small1.setDiffuse(1.0,1.0,1.0,1);
-	this.small1.setSpecular(0.5,0.5,0.5,1);
-	this.small1.setShininess(500);
-	this.small1.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-	this.small1.loadTexture("./res/Pieces/small1.png");
-
-  this.medium1 = new CGFappearance(this.scene);
-  this.medium1.setAmbient(0.5,0.5,0.5,1);
-  this.medium1.setDiffuse(1.0,1.0,1.0,1);
-  this.medium1.setSpecular(0.5,0.5,0.5,1);
-  this.medium1.setShininess(500);
-  this.medium1.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-  this.medium1.loadTexture("./res/Pieces/medium1.png");
-
-  this.big1 = new CGFappearance(this.scene);
-  this.big1.setAmbient(0.5,0.5,0.5,1);
-  this.big1.setDiffuse(1.0,1.0,1.0,1);
-  this.big1.setSpecular(0.5,0.5,0.5,1);
-  this.big1.setShininess(500);
-  this.big1.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-  this.big1.loadTexture("./res/Pieces/big1.png");
-
-  //player 2 Textures
-  this.player2Body = new CGFappearance(this.scene);
- 	this.player2Body.setAmbient(1.0,1.0,1.0,1);
-	this.player2Body.setDiffuse(1.0,1.0,1.0,1);
-	this.player2Body.setSpecular(1.0,1.0,1.0,1);
-	this.player2Body.setShininess(500);
-	this.player2Body.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-	this.player2Body.loadTexture("./res/Pieces/yellow.png");
-
-  this.small2 = new CGFappearance(this.scene);
- 	this.small2.setAmbient(0.5,0.5,0.5,1);
-	this.small2.setDiffuse(1.0,1.0,1.0,1);
-	this.small2.setSpecular(0.5,0.5,0.5,1);
-	this.small2.setShininess(500);
-	this.small2.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-	this.small2.loadTexture("./res/Pieces/small2.png");
-
-  this.medium2 = new CGFappearance(this.scene);
-  this.medium2.setAmbient(0.5,0.5,0.5,1);
-  this.medium2.setDiffuse(1.0,1.0,1.0,1);
-  this.medium2.setSpecular(0.5,0.5,0.5,1);
-  this.medium2.setShininess(500);
-  this.medium2.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-  this.medium2.loadTexture("./res/Pieces/medium2.png");
-
-  this.big2 = new CGFappearance(this.scene);
-  this.big2.setAmbient(0.5,0.5,0.5,1);
-  this.big2.setDiffuse(1.0,1.0,1.0,1);
-  this.big2.setSpecular(0.5,0.5,0.5,1);
-  this.big2.setShininess(500);
-  this.big2.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-  this.big2.loadTexture("./res/Pieces/big2.png");
-
 };
 
 MyToken.prototype = Object.create(CGFobject.prototype);
@@ -89,9 +22,9 @@ MyToken.prototype.constructor = MyToken;
 MyToken.prototype.display = function() {
   this.scene.pushMatrix();
     if(this.player == 1){
-        this.player1Body.apply();
+        this.scene.player1Body.apply();
     }else if(this.player == 2){
-        this.player2Body.apply();
+        this.scene.player2Body.apply();
     }
     this.cylinder.display();
   this.scene.popMatrix();
@@ -99,21 +32,21 @@ MyToken.prototype.display = function() {
     switch (this.type) {
       case 1:
         if(this.player == 1)
-          this.small1.apply();
+          this.scene.small1.apply();
         else
-          this.small2.apply();
+          this.scene.small2.apply();
         break;
       case 2:
         if(this.player == 1)
-          this.medium1.apply();
+          this.scene.medium1.apply();
         else
-          this.medium2.apply();
+          this.scene.medium2.apply();
           break;
       case 3:
         if(this.player == 1)
-          this.big1.apply();
+          this.scene.big1.apply();
         else
-          this.big2.apply();
+          this.scene.big2.apply();
           break;
       default:
         break;
@@ -122,4 +55,31 @@ MyToken.prototype.display = function() {
     this.scene.translate(0,0,this.height);
     this.top.display();
   this.scene.popMatrix();
+}
+
+MyToken.prototype.getToken = function(){
+  var token;
+  switch (this.type) {
+    case 1:
+      if(this.player == 1)
+        token = 'cp1';
+      else
+        token = 'cp2';
+      break;
+    case 2:
+      if(this.player == 1)
+        token = 'cm1';
+      else
+        token = 'cm2';
+      break;
+    case 3:
+      if(this.player == 1)
+        token = 'cg1';
+      else
+        token = 'cg2';
+      break;
+    default:
+      break;
+  }
+  return token;
 }

@@ -107,3 +107,14 @@ print_header_line(_).
 
 
 parse_input(startgame, Board):- initial_board(Board).
+
+parse_input(movePiece(Board,Row,Col,Peca,NewRow,NewCol),Msg):-
+	build_moves(Board,Rl,Cl,Row,Col,Peca),
+	canMove(Board, NewGameB,Rl,Cl,NewRow,NewCol, Row,Col,Peca),
+	Msg = NewGameB.
+
+parse_input(test(C,N), Res) :- test(C,Res,N).
+parse_input(quit, goodbye).
+
+test(_,[],N) :- N =< 0.
+test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).
