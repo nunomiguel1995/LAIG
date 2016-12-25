@@ -20,6 +20,7 @@ MyInterface.prototype.init = function(application) {
 	this.Game.open();
 	this.Game.add(this,'startGame').name('Start Game');
 	this.Game.add(this,'quitGame').name('Quit Game');
+	this.Game.add(this,'undo').name('Undo');
 
 	this.Options = this.gui.addFolder("Options");
 	this.Options.add(this.scene,'bot').name('Play w/ computer');
@@ -34,6 +35,13 @@ MyInterface.prototype.startGame = function() {
 
 MyInterface.prototype.quitGame = function(){
 	this.scene.board.requestToPl('quitgame');
+}
+
+MyInterface.prototype.undo = function(){
+	if(this.scene.board.history.stack.length -1 > 0){
+		this.scene.board.history.pop();
+		this.scene.board.matrix = this.scene.board.history.top();
+	}
 }
 
 MyInterface.prototype.processKeyboard = function(event){

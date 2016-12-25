@@ -16,6 +16,7 @@ MyGameboard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
       return;
     } else if(response == 'quit'){
       gameboard.initBoardMatrix();
+      gameboard.history = [];
     }else if(response == 'win'){
       //Show Winner
     }else if(response != 'Bad Request'){
@@ -24,11 +25,13 @@ MyGameboard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
         if(requestString == 'startgame'){
           var newBoardMatrix = gameboard.translateProlgBoard(data.target.response);
           gameboard.updateBoardMatrix(newBoardMatrix);
+          gameboard.history.push(gameboard.matrix);
         }else if(subrequest == 'playBot' && response == 'noMove') {
           gameboard.scene.botplay = false;
         }else{
           if(response != 'noMove'){
             gameboard.updateBoardMatrix(gameboard.translateProlgBoard(data.target.response));
+            gameboard.history.push(gameboard.matrix);
             if(!gameboard.scene.player1Turn && gameboard.scene.bot)
               gameboard.scene.botplay = false;
             gameboard.scene.player1Turn = !gameboard.scene.player1Turn;

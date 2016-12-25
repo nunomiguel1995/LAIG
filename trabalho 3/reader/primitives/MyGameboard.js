@@ -8,6 +8,7 @@ function MyGameboard(scene) {
   this.gameboard = new MyCylinder(this.scene, 4, 4, 0.1, 6, 6);
 
 	this.matrix = [];
+	this.history = new Stack();
 
 	this.initBoardMatrix();
 
