@@ -28,6 +28,9 @@ MyScene.prototype.init = function (application) {
   this.picked = -1;
   this.movePicked = -1;
   this.player1Turn = true;
+
+  this.bot = false;
+  this.botplay = false;
 };
 
 MyScene.prototype.initCameras = function () {
@@ -182,6 +185,22 @@ MyScene.prototype.display = function(){
 
 	this.clearPickRegistration();
 	this.environment.display();
+
+
+  if(this.bot && !this.player1Turn && !this.botplay){
+    var player2Pieces = this.board.getPlayer2Pieces();
+    var random = Math.floor((Math.random() * player2Pieces.length));
+    var randomID = player2Pieces[random];
+    var position = this.board.getBoardPositionById(randomID);
+    var piece = position.convertPiecesToProlog();
+    var board = this.board.convertBoardToProlog();
+    var request = 'playBot(' + board + ','+position.row + ',' + position.col + ','+piece +')';
+
+    this.botplay = true;
+    this.board.requestToPl(request);
+  }
+
+
 }
 
 MyScene.prototype.update = function() {

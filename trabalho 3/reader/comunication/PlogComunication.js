@@ -14,24 +14,27 @@ MyGameboard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
 
     if(response == 'play'){
       return;
-    } else if(response == 'goodbye'){
-      location.replace("../");
+    } else if(response == 'quit'){
+      gameboard.initBoardMatrix();
     }else if(response == 'win'){
       //Show Winner
     }else if(response != 'Bad Request'){
-      var subrequest = requestString.substring(0,9);
-      console.log(subrequest);
+      var subrequest = requestString.substring(0,7);
+    //console.log(subrequest);
         if(requestString == 'startgame'){
           var newBoardMatrix = gameboard.translateProlgBoard(data.target.response);
           gameboard.updateBoardMatrix(newBoardMatrix);
-        }else if(subrequest == 'movePiece'){
+        }else if(subrequest == 'playBot' && response == 'noMove') {
+          gameboard.scene.botplay = false;
+        }else{
           if(response != 'noMove'){
             gameboard.updateBoardMatrix(gameboard.translateProlgBoard(data.target.response));
+            if(!gameboard.scene.player1Turn && gameboard.scene.bot)
+              gameboard.scene.botplay = false;
             gameboard.scene.player1Turn = !gameboard.scene.player1Turn;
           }
         }
     }
-
   };
 
 	request.onerror = onError || function(){console.log("Error waiting for response");};

@@ -223,6 +223,13 @@ select_mov(MovOption, MovRow, MovCol,OldRow,OldCol,GameB,OldPos, CurrentTurn, Ga
 	(CurrentTurn == 1 -> NextTurn = 2; NextTurn = 1),
 	updateBoard(GameB, NewGameB, OldRow, OldCol, NewRow, NewCol, OldPos),
 	playerTurn(NewGameB,NextTurn,GameMode).
+	
+bot_play(Board, NewBoard, RowList,ColList,OldRow,OldCol,Peca):-
+	length(RowList,Len),
+	random(1, Len, Choice),
+	nth1(Choice, RowList, NewRow),
+	nth1(Choice, ColList, NewCol),
+	updateBoard(Board, NewBoard, OldRow, OldCol, NewRow, NewCol, Peca).
 
 
 pair([],[],[]).

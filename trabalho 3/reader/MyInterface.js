@@ -18,8 +18,11 @@ MyInterface.prototype.init = function(application) {
 
 	this.Game = this.gui.addFolder("CrabStack");
 	this.Game.open();
-
 	this.Game.add(this,'startGame').name('Start Game');
+	this.Game.add(this,'quitGame').name('Quit Game');
+
+	this.Options = this.gui.addFolder("Options");
+	this.Options.add(this.scene,'bot').name('Play w/ computer');
 
 	return true;
 };
@@ -27,6 +30,10 @@ MyInterface.prototype.init = function(application) {
 MyInterface.prototype.startGame = function() {
 	this.scene.board.requestToPl('startgame');
 	this.scene.setPickEnabled(true);
+}
+
+MyInterface.prototype.quitGame = function(){
+	this.scene.board.requestToPl('quitgame');
 }
 
 MyInterface.prototype.processKeyboard = function(event){

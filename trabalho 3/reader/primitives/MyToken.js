@@ -83,3 +83,11 @@ MyToken.prototype.getToken = function(){
   }
   return token;
 }
+
+MyToken.prototype.isPlayer2Crab = function(){
+  if(this.player == 2){
+    return true;
+  }else{
+    return false;
+  }
+}

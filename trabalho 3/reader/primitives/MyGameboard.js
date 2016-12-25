@@ -18,6 +18,7 @@ MyGameboard.prototype = Object.create(CGFobject.prototype);
 MyGameboard.prototype.constructor = MyGameboard;
 
 MyGameboard.prototype.initBoardMatrix = function(){
+	var matrix=[];
 	var y = 0;
 	var id = 1
 	for(y; y<5; y++){
@@ -43,8 +44,9 @@ MyGameboard.prototype.initBoardMatrix = function(){
 			id++;
 			line.push(posStack);
 		}
-		this.matrix.push(line);
+		matrix.push(line);
 	}
+	this.matrix = matrix;
 }
 
 MyGameboard.prototype.display = function() {
@@ -219,8 +221,8 @@ MyGameboard.prototype.movePiece = function(){
 
 	var prologBoard = this.convertBoardToProlog();
 	var piece = this.matrix[currentPosition.row - 1][currentPosition.col -1].convertPiecesToProlog();
-	console.log("Pieces: " + piece);
-	console.log(prologBoard);
+	//console.log("Pieces: " + piece);
+	//console.log(prologBoard);
 
 	var request;
 	if(this.scene.player1Turn){
@@ -233,7 +235,24 @@ MyGameboard.prototype.movePiece = function(){
  			  + piece +','+ newPosition.row +',' + newPosition.col+ ')';
 
 	this.requestToPl(request);
-	console.log(this.convertBoardToProlog(this.matrix));
+	//console.log(this.convertBoardToProlog(this.matrix));
+
 	this.scene.picked = -1;
 	this.scene.movePicked = -1;
+}
+
+MyGameboard.prototype.getPlayer2Pieces = function(){
+	var ids = [];
+	var i = 0;
+	for(i; i < this.matrix.length;i++){
+		var j = 0;
+		for(j;j<this.matrix[i].length;j++){
+			var len = this.matrix[i][j].pieces.length;
+			if(len > 0){
+				if(this.matrix[i][j].pieces[len-1].isPlayer2Crab())
+					ids.push(this.matrix[i][j].id);
+			}
+		}
+	}
+	return ids;
 }

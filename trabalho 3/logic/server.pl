@@ -116,6 +116,13 @@ parse_input(movePiecePlayer2(Board,Row,Col,Peca,NewRow,NewCol),Msg):-
 	build_moves(Board,Rl,Cl,Row,Col,Peca),
 	((isplayer2Crab(Peca),canMove(Board, NewGameB,Rl,Cl,NewRow,NewCol, Row,Col,Peca)) -> 	Msg = NewGameB; Msg = 'noMove').
 
+
+parse_input(playBot(Board,Row,Col,Peca),Msg):-
+		build_moves(Board,Rl,Cl,Row,Col,Peca),
+		((length(Rl,Len),Len > 0, bot_play(Board, NewBoard, Rl,Cl,Row,Col,Peca)) -> Msg = NewBoard; Msg = 'noMove').
+
+parse_input(quitgame,quit).
+
 parse_input(test(C,N), Res) :- test(C,Res,N).
 parse_input(quit, goodbye).
 
