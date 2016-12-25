@@ -5,10 +5,12 @@
 function MyGameboard(scene) {
 	CGFobject.call(this,scene);
 
-  this.gameboard = new MyCylinder(this.scene, 4, 4, 0.1, 6, 6);
+  	this.gameboard = new MyCylinder(this.scene, 4, 4, 0.1, 6, 6);
 
 	this.matrix = [];
 	this.history = new Stack();
+
+	//this.moveAnimation;
 
 	this.initBoardMatrix();
 
@@ -52,20 +54,21 @@ MyGameboard.prototype.initBoardMatrix = function(){
 
 MyGameboard.prototype.display = function() {
 	this.scene.clearPickRegistration();
-  this.scene.pushMatrix();
+	this.scene.pushMatrix();
 		this.scene.waterT.apply();
 		this.scene.rotate(-Math.PI/2,1,0,0);
-    this.gameboard.display();
+		this.gameboard.display();
 		var i = 0;
 		for(i; i < this.matrix.length; i++){
 			var j = 0;
 			for(j; j < this.matrix[i].length; j++){
 				this.scene.registerForPick(this.scene.id + 1, this.matrix[i][j]);
 				this.scene.id ++;
+				//if(this.moveAnimation != null){this.moveAnimation.apply(this.scene.elapsedTime);}
 				this.matrix[i][j].display();
 			}
 		}
-  this.scene.popMatrix();
+	this.scene.popMatrix();
 };
 
 MyGameboard.prototype.translateProlgBoard = function(response){
@@ -213,7 +216,14 @@ MyGameboard.prototype.getBoardPositionById = function(id){
 
 MyGameboard.prototype.movePiece = function(){
 	var currentPosition = this.getBoardPositionById(this.scene.picked);
+
 	var newPosition = this.getBoardPositionById(this.scene.movePicked);
+
+	/*var distance = Math.sqrt(Math.pow(newPosition.xtranslation - currentPosition.xtranslation,2) + Math.pow(newPosition.ytranslation - currentPosition.ytranslation,2));
+	var midpointX = (currentPosition.xtranslation + newPosition.xtranslation) / 2;
+	var midpointY = (currentPosition.ytranslation + newPosition.ytranslation) / 2;
+	this.moveAnimation = new CircularAnimation(this, "move", 2, midpointX, 0, midpointY, distance/2, 0, 180);*/
+
 	if(currentPosition == -1 || newPosition == -1)
 		console.error("ID não existe");
 
@@ -222,9 +232,10 @@ MyGameboard.prototype.movePiece = function(){
 
 	var prologBoard = this.convertBoardToProlog();
 	var piece = this.matrix[currentPosition.row - 1][currentPosition.col -1].convertPiecesToProlog();
-	//console.log("Pieces: " + piece);
-	//console.log(prologBoard);
 
+	console.log("Pieces: " + piece);
+	console.log(prologBoard);
+	
 	var request;
 	if(this.scene.player1Turn){
 		request = 'movePiecePlayer1(';

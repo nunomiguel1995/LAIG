@@ -16,12 +16,9 @@ function CircularAnimation(scene, id, span, centerx, centery, centerz, radius, s
 CircularAnimation.prototype = Object.create(Animation.prototype);
 CircularAnimation.prototype.constructor = CircularAnimation;
 
-CircularAnimation.prototype.apply = function(currTime, node){
+CircularAnimation.prototype.apply = function(currTime){
   if(currTime > this.span){
     currTime = this.span;
-    if(node.animationIndex < node.animation.length){
-      node.animationIndex++;
-    }
     this.scene.time = 0;
     this.scene.elapsedTime = 0;
   }

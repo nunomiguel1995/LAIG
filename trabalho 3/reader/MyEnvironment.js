@@ -16,6 +16,8 @@ function MyEnvironment(scene) {
 
   this.plane = new MyPlane(this.scene,3,2,7,7);
 
+  this.sign = new MySign(this.scene);
+
   this.initBuffers();
 };
 
@@ -32,7 +34,7 @@ MyEnvironment.prototype.display = function(){
         this.plane.display();
     this.scene.popMatrix();
 
-     this.scene.pushMatrix();
+    this.scene.pushMatrix();
         this.side_beach.apply();
     	this.scene.setDefaultAppearance();
         this.scene.translate(-1, 10, -10);
@@ -50,5 +52,12 @@ MyEnvironment.prototype.display = function(){
         this.scene.rotate(-Math.PI, 0, 0, 1);
         this.scene.scale(6.7,10,0);
         this.plane.display();
+    this.scene.popMatrix();
+
+    this.scene.pushMatrix();
+       	this.scene.setDefaultAppearance();
+        this.scene.translate(0, 0, -5);
+        this.scene.scale(2,2,2);
+        this.sign.display();
     this.scene.popMatrix();
 } 

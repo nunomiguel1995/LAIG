@@ -5,15 +5,15 @@
  function MyRectangle(scene, minX, minY, maxX, maxY) {
  	CGFobject.call(this,scene);
 
-  this.minS = 0;
-  this.maxS = 1;
-  this.minT = 0;
-  this.maxT = 1;
+    this.minS = 0;
+    this.maxS = 1;
+    this.minT = 0;
+    this.maxT = 1;
 
-  this.minX = minX;
-  this.minY = minY;
-  this.maxX = maxX;
-  this.maxY = maxY;
+    this.minX = minX;
+    this.minY = minY;
+    this.maxX = maxX;
+    this.maxY = maxY;
 
  	this.initBuffers();
  };

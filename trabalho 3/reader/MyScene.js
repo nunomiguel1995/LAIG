@@ -28,9 +28,12 @@ MyScene.prototype.init = function (application) {
   this.picked = -1;
   this.movePicked = -1;
   this.player1Turn = true;
+  this.isPlayer1Turn = true;
 
   this.bot = false;
   this.botplay = false;
+
+  this.time = 0;
 };
 
 MyScene.prototype.initCameras = function () {
@@ -144,14 +147,17 @@ MyScene.prototype.logPicking = function ()
 		if (this.pickResults != null && this.pickResults.length > 0) {
 			for (var i=0; i< this.pickResults.length; i++) {
 				var obj = this.pickResults[i][0];
-				if (obj)
-				{
+				if (obj){
 					var customId = this.pickResults[i][1];
           if(this.picked == -1){
             this.picked = customId;
           }else{
             this.movePicked = customId;
-            this.board.movePiece();
+            this.board.movePiece();if(this.isPlayer1Turn == true){
+              this.isPlayer1Turn = false;
+            }else{
+              this.isPlayer1Turn = true;
+            }
           }
 					console.log("Picked object: " + obj + ", with pick id " + customId);
 				}
@@ -203,6 +209,9 @@ MyScene.prototype.display = function(){
 
 }
 
-MyScene.prototype.update = function() {
+MyScene.prototype.update = function(currTime) {
+  if (this.time == 0)
+    this.time = currTime;
 
+  this.elapsedTime = (currTime - this.time) / 1000;
 }

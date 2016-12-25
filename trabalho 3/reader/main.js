@@ -17,7 +17,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'primitives/My
                 'animation/Animation.js', 'animation/LinearAnimation.js', 'animation/CircularAnimation.js', 'primitives/MyPlane.js', 'primitives/MyPatch.js',
                 'primitives/MyVehicle.js', 'primitives/MyWing.js', 'primitives/MyHelice.js', 'primitives/MyChessboard.js',
                 'primitives/MyToken.js','primitives/MyGameboard.js','MyScene.js', 'primitives/MyBoardPosition.js',
-                'comunication/PlogComunication.js','MyEnvironment.js',
+                'comunication/PlogComunication.js','MyEnvironment.js', 'primitives/MySign.js', 'primitives/MyCube.js',
 
 
 main=function()
