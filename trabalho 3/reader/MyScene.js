@@ -18,15 +18,12 @@ MyScene.prototype.init = function (application) {
 	this.gl.enable(this.gl.CULL_FACE);
 	this.gl.depthFunc(this.gl.LEQUAL);
 	this.axis=new CGFaxis(this);
-	
+
   this.setPickEnabled(true);
 
 	this.environment = new MyEnvironment(this);
 	this.board = new MyGameboard(this);
-<<<<<<< HEAD
   this.setPickEnabled(false);
-=======
->>>>>>> a8de612abaedf4c99bfc8abd6ccce9d0afddeae0
 
   this.picked = -1;
   this.movePicked = -1;
@@ -181,7 +178,7 @@ MyScene.prototype.display = function(){
 	this.axis.display();
 
 	this.setDefaultAppearance();
-  this.board.display();	
+  this.board.display();
 
 	this.clearPickRegistration();
 	this.environment.display();
