@@ -26,6 +26,7 @@ MyInterface.prototype.init = function(application) {
 
 MyInterface.prototype.startGame = function() {
 	this.scene.board.requestToPl('startgame');
+	this.scene.setPickEnabled(true);
 }
 
 MyInterface.prototype.processKeyboard = function(event){

@@ -108,10 +108,13 @@ print_header_line(_).
 
 parse_input(startgame, Board):- initial_board(Board).
 
-parse_input(movePiece(Board,Row,Col,Peca,NewRow,NewCol),Msg):-
+parse_input(movePiecePlayer1(Board,Row,Col,Peca,NewRow,NewCol),Msg):-
 	build_moves(Board,Rl,Cl,Row,Col,Peca),
-	canMove(Board, NewGameB,Rl,Cl,NewRow,NewCol, Row,Col,Peca),
-	Msg = NewGameB.
+	((isplayer1Crab(Peca),canMove(Board, NewGameB,Rl,Cl,NewRow,NewCol, Row,Col,Peca)) -> 	Msg = NewGameB; Msg = 'noMove').
+
+parse_input(movePiecePlayer2(Board,Row,Col,Peca,NewRow,NewCol),Msg):-
+	build_moves(Board,Rl,Cl,Row,Col,Peca),
+	((isplayer2Crab(Peca),canMove(Board, NewGameB,Rl,Cl,NewRow,NewCol, Row,Col,Peca)) -> 	Msg = NewGameB; Msg = 'noMove').
 
 parse_input(test(C,N), Res) :- test(C,Res,N).
 parse_input(quit, goodbye).

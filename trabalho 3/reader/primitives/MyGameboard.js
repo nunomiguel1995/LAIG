@@ -214,18 +214,26 @@ MyGameboard.prototype.movePiece = function(){
 	if(currentPosition == -1 || newPosition == -1)
 		console.error("ID não existe");
 
-	//console.log("Current Position: Row "+currentPosition.row+" Col "+currentPosition.col);
-	//console.log("New Position: Row "+newPosition.row+" Col "+newPosition.col);
+	console.log("Current Position: Row "+currentPosition.row+" Col "+currentPosition.col);
+	console.log("New Position: Row "+newPosition.row+" Col "+newPosition.col);
 
 	var prologBoard = this.convertBoardToProlog();
 	var piece = this.matrix[currentPosition.row - 1][currentPosition.col -1].convertPiecesToProlog();
+	console.log("Pieces: " + piece);
+	console.log(prologBoard);
 
-	var request = 'movePiece(' + prologBoard + ',' + currentPosition.row + ',' + currentPosition.col + ','
+	var request;
+	if(this.scene.player1Turn){
+		request = 'movePiecePlayer1(';
+	}else{
+		request = 'movePiecePlayer2(';
+	}
+
+	request += prologBoard + ',' + currentPosition.row + ',' + currentPosition.col + ','
  			  + piece +','+ newPosition.row +',' + newPosition.col+ ')';
 
-
 	this.requestToPl(request);
-
+	console.log(this.convertBoardToProlog(this.matrix));
 	this.scene.picked = -1;
 	this.scene.movePicked = -1;
 }

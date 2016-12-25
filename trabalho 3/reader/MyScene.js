@@ -20,10 +20,11 @@ MyScene.prototype.init = function (application) {
 	this.axis=new CGFaxis(this);
 
 	this.board = new MyGameboard(this);
-  this.setPickEnabled(true);
+  this.setPickEnabled(false);
 
   this.picked = -1;
   this.movePicked = -1;
+  this.player1Turn = true;
 };
 
 MyScene.prototype.initCameras = function () {

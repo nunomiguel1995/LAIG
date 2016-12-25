@@ -108,9 +108,9 @@ MyBoardPosition.prototype.display = function() {
 
 MyBoardPosition.prototype.convertPiecesToProlog = function(){
   var prologPiece='[';
-  var i = 0;
+  var i = this.pieces.length -1;
 
-  for(i; i < this.pieces.length; i++){
+  for(i; i >= 0 ; i--){
     var token = this.pieces[i].getToken();
     prologPiece += token + ',';
   }

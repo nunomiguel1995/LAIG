@@ -25,7 +25,10 @@ MyGameboard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
           var newBoardMatrix = gameboard.translateProlgBoard(data.target.response);
           gameboard.updateBoardMatrix(newBoardMatrix);
         }else if(subrequest == 'movePiece'){
-          gameboard.updateBoardMatrix(gameboard.translateProlgBoard(data.target.response));
+          if(response != 'noMove'){
+            gameboard.updateBoardMatrix(gameboard.translateProlgBoard(data.target.response));
+            gameboard.scene.player1Turn = !gameboard.scene.player1Turn;
+          }
         }
     }
 

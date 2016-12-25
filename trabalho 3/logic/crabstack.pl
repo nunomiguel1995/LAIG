@@ -232,7 +232,7 @@ canMove(GameB, NewGameB,RowList,ColList,Row,Col ,OldRow,OldCol,OldPos):-
 	pair(RowList,ColList,ML),
 	X = {Row,Col},
 	member(X,ML),
-  updateBoard(GameB, NewGameB, OldRow, OldCol, NewRow, NewCol, OldPos).
+	updateBoard(GameB, NewGameB, OldRow, OldCol, Row, Col, OldPos).
 
 
 
