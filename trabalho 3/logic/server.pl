@@ -106,7 +106,13 @@ print_header_line(_).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-parse_input(startgame, Board):- initial_board(Board).
+parse_input(startgame, Board):- final_board(Board).
+
+parse_input(player1CanPlay(Board),Msg):-
+	(moves_available_player1(Board,Board,0) -> Msg='player1continues'; Msg='player1lost').
+
+parse_input(player2CanPlay(Board),Msg):-
+	(moves_available_player2(Board,Board,0) -> Msg='player2continues'; Msg='player2lost').
 
 parse_input(movePiecePlayer1(Board,Row,Col,Peca,NewRow,NewCol),Msg):-
 	build_moves(Board,Rl,Cl,Row,Col,Peca),
@@ -124,7 +130,6 @@ parse_input(playBot(Board,Row,Col,Peca),Msg):-
 parse_input(quitgame,quit).
 
 parse_input(test(C,N), Res) :- test(C,Res,N).
-parse_input(quit, goodbye).
 
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).

@@ -12,23 +12,28 @@ MyGameboard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
     var response = data.target.response;
     var cmd = requestString.substring(0,7);
 
-    if(response == 'play'){
-      return;
-    } else if(response == 'quit'){
+    if(response == 'quit'){
+      gameboard.scene.setPickEnabled(false);
       gameboard.initBoardMatrix();
       gameboard.history = [];
-    }else if(response == 'win'){
+    }else if(response == 'player1lost'){
       //Show Winner
+      console.log("Player 2 is the Winner");
+      gameboard.requestToPl('quitgame');
+    }else if (response == 'player2lost') {
+      //Show Winner
+      console.log("Player 1 is the Winner");
+      gameboard.requestToPl('quitgame');
     }else if(response != 'Bad Request'){
-      var subrequest = requestString.substring(0,7);
-    //console.log(subrequest);
+        var subrequest = requestString.substring(0,7);
+        //console.log(subrequest);
         if(requestString == 'startgame'){
           var newBoardMatrix = gameboard.translateProlgBoard(data.target.response);
           gameboard.updateBoardMatrix(newBoardMatrix);
           gameboard.history.push(gameboard.matrix);
         }else if(subrequest == 'playBot' && response == 'noMove') {
           gameboard.scene.botplay = false;
-        }else{
+        }else if(response != 'player1continues' && response != 'player2continues'){
           if(response != 'noMove'){
             gameboard.updateBoardMatrix(gameboard.translateProlgBoard(data.target.response));
             gameboard.history.push(gameboard.matrix);

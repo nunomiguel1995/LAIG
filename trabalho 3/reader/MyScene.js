@@ -189,15 +189,24 @@ MyScene.prototype.display = function(){
 
   if(this.bot && !this.player1Turn && !this.botplay){
     var player2Pieces = this.board.getPlayer2Pieces();
-    var random = Math.floor((Math.random() * player2Pieces.length));
+    var random = Math.floor(Math.random()*(player2Pieces.length));
     var randomID = player2Pieces[random];
     var position = this.board.getBoardPositionById(randomID);
     var piece = position.convertPiecesToProlog();
     var board = this.board.convertBoardToProlog();
     var request = 'playBot(' + board + ','+position.row + ',' + position.col + ','+piece +')';
 
+    var playrequest;
+    if(!this.player1Turn){
+  		playrequest = 'player1CanPlay(';
+  	}else{
+  		playrequest = 'player2CanPlay(';
+  	}
+  	playrequest += board + ')';
+
     this.botplay = true;
     this.board.requestToPl(request);
+    this.board.requestToPl(playrequest);
   }
 
 

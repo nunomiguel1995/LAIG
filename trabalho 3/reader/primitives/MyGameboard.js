@@ -226,16 +226,27 @@ MyGameboard.prototype.movePiece = function(){
 	//console.log(prologBoard);
 
 	var request;
+	var playrequest;
 	if(this.scene.player1Turn){
 		request = 'movePiecePlayer1(';
 	}else{
 		request = 'movePiecePlayer2(';
 	}
 
+	if(!this.scene.player1Turn){
+		playrequest = 'player1CanPlay(';
+	}else{
+		playrequest = 'player2CanPlay(';
+	}
+	playrequest += prologBoard + ')';
+
 	request += prologBoard + ',' + currentPosition.row + ',' + currentPosition.col + ','
  			  + piece +','+ newPosition.row +',' + newPosition.col+ ')';
 
+
+	console.log("Play request: " +playrequest);
 	this.requestToPl(request);
+	this.requestToPl(playrequest);
 	//console.log(this.convertBoardToProlog(this.matrix));
 
 	this.scene.picked = -1;
