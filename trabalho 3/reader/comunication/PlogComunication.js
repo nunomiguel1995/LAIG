@@ -20,11 +20,15 @@ MyGameboard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
     }else if(response == 'player1lost'){
       //Show Winner
       console.log("Player 2 is the Winner");
-      gameboard.requestToPl('quitgame');
+      gameboard.scene.playing = false;
+      gameboard.scene.player2won = true;
+      gameboard.scene.setPickEnabled(false);
     }else if (response == 'player2lost') {
       //Show Winner
       console.log("Player 1 is the Winner");
-      gameboard.requestToPl('quitgame');
+      gameboard.scene.playing = false;
+      gameboard.scene.player1won = true;
+      gameboard.scene.setPickEnabled(false);
     }else if(response != 'Bad Request'){
         var subrequest = requestString.substring(0,7);
         //console.log(subrequest);
@@ -33,6 +37,9 @@ MyGameboard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
           gameboard.updateBoardMatrix(newBoardMatrix);
           gameboard.history.push(gameboard.matrix);
           gameboard.scene.playing = true;
+          gameboard.scene.player1Turn = true;
+          gameboard.scene.player1won = false;
+          gameboard.scene.player2won = false;
         }else if(subrequest == 'playBot' && response == 'noMove') {
           if(!gameboard.scene.player1Turn)
             gameboard.scene.botplay1 = false;

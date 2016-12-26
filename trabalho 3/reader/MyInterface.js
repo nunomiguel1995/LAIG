@@ -25,6 +25,7 @@ MyInterface.prototype.init = function(application) {
 	this.Options = this.gui.addFolder("Options");
 	this.Options.add(this.scene,'bot1').name('Play w/ computer');
 	this.Options.add(this.scene,'bot2').name('Play as computer');
+	this.Options.add(this.scene,'alternativeEnv').name('Alternative Scene');
 
 	return true;
 };
