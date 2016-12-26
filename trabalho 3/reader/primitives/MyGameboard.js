@@ -64,10 +64,7 @@ MyGameboard.prototype.display = function() {
 			for(j; j < this.matrix[i].length; j++){
 				this.scene.registerForPick(this.scene.id + 1, this.matrix[i][j]);
 				this.scene.id ++;
-				/*if(this.scene.moveAnimation != null){
-					this.scene.moveAnimation.apply(this.scene.elapsedTime);
-				}*/
-				this.matrix[i][j].display();
+				this.matrix[i][j].display(); 
 			}
 		}
 	this.scene.popMatrix();
@@ -224,14 +221,8 @@ MyGameboard.prototype.movePiece = function(){
 	if(currentPosition == -1 || newPosition == -1)
 		console.error("ID não existe");
 
-	console.log("Current Position: Row "+currentPosition.row+" Col "+currentPosition.col);
-	console.log("New Position: Row "+newPosition.row+" Col "+newPosition.col);
-
 	var prologBoard = this.convertBoardToProlog();
 	var piece = this.matrix[currentPosition.row - 1][currentPosition.col -1].convertPiecesToProlog();
-
-	console.log("Pieces: " + piece);
-	console.log(prologBoard);
 
 	var request;
 	var playrequest;
@@ -256,7 +247,6 @@ MyGameboard.prototype.movePiece = function(){
 
 	this.requestToPl(request);
 	this.requestToPl(playrequest);
-	//console.log(this.convertBoardToProlog(this.matrix));
 
 	this.scene.picked = -1;
 	this.scene.movePicked = -1;

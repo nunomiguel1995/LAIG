@@ -87,7 +87,6 @@ MyBoardPosition.prototype.getPosition = function(){
 }
 
 MyBoardPosition.prototype.display = function() {
-
   this.scene.pushMatrix();
     this.scene.rockTexture.apply();
     this.scene.multMatrix(this.positionMatrix);
@@ -99,7 +98,11 @@ MyBoardPosition.prototype.display = function() {
   for(i ; i < this.pieces.length; i++){
     this.scene.pushMatrix();
       this.scene.multMatrix(this.positionMatrix);
-      this.scene.translate(0,0,top);
+      var extra = 0;
+      if(this.pieces[i].position != 0){
+        extra = this.pieces[i].position;
+      }
+      this.scene.translate(0,0,top + extra);
       this.pieces[i].display();
       top += this.pieces[i].height+0.02;
     this.scene.popMatrix();

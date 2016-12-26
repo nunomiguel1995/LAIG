@@ -53,6 +53,7 @@ MyInterface.prototype.changeCamera = function(){
 
 MyInterface.prototype.quitGame = function(){
 	this.scene.board.requestToPl('quitgame');
+	this.scene.player1Turn = true;
 }
 
 MyInterface.prototype.undo = function(){
