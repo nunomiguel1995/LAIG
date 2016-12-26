@@ -106,7 +106,7 @@ print_header_line(_).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-parse_input(startgame, Board):- final_board(Board).
+parse_input(startgame, Board):- initial_board(Board).
 
 parse_input(player1CanPlay(Board),Msg):-
 	(moves_available_player1(Board,Board,0) -> Msg='player1continues'; Msg='player1lost').

@@ -30,8 +30,12 @@ MyScene.prototype.init = function (application) {
   this.player1Turn = true;
   this.moveAnimation = null;
 
-  this.bot = false;
-  this.botplay = false;
+  this.bot1 = false;
+  this.bot2 = false;
+  this.botplay1 = false;
+  this.botplay2 = false;
+
+  this.playing = false;
 
   this.time = 0;
 };
@@ -151,7 +155,7 @@ MyScene.prototype.logPicking = function (){
           if(this.picked == -1){
             this.picked = customId;
           }else{
-            this.movePicked = customId;             
+            this.movePicked = customId;
             var currPos = this.board.getBoardPositionById(this.picked);
             var newPos = this.board.getBoardPositionById(this.movePicked);
 
@@ -159,7 +163,7 @@ MyScene.prototype.logPicking = function (){
             var midpointX = (currPos.xtranslation + newPos.xtranslation) / 2;
             var midpointY = (currPos.ytranslation + newPos.ytranslation) / 2;
             this.moveAnimation = new CircularAnimation(this, "", 2, midpointX, 0, midpointY, distance/2, 0, 180);
-            
+
             this.board.movePiece();
           }
 					console.log("Picked object: " + obj + ", with pick id " + customId);
@@ -167,7 +171,7 @@ MyScene.prototype.logPicking = function (){
 			}
 			this.pickResults.splice(0,this.pickResults.length);
 		}
-	}            
+	}
   var currPos = this.board.getBoardPositionById(this.picked);
   var newPos = this.board.getBoardPositionById(this.movePicked);
 
@@ -196,7 +200,7 @@ MyScene.prototype.display = function(){
 	this.applyViewMatrix();
 
 	// Draw axis
-	this.axis.display();
+	//this.axis.display();
 
 	this.setDefaultAppearance();
   this.board.display();
@@ -204,28 +208,51 @@ MyScene.prototype.display = function(){
 	this.clearPickRegistration();
 	this.environment.display();
 
-  if(this.bot && !this.player1Turn && !this.botplay){
-    var player2Pieces = this.board.getPlayer2Pieces();
-    var random = Math.floor(Math.random()*(player2Pieces.length));
-    var randomID = player2Pieces[random];
-    var position = this.board.getBoardPositionById(randomID);
-    var piece = position.convertPiecesToProlog();
-    var board = this.board.convertBoardToProlog();
-    var request = 'playBot(' + board + ','+position.row + ',' + position.col + ','+piece +')';
+  if(this.playing){
+    if(this.bot1 && !this.player1Turn && !this.botplay1){
+      var player2Pieces = this.board.getPlayer2Pieces();
+      var random = Math.floor(Math.random()*(player2Pieces.length));
+      var randomID = player2Pieces[random];
+      var position = this.board.getBoardPositionById(randomID);
+      var piece = position.convertPiecesToProlog();
+      var board = this.board.convertBoardToProlog();
+      var request = 'playBot(' + board + ','+position.row + ',' + position.col + ','+piece +')';
 
-    var playrequest;
-    if(!this.player1Turn){
-  		playrequest = 'player1CanPlay(';
-  	}else{
-  		playrequest = 'player2CanPlay(';
-  	}
-  	playrequest += board + ')';
+      var playrequest;
+      if(!this.player1Turn){
+    		playrequest = 'player1CanPlay(';
+    	}else{
+    		playrequest = 'player2CanPlay(';
+    	}
+    	playrequest += board + ')';
 
-    this.botplay = true;
-    this.board.requestToPl(request);
-    this.board.requestToPl(playrequest);
+      this.botplay1 = true;
+      this.board.requestToPl(request);
+      this.board.requestToPl(playrequest);
+    }
+
+    if(this.bot2 && this.player1Turn && !this.botplay2){
+      var player1Pieces = this.board.getPlayer1Pieces();
+      var random = Math.floor(Math.random()*(player1Pieces.length));
+      var randomID = player1Pieces[random];
+      var position = this.board.getBoardPositionById(randomID);
+      var piece = position.convertPiecesToProlog();
+      var board = this.board.convertBoardToProlog();
+      var request = 'playBot(' + board + ','+position.row + ',' + position.col + ','+piece +')';
+      var playrequest;
+      if(!this.player1Turn){
+    		playrequest = 'player1CanPlay(';
+    	}else{
+    		playrequest = 'player2CanPlay(';
+    	}
+    	playrequest += board + ')';
+
+      this.botplay2 = true;
+      this.board.requestToPl(request);
+      this.board.requestToPl(playrequest);
+    }
+
   }
-
 
 }
 
