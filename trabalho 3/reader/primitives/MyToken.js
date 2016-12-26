@@ -12,7 +12,7 @@ function MyToken(scene, type, player) {
   this.cylinder = new MyCylinder(this.scene,0.5, 0.5, this.height , 50, 50);
   this.top = new MyCylinderCircle(this.scene, 0.5, 50);
   this.type = type;
-
+  this.position = 0;
   this.initBuffers();
 };
 

@@ -10,6 +10,8 @@ function CircularAnimation(scene, id, span, centerx, centery, centerz, radius, s
   this.startAng = startang;
   this.rotAng = rotang;
 
+  this.angle = 0;
+
   this.speed = this.rotAng / this.span;
 }
 
@@ -20,7 +22,7 @@ CircularAnimation.prototype.apply = function(currTime){
   if(currTime > this.span){
     currTime = this.span;
     this.scene.time = 0;
-    this.scene.elapsedTime = 0;
+    this.scene.animationStop = true;
   }
 
   var currPosition = this.speed * currTime;

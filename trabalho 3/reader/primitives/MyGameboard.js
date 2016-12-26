@@ -63,10 +63,7 @@ MyGameboard.prototype.display = function() {
 			for(j; j < this.matrix[i].length; j++){
 				this.scene.registerForPick(this.scene.id + 1, this.matrix[i][j]);
 				this.scene.id ++;
-				/*if(this.scene.moveAnimation != null){
-					this.scene.moveAnimation.apply(this.scene.elapsedTime);
-				}*/
-				this.matrix[i][j].display();
+				this.matrix[i][j].display(); 
 			}
 		}
 	this.scene.popMatrix();
@@ -245,7 +242,6 @@ MyGameboard.prototype.movePiece = function(){
  			  + piece +','+ newPosition.row +',' + newPosition.col+ ')';
 
 	this.requestToPl(request);
-	//console.log(this.convertBoardToProlog(this.matrix));
 
 	this.scene.picked = -1;
 	this.scene.movePicked = -1;

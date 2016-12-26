@@ -30,6 +30,7 @@ CircularAnimation.prototype.apply = function(currTime, node){
   var currAngle = this.startAng + currPosition;
 
   this.scene.translate(this.center[0], this.center[1], this.center[2]);
+  this.scene.rotate(Math.PI/2,1,0,0);
   this.scene.rotate(currAngle, 0, 1, 0);
   this.scene.translate(this.radius, 0, 0);
 }
