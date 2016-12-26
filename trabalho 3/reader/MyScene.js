@@ -52,10 +52,11 @@ MyScene.prototype.init = function (application) {
   this.frame = 0;
   this.wait = 40;
   this.firstFrame = true;
+
 };
 
 MyScene.prototype.initCameras = function () {
-  this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 25, 45), vec3.fromValues(0, 0, 0)); 
+  this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 25, 45), vec3.fromValues(0, 0, 0));
 };
 
 
@@ -251,7 +252,7 @@ MyScene.prototype.display = function(){
   this.setUpdatePeriod(100/6);
 
 	// Initialize Model-View matrix as identity (no transformation
-  
+
 	this.updateProjectionMatrix();
 
 	this.loadIdentity();
@@ -262,7 +263,7 @@ MyScene.prototype.display = function(){
 	this.applyViewMatrix();
 
 	// Draw axis
-	//this.axis.display();
+	this.axis.display();
   this.updateCameras();
 
 	this.setDefaultAppearance();

@@ -10,7 +10,7 @@ function MyEnvironment(scene) {
   this.sign = new MySign(this.scene);
   this.tree = new MyTree(this.scene);
   this.ball = new MySphere(this.scene,0.8,50,50);
-
+  this.crab = new MyCrab(this.scene);
   this.initBuffers();
 };
 
@@ -28,7 +28,11 @@ MyEnvironment.prototype.display = function(){
          this.scene.scale(7,10,0);
          this.plane.display();
      this.scene.popMatrix();
-
+     this.scene.pushMatrix();
+        this.scene.translate(5,0,-5);
+        this.scene.rotate(-Math.PI/8,0,1,0);
+        this.crab.display();
+     this.scene.popMatrix();
   }else{
     this.scene.pushMatrix();
          this.scene.sand.apply();
