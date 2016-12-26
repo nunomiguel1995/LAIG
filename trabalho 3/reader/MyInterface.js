@@ -13,7 +13,6 @@ MyInterface.prototype.init = function(application) {
 	// call CGFinterface init
 	CGFinterface.prototype.init.call(this, application);
 
-
 	this.gui = new dat.GUI();
 
 	this.Game = this.gui.addFolder("CrabStack");
@@ -28,7 +27,8 @@ MyInterface.prototype.init = function(application) {
 	this.Options.add(this.scene,'alternativeEnv').name('Alternative Scene');
 
 	this.Cameras = this.gui.addFolder("Cameras");
-	this.Cameras.add(this,'changeCamera').name("Change Default Camera");
+	this.Cameras.add(this.scene,'cameraHIndex').min(1).max(20).name('Side Camera');
+	this.Cameras.add(this.scene,'cameraVIndex').min(-4).max(4).name('Vertical Camera');
 
 	return true;
 };
@@ -36,19 +36,6 @@ MyInterface.prototype.init = function(application) {
 MyInterface.prototype.startGame = function() {
 	this.scene.board.requestToPl('startgame');
 	this.scene.setPickEnabled(true);
-}
-
-MyInterface.prototype.changeCamera = function(){
-	var camera1 = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
-	var camera2 = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(0, 10, 30), vec3.fromValues(0, 0, 0));
-
-	if(this.scene.firstCamera){
-		this.setActiveCamera(camera2);
-		this.scene.firstCamera = false;
-	}else{
-		this.setActiveCamera(camera1);
-		this.scene.firstCamera = true;
-	}
 }
 
 MyInterface.prototype.quitGame = function(){

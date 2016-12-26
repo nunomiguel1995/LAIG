@@ -35,6 +35,9 @@ MyScene.prototype.init = function (application) {
   this.botplay1 = false;
   this.botplay2 = false;
 
+  this.cameraHIndex = 1;
+  this.cameraVIndex = 1;
+
   this.alternativeEnv = false;
 
   this.playing = false;
@@ -42,14 +45,12 @@ MyScene.prototype.init = function (application) {
   this.player2won = false;
 
   this.tree = new MyTree(this);
-
-  this.firstCamera =true;
-
 };
 
 MyScene.prototype.initCameras = function () {
-  this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
+  this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 25, 45), vec3.fromValues(0, 0, 0)); 
 };
+
 
 MyScene.prototype.initLights = function(){
 	this.lights[0].setPosition(0, 100 , 0, 20);
@@ -243,7 +244,9 @@ MyScene.prototype.display = function(){
   this.setUpdatePeriod(100/6);
 
 	// Initialize Model-View matrix as identity (no transformation
+  
 	this.updateProjectionMatrix();
+
 	this.loadIdentity();
 
 	this.enableTextures(true);
@@ -253,6 +256,7 @@ MyScene.prototype.display = function(){
 
 	// Draw axis
 	//this.axis.display();
+  this.updateCameras();
 
 	this.setDefaultAppearance();
   this.board.display();
@@ -308,6 +312,11 @@ MyScene.prototype.display = function(){
       }
     }
   }
+}
+
+MyScene.prototype.updateCameras = function(){
+  this.rotate(this.cameraHIndex*Math.PI/8, 0, 1, 0);
+  this.rotate(this.cameraVIndex*Math.PI/8, 1, 0 ,0);
 }
 
 MyScene.prototype.update = function(currTime) {
