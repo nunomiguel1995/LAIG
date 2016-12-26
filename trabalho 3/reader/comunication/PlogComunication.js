@@ -16,6 +16,7 @@ MyGameboard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
       gameboard.scene.setPickEnabled(false);
       gameboard.initBoardMatrix();
       gameboard.history = [];
+      gameboard.scene.movie = [];
       gameboard.scene.playing = false;
     }else if(response == 'player1lost'){
       //Show Winner
@@ -36,6 +37,7 @@ MyGameboard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
           var newBoardMatrix = gameboard.translateProlgBoard(data.target.response);
           gameboard.updateBoardMatrix(newBoardMatrix);
           gameboard.history.push(gameboard.matrix);
+          gameboard.scene.movie.push(gameboard.matrix);
           gameboard.scene.playing = true;
           gameboard.scene.player1Turn = true;
           gameboard.scene.player1won = false;
@@ -49,6 +51,7 @@ MyGameboard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
           if(response != 'noMove'){
             gameboard.updateBoardMatrix(gameboard.translateProlgBoard(data.target.response));
             gameboard.history.push(gameboard.matrix);
+            gameboard.scene.movie.push(gameboard.matrix);
             if(!gameboard.scene.player1Turn && gameboard.scene.bot1)
               gameboard.scene.botplay1 = false;
             else if(gameboard.scene.player1Turn && gameboard.scene.bot2)

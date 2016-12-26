@@ -26,6 +26,7 @@ MyInterface.prototype.init = function(application) {
 	this.Options.add(this.scene,'bot1').name('Play w/ computer');
 	this.Options.add(this.scene,'bot2').name('Play as computer');
 	this.Options.add(this.scene,'alternativeEnv').name('Alternative Scene');
+	this.Options.add(this,'replayGame').name('Replay Game');
 
 	this.Cameras = this.gui.addFolder("Cameras");
 	this.Cameras.add(this,'changeCamera').name("Change Default Camera");
@@ -64,6 +65,15 @@ MyInterface.prototype.undo = function(){
 	}
 }
 
+MyInterface.prototype.replayGame = function(){
+	if(this.scene.playing){
+		console.log("Replay function is only available after a game ending");
+	}else if(this.scene.movie.length > 0 && (this.scene.player1won || this.scene.player2won)){
+		console.log("replaying");
+		this.scene.replaying = true;
+		this.scene.wait = 40;
+	}
+}
 MyInterface.prototype.processKeyboard = function(event){
 	CGFinterface.prototype.processKeyboard.call(this,event);
 
