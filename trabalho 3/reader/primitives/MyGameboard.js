@@ -9,8 +9,7 @@ function MyGameboard(scene) {
 
 	this.matrix = [];
 	this.history = new Stack();
-
-	//this.moveAnimation;
+	this.player1Moved = true;
 
 	this.initBoardMatrix();
 
@@ -64,7 +63,9 @@ MyGameboard.prototype.display = function() {
 			for(j; j < this.matrix[i].length; j++){
 				this.scene.registerForPick(this.scene.id + 1, this.matrix[i][j]);
 				this.scene.id ++;
-				//if(this.moveAnimation != null){this.moveAnimation.apply(this.scene.elapsedTime);}
+				if(this.scene.moveAnimation != null){
+					this.scene.moveAnimation.apply(this.scene.elapsedTime);
+				}
 				this.matrix[i][j].display();
 			}
 		}
@@ -219,11 +220,6 @@ MyGameboard.prototype.movePiece = function(){
 
 	var newPosition = this.getBoardPositionById(this.scene.movePicked);
 
-	/*var distance = Math.sqrt(Math.pow(newPosition.xtranslation - currentPosition.xtranslation,2) + Math.pow(newPosition.ytranslation - currentPosition.ytranslation,2));
-	var midpointX = (currentPosition.xtranslation + newPosition.xtranslation) / 2;
-	var midpointY = (currentPosition.ytranslation + newPosition.ytranslation) / 2;
-	this.moveAnimation = new CircularAnimation(this, "move", 2, midpointX, 0, midpointY, distance/2, 0, 180);*/
-
 	if(currentPosition == -1 || newPosition == -1)
 		console.error("ID não existe");
 
@@ -239,8 +235,10 @@ MyGameboard.prototype.movePiece = function(){
 	var request;
 	if(this.scene.player1Turn){
 		request = 'movePiecePlayer1(';
+		this.player1Moved = true;
 	}else{
 		request = 'movePiecePlayer2(';
+		this.player1Moved = false;
 	}
 
 	request += prologBoard + ',' + currentPosition.row + ',' + currentPosition.col + ','

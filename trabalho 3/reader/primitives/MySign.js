@@ -6,7 +6,7 @@ function MySign(scene) {
   CGFobject.call(this,scene);
 
   this.sign = new MyCube(this.scene);
-  this.post = new MyCylinder(this.scene, 0.5, 0.5, 3, 20, 20)
+  this.post = new MyCylinder(this.scene, 0.5, 0.5, 3, 20, 20);
 
   this.wood = new CGFappearance(this.scene);
   this.wood.loadTexture("res/Scene/wood.jpg");
@@ -24,7 +24,7 @@ MySign.prototype = Object.create(CGFobject.prototype);
 MySign.prototype.constructor = MySign;
 MySign.prototype.display = function(){
     this.scene.pushMatrix();
-        if(this.scene.isPlayer1Turn == true){
+        if(this.scene.player1Turn == true){
             this.player1.apply();
         }else{
             this.player2.apply();
