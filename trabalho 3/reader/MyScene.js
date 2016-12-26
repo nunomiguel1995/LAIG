@@ -45,6 +45,13 @@ MyScene.prototype.init = function (application) {
   this.player2won = false;
 
   this.tree = new MyTree(this);
+  this.firstCamera =true;
+
+  this.replay = false;
+  this.movie = [];
+  this.frame = 0;
+  this.wait = 40;
+  this.firstFrame = true;
 };
 
 MyScene.prototype.initCameras = function () {
@@ -311,6 +318,21 @@ MyScene.prototype.display = function(){
         this.board.requestToPl(playrequest);
       }
     }
+  }
+
+  if(this.replaying && this.frame < this.movie.length){
+    if(this.wait == 0 || this.firstFrame == true){
+      if(this.firstFrame)
+        this.firstFrame = false;
+      this.board.matrix = this.movie[this.frame];
+      this.frame++;
+      this.wait = 40;
+    }else{
+      this.wait--;
+    }
+  }else if (this.replaying && this.frame == this.movie.length) {
+    this.frame = 0;
+    this.replaying = false;
   }
 }
 
