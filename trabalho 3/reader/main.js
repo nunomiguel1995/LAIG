@@ -19,7 +19,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'primitives/My
                 'primitives/MyToken.js','primitives/MyGameboard.js','MyScene.js', 'primitives/MyBoardPosition.js',
                 'comunication/PlogComunication.js','MyEnvironment.js', 'primitives/MySign.js', 'primitives/MyCube.js',
                 'primitives/MyTree.js',
-
+,
 
 main=function()
 {

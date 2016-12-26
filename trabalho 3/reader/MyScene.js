@@ -45,6 +45,7 @@ MyScene.prototype.init = function (application) {
 
   this.tree = new MyTree(this);
 
+  this.firstCamera =true;
 };
 
 MyScene.prototype.initCameras = function () {

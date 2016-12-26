@@ -27,12 +27,28 @@ MyInterface.prototype.init = function(application) {
 	this.Options.add(this.scene,'bot2').name('Play as computer');
 	this.Options.add(this.scene,'alternativeEnv').name('Alternative Scene');
 
+	this.Cameras = this.gui.addFolder("Cameras");
+	this.Cameras.add(this,'changeCamera').name("Change Default Camera");
+
 	return true;
 };
 
 MyInterface.prototype.startGame = function() {
 	this.scene.board.requestToPl('startgame');
 	this.scene.setPickEnabled(true);
+}
+
+MyInterface.prototype.changeCamera = function(){
+	var camera1 = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
+	var camera2 = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(0, 10, 30), vec3.fromValues(0, 0, 0));
+
+	if(this.scene.firstCamera){
+		this.setActiveCamera(camera2);
+		this.scene.firstCamera = false;
+	}else{
+		this.setActiveCamera(camera1);
+		this.scene.firstCamera = true;
+	}
 }
 
 MyInterface.prototype.quitGame = function(){
