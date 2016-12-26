@@ -63,9 +63,9 @@ MyGameboard.prototype.display = function() {
 			for(j; j < this.matrix[i].length; j++){
 				this.scene.registerForPick(this.scene.id + 1, this.matrix[i][j]);
 				this.scene.id ++;
-				if(this.scene.moveAnimation != null){
+				/*if(this.scene.moveAnimation != null){
 					this.scene.moveAnimation.apply(this.scene.elapsedTime);
-				}
+				}*/
 				this.matrix[i][j].display();
 			}
 		}
