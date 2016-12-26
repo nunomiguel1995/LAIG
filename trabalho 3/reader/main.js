@@ -18,6 +18,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'primitives/My
                 'primitives/MyVehicle.js', 'primitives/MyWing.js', 'primitives/MyHelice.js', 'primitives/MyChessboard.js',
                 'primitives/MyToken.js','primitives/MyGameboard.js','MyScene.js', 'primitives/MyBoardPosition.js',
                 'comunication/PlogComunication.js','MyEnvironment.js', 'primitives/MySign.js', 'primitives/MyCube.js',
+                'primitives/MyTree.js',
 
 
 main=function()
@@ -26,7 +27,7 @@ main=function()
     var app = new CGFapplication(document.body);
     var myScene = new MyScene();
 	var myInterface = new MyInterface();
-    
+
     app.init();
 
     app.setScene(myScene);

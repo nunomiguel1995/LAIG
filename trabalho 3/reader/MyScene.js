@@ -30,11 +30,18 @@ MyScene.prototype.init = function (application) {
   this.player1Turn = true;
   this.animation = null;
 
-  this.bot = false;
-  this.botplay = false;
+  this.bot1 = false;
+  this.bot2 = false;
+  this.botplay1 = false;
+  this.botplay2 = false;
 
-  this.time = 0;
-  this.elapsedTime = 0;
+  this.alternativeEnv = false;
+
+  this.playing = false;
+  this.player1won = false;
+  this.player2won = false;
+
+  this.tree = new MyTree(this);
 };
 
 MyScene.prototype.initCameras = function () {
@@ -55,6 +62,14 @@ MyScene.prototype.initLights = function(){
 	this.lights[1].setSpecular(1.0, 1.0, 1.0, 1.0);
     this.lights[1].enable();
     this.lights[1].update();
+
+  this.lights[2].setPosition(20, 10 , 20, 10);
+    this.lights[2].setAmbient(1, 1, 1, 1);
+  this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
+  this.lights[2].setSpecular(1.0, 1.0, 1.0, 1.0);
+    this.lights[2].enable();
+    this.lights[2].update();
+
 }
 
 MyScene.prototype.setDefaultAppearance = function () {
@@ -139,6 +154,46 @@ MyScene.prototype.loadTextures = function (){
   this.big2.setShininess(500);
   this.big2.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
   this.big2.loadTexture("./res/Pieces/big2.png");
+
+  this.wood = new CGFappearance(this);
+  this.wood.loadTexture("res/Scene/wood.jpg");
+
+  this.crab = new CGFappearance(this);
+  this.crab.loadTexture("res/Scene/crab.jpg");
+
+  this.player1turn = new CGFappearance(this);
+  this.player1turn.loadTexture("res/Scene/player1.png");
+
+  this.player2turn = new CGFappearance(this);
+  this.player2turn.loadTexture("res/Scene/player2.png");
+
+  this.crabstack = new CGFappearance(this);
+  this.crabstack.loadTexture("res/Scene/crabstack.jpg");
+
+  this.sand = new CGFappearance(this);
+  this.sand.loadTexture("res/Scene/justsand.jpg");
+
+  this.waves = new CGFappearance(this);
+  this.waves.loadTexture("res/Scene/sand.jpg");
+
+  this.side_beach = new CGFappearance(this);
+  this.side_beach.loadTexture("res/Scene/side_beach.jpg");
+
+  this.trunk = new CGFappearance(this);
+  this.trunk.loadTexture("res/Scene/palm-wood.jpg");
+
+  this.greenLeaf = new CGFappearance(this);
+  this.greenLeaf.loadTexture("res/Scene/green-tree.png");
+
+  this.ball = new CGFappearance(this);
+  this.ball.loadTexture("res/Scene/beachball.png");
+
+  this.player1winner = new CGFappearance(this);
+  this.player1winner.loadTexture("res/Scene/player1winner.png");
+
+  this.player2winner = new CGFappearance(this);
+  this.player2winner.loadTexture("res/Scene/player2winner.png");
+
 }
 
 MyScene.prototype.logPicking = function (){
@@ -150,6 +205,8 @@ MyScene.prototype.logPicking = function (){
 					var customId = this.pickResults[i][1];
           if(this.picked == -1){
             this.picked = customId;
+            this.movePicked = customId;
+            
             var currPos = this.board.getBoardPositionById(this.picked);
             var token = currPos.pieces[currPos.pieces.length -1];
  
@@ -192,7 +249,7 @@ MyScene.prototype.display = function(){
 	this.applyViewMatrix();
 
 	// Draw axis
-	this.axis.display();
+	//this.axis.display();
 
 	this.setDefaultAppearance();
   this.board.display();
@@ -200,17 +257,53 @@ MyScene.prototype.display = function(){
 	this.clearPickRegistration();
 	this.environment.display();
 
-  if(this.bot && !this.player1Turn && !this.botplay){
-    var player2Pieces = this.board.getPlayer2Pieces();
-    var random = Math.floor((Math.random() * player2Pieces.length));
-    var randomID = player2Pieces[random];
-    var position = this.board.getBoardPositionById(randomID);
-    var piece = position.convertPiecesToProlog();
-    var board = this.board.convertBoardToProlog();
-    var request = 'playBot(' + board + ','+position.row + ',' + position.col + ','+piece +')';
+  if(this.playing){
+    if(this.bot1 && !this.player1Turn && !this.botplay1){
+      var player2Pieces = this.board.getPlayer2Pieces();
+      if(player2Pieces.length > 0){
+        var random = Math.floor(Math.random()*(player2Pieces.length-1));
+        var randomID = player2Pieces[random];
+        var position = this.board.getBoardPositionById(randomID);
+        var piece = position.convertPiecesToProlog();
+        var board = this.board.convertBoardToProlog();
+        var request = 'playBot(' + board + ','+position.row + ',' + position.col + ','+piece +')';
 
-    this.botplay = true;
-    this.board.requestToPl(request);
+        var playrequest;
+        if(!this.player1Turn){
+      		playrequest = 'player1CanPlay(';
+      	}else{
+      		playrequest = 'player2CanPlay(';
+      	}
+      	playrequest += board + ')';
+
+        this.botplay1 = true;
+        this.board.requestToPl(request);
+        this.board.requestToPl(playrequest);
+      }
+    }
+
+    if(this.bot2 && this.player1Turn && !this.botplay2){
+      var player1Pieces = this.board.getPlayer1Pieces();
+      if(player1Pieces.length > 0){
+        var random = Math.floor(Math.random()*(player1Pieces.length));
+        var randomID = player1Pieces[random];
+        var position = this.board.getBoardPositionById(randomID);
+        var piece = position.convertPiecesToProlog();
+        var board = this.board.convertBoardToProlog();
+        var request = 'playBot(' + board + ','+position.row + ',' + position.col + ','+piece +')';
+        var playrequest;
+        if(!this.player1Turn){
+      		playrequest = 'player1CanPlay(';
+      	}else{
+      		playrequest = 'player2CanPlay(';
+      	}
+      	playrequest += board + ')';
+
+        this.botplay2 = true;
+        this.board.requestToPl(request);
+        this.board.requestToPl(playrequest);
+      }
+    }
   }
 }
 
