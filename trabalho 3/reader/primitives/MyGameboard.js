@@ -5,10 +5,11 @@
 function MyGameboard(scene) {
 	CGFobject.call(this,scene);
 
-  this.gameboard = new MyCylinder(this.scene, 4, 4, 0.1, 6, 6);
+  	this.gameboard = new MyCylinder(this.scene, 4, 4, 0.1, 6, 6);
 
 	this.matrix = [];
 	this.history = new Stack();
+	this.player1Moved = true;
 
 	this.initBoardMatrix();
 
@@ -52,20 +53,23 @@ MyGameboard.prototype.initBoardMatrix = function(){
 
 MyGameboard.prototype.display = function() {
 	this.scene.clearPickRegistration();
-  this.scene.pushMatrix();
+	this.scene.pushMatrix();
 		this.scene.waterT.apply();
 		this.scene.rotate(-Math.PI/2,1,0,0);
-    this.gameboard.display();
+		this.gameboard.display();
 		var i = 0;
 		for(i; i < this.matrix.length; i++){
 			var j = 0;
 			for(j; j < this.matrix[i].length; j++){
 				this.scene.registerForPick(this.scene.id + 1, this.matrix[i][j]);
 				this.scene.id ++;
+				/*if(this.scene.moveAnimation != null){
+					this.scene.moveAnimation.apply(this.scene.elapsedTime);
+				}*/
 				this.matrix[i][j].display();
 			}
 		}
-  this.scene.popMatrix();
+	this.scene.popMatrix();
 };
 
 MyGameboard.prototype.translateProlgBoard = function(response){
@@ -213,7 +217,9 @@ MyGameboard.prototype.getBoardPositionById = function(id){
 
 MyGameboard.prototype.movePiece = function(){
 	var currentPosition = this.getBoardPositionById(this.scene.picked);
+
 	var newPosition = this.getBoardPositionById(this.scene.movePicked);
+
 	if(currentPosition == -1 || newPosition == -1)
 		console.error("ID não existe");
 
@@ -222,15 +228,18 @@ MyGameboard.prototype.movePiece = function(){
 
 	var prologBoard = this.convertBoardToProlog();
 	var piece = this.matrix[currentPosition.row - 1][currentPosition.col -1].convertPiecesToProlog();
-	//console.log("Pieces: " + piece);
-	//console.log(prologBoard);
 
+	console.log("Pieces: " + piece);
+	console.log(prologBoard);
+	
 	var request;
 	var playrequest;
 	if(this.scene.player1Turn){
 		request = 'movePiecePlayer1(';
+		this.player1Moved = true;
 	}else{
 		request = 'movePiecePlayer2(';
+		this.player1Moved = false;
 	}
 
 	if(!this.scene.player1Turn){

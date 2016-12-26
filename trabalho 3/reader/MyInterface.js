@@ -40,6 +40,7 @@ MyInterface.prototype.quitGame = function(){
 MyInterface.prototype.undo = function(){
 	if(this.scene.board.history.stack.length -1 > 0){
 		this.scene.board.history.pop();
+		this.scene.player1Turn = !this.scene.player1Turn;
 		this.scene.board.matrix = this.scene.board.history.top();
 	}
 }

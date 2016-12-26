@@ -28,9 +28,12 @@ MyScene.prototype.init = function (application) {
   this.picked = -1;
   this.movePicked = -1;
   this.player1Turn = true;
+  this.moveAnimation = null;
 
   this.bot = false;
   this.botplay = false;
+
+  this.time = 0;
 };
 
 MyScene.prototype.initCameras = function () {
@@ -138,19 +141,25 @@ MyScene.prototype.loadTextures = function (){
   this.big2.loadTexture("./res/Pieces/big2.png");
 }
 
-MyScene.prototype.logPicking = function ()
-{
+MyScene.prototype.logPicking = function (){
 	if (this.pickMode == false) {
 		if (this.pickResults != null && this.pickResults.length > 0) {
 			for (var i=0; i< this.pickResults.length; i++) {
 				var obj = this.pickResults[i][0];
-				if (obj)
-				{
+				if (obj){
 					var customId = this.pickResults[i][1];
           if(this.picked == -1){
             this.picked = customId;
           }else{
-            this.movePicked = customId;
+            this.movePicked = customId;             
+            var currPos = this.board.getBoardPositionById(this.picked);
+            var newPos = this.board.getBoardPositionById(this.movePicked);
+
+            var distance = Math.sqrt(Math.pow(newPos.xtranslation - currPos.xtranslation,2) + Math.pow(newPos.ytranslation - currPos.ytranslation,2));
+            var midpointX = (currPos.xtranslation + newPos.xtranslation) / 2;
+            var midpointY = (currPos.ytranslation + newPos.ytranslation) / 2;
+            this.moveAnimation = new CircularAnimation(this, "", 2, midpointX, 0, midpointY, distance/2, 0, 180);
+            
             this.board.movePiece();
           }
 					console.log("Picked object: " + obj + ", with pick id " + customId);
@@ -158,7 +167,16 @@ MyScene.prototype.logPicking = function ()
 			}
 			this.pickResults.splice(0,this.pickResults.length);
 		}
-	}
+	}            
+  var currPos = this.board.getBoardPositionById(this.picked);
+  var newPos = this.board.getBoardPositionById(this.movePicked);
+
+  var distance = Math.sqrt(Math.pow(newPos.xtranslation - currPos.xtranslation,2) + Math.pow(newPos.ytranslation - currPos.ytranslation,2));
+  var midpointX = (currPos.xtranslation + newPos.xtranslation) / 2;
+  var midpointY = (currPos.ytranslation + newPos.ytranslation) / 2;
+  this.moveAnimation = new CircularAnimation(this, "", 2, midpointX, 0, midpointY, distance/2, 0, 180);
+
+  this.moveAnimation.apply(this.elapsedTime);
 }
 
 
@@ -186,7 +204,6 @@ MyScene.prototype.display = function(){
 	this.clearPickRegistration();
 	this.environment.display();
 
-
   if(this.bot && !this.player1Turn && !this.botplay){
     var player2Pieces = this.board.getPlayer2Pieces();
     var random = Math.floor(Math.random()*(player2Pieces.length));
@@ -212,6 +229,9 @@ MyScene.prototype.display = function(){
 
 }
 
-MyScene.prototype.update = function() {
+MyScene.prototype.update = function(currTime) {
+  if (this.time == 0)
+    this.time = currTime;
 
+  this.elapsedTime = (currTime - this.time) / 1000;
 }
